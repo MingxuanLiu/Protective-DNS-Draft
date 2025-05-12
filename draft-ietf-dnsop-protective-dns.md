@@ -80,9 +80,6 @@ informative:
         title: "Two Sides of the Shield: Understanding Protective DNS adoption factors"
         date: August, 2024
         target: https://www.usenix.org/conference/usenixsecurity23/presentation/rodriguez
-      
-
-
 
 --- abstract
 
