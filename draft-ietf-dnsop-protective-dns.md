@@ -45,7 +45,7 @@ normative:
     RFC1034: # Domain names - concepts and facilities
     RFC1035: # Domain names - implementation and specification
     RFC4033: # DNS Security Introduction and Requirements
-    RPZ: 
+    RPZ:
         title: "DNS Response Policy Zones (RPZ) draft-ietf-dnsop-dns-rpz-00"
         date: March 9, 2017
         target: https://datatracker.ietf.org/doc/html/draft-ietf-dnsop-dns-rpz-00
@@ -56,7 +56,7 @@ normative:
 
 informative:
     RFC5782: # DNS Blacklists and Whitelists
-    Cisco: 
+    Cisco:
         title: "DNS Security – Your New Secret Weapon in The Fight Against Cybercrime"
         date: February 27, 2024
         target: https://umbrella.cisco.com/blog/dns-security-your-new-secret-weapon-in-your-fight-against-cybercrime
@@ -86,9 +86,7 @@ informative:
 
 --- abstract
 
-Recent research work has delved deeply into a new type of DNS security service, Protective DNS, through various measurement methods, and it has been deployed in multiple DNS providers and even in national ISPs. Protective DNS identifies whether the domain names requested by customers are in the threat intelligence (blocklist) it maintains. For domain names listed in the blocklist, it rewrites the resolution results to secure resources to prevent users from accessing malicious resources, such as malicious servers (IP addresses), etc. This document summarizes the conclusions of these research works and provides specific and practical considerations and suggestions for the deployment and operation of Protective DNS. By following these considerations, Protective DNS service providers can effectively enhance the practicality and security of their services. 
-
-
+Recent research work has delved deeply into a new type of DNS security service, Protective DNS, through various measurement methods, and it has been deployed in multiple DNS providers and even in national ISPs. Protective DNS identifies whether the domain names requested by customers are in the threat intelligence (blocklist) it maintains. For domain names listed in the blocklist, it rewrites the resolution results to secure resources to prevent users from accessing malicious resources, such as malicious servers (IP addresses), etc. This document summarizes the conclusions of these research works and provides specific and practical considerations and suggestions for the deployment and operation of Protective DNS. By following these considerations, Protective DNS service providers can effectively enhance the practicality and security of their services.
 
 --- middle
 
@@ -97,7 +95,6 @@ Recent research work has delved deeply into a new type of DNS security service, 
 Currently, 90% of cyber attack activities originate from domain name resolution {{Cisco}}. Therefore, the approach of blocking unintended network resource interactions based on the Domain Name System (DNS) has become a crucial network defense measure. DNS Filter {{RPZ}} is the most common blocking method in the DNS. For domain names that match the blocklist, it prevents access to unintended (especially malicious) network resources by rewriting their DNS responses, that is, rewriting the resolution results of these domain names to a securely controlled host instead of the original host address. Considering that this method can intercept attacks at the initial stage, it is commonly referred to as Protective DNS and has been deployed and implemented by multiple national governments and DNS vendors {{DNS4EU}}, {{US-Protect}}, {{Canada-Protect}}.
 
 Recent research has explored the current deployment status and security properties of Protective DNS. This document summarizes the conclusions of these studies. These security considerations are applicable to all DNS resolvers that offer Protective DNS services (including DNS resolvers of international ISPs and well-known DNS resolution servers), aiming to provide practical deployment suggestions for Protective DNS service providers and effectively enhance the availability and security of this service.
- 
 
 # Conventions and Definitions
 
@@ -142,7 +139,7 @@ Through investigation, 28 out of 42 popular DNS providers have already offered P
 The defense strategies implemented by Protective DNS are diverse. The specific rewriting strategies mainly include secure IP addresses controlled by the providers, special-use IPs (e.g., 127.0.0.1), secure CNAMEs, responding with specific Response Codes (e.g., NXDomain, ServerFail), and providing an Empty Answer. Meanwhile, different providers' Protective DNS services focus on different types of malicious content, including advertisements, trackers, malware, phishing, and adult content.
 
 
-Protective DNS is implemented based on DNS Filter technology. The two protocols most closely related to it are as follows: 1) The {{RPZ}} protocol defines the response strategies of the DNS Filter, including the setting methods of the Root Zone and the response strategies; 2)The {{Error-Filter}} defines the structural definitions for stating the filtering results and the reasons in the response. 
+Protective DNS is implemented based on DNS Filter technology. The two protocols most closely related to it are as follows: 1) The {{RPZ}} protocol defines the response strategies of the DNS Filter, including the setting methods of the Root Zone and the response strategies; 2)The {{Error-Filter}} defines the structural definitions for stating the filtering results and the reasons in the response.
 
 Although the application requirements and deployment practices of Protective DNS are increasingly growing, due to the lack of guidance suggestions for deployment, Protective DNS faces serious security flaws. This document combines the conclusions of these research works with the measurement results to form some specific deployment suggestions, aiming to enhance the practicality and security of Protective DNS deployment. In the subsequent chapters, we will summarize the conclusions from the academic papers obtained through the measurement methods into conclusions that are helpful for Protective DNS service providers as a reference.
 
@@ -153,7 +150,7 @@ Considering that deployment practice is the first step in using and even maintai
 
 ## Operational Consideration 1 - Select an appropriate rewriting mechanism
 
-The most crucial aspect for Protective DNS to achieve its defensive capability is to adopt the rewriting strategy for DNS filtering to prevent users from accessing malicious resources. Through summarizing the empirical analysis of popular Protective DNS providers and generalizing the DNS Filter technology, there are mainly five types of rewritings that occur in practice: 
+The most crucial aspect for Protective DNS to achieve its defensive capability is to adopt the rewriting strategy for DNS filtering to prevent users from accessing malicious resources. Through summarizing the empirical analysis of popular Protective DNS providers and generalizing the DNS Filter technology, there are mainly five types of rewritings that occur in practice:
 
 1) Using the secure IP addresses in A record controlled by the provider:
 
@@ -197,7 +194,6 @@ malicious_domain.com          A              10                 controled_IP;
 ~~~
 {: #figure2 title="Format of empty Answer fileld in Protective DNS."}
 
-
 5) Using special response codes for the reply, such as NXDomain, ServerFail, etc:
 
 ~~~
@@ -231,9 +227,9 @@ malicious_domain.com          A              10                 controled_IP;
 
 ## Operational Consideration 2 - Provider an appropriate blocklist for defense
 
-A necessary condition for Protective DNS to achieve its defensive capability is to construct a blocklist that includes a series of malicious domain names to be blocked. The structural components of the domain name blocking list are as described in [DNS Response Policy Zones (RPZ)]. Through the empirical analysis of popular Protective DNS vendors, these vendors currently mainly focus on a series of items related to advertisements, privacy tracking, malware, phishing, and adult content. 
+A necessary condition for Protective DNS to achieve its defensive capability is to construct a blocklist that includes a series of malicious domain names to be blocked. The structural components of the domain name blocking list are as described in [DNS Response Policy Zones (RPZ)]. Through the empirical analysis of popular Protective DNS vendors, these vendors currently mainly focus on a series of items related to advertisements, privacy tracking, malware, phishing, and adult content.
 
-1) First, through the analysis of users of Protective DNS, Protective DNS providers should try their best to avoid using keywords for domain filtering, because this will increase the possibility of introducing false positives, which will affect the availability of Protective DNS. 
+1) First, through the analysis of users of Protective DNS, Protective DNS providers should try their best to avoid using keywords for domain filtering, because this will increase the possibility of introducing false positives, which will affect the availability of Protective DNS.
 
 2) Second, Protective DNS providers should avoid using wildcard blocking methods and should carry out defense at the granularity of the minimum subdomain (that is, the Fully Qualified Domain Name), so that the collateral damage caused can be minimized.
 
@@ -243,7 +239,7 @@ A necessary condition for Protective DNS to achieve its defensive capability is 
 
 Protective DNS is a completely black-box service for users. Regardless of the rewriting strategy adopted by Protective DNS, users can only perceive the effect of defensive blocking, that is, the domain name cannot be accessed. Although Protective DNS providers can refine and improve the quality of the blocklist (filtering out false positives as much as possible), the existence of false positives that slip through the net can still severely damage the user experience. From the user's perspective, the website they want to access is inexplicably inaccessible, and it is difficult to distinguish from a large number of DNS tampering behaviors on the network (such as censorship, man-in-the-middle hijacking, etc.). Therefore, from the perspective of enhancing the availability of Protective DNS, we recommend that providers MUST ensure transparency as much as possible.
 
-On the one hand, to demonstrate that the blocking action originates from the Protective DNS, the service provider SHOULD provide a page to explain their rewriting strategy. In the results of the empirical analysis, we found that some providers rewrite by using a secure IP address and deploy a page on this IP address to indicate that the website the user is accessing may be malicious. However, using an IP address controlled by the service provider poses potential security risks, specifically the risk of Dangling resource takeover, which is elaborated in Security Consideration x. Therefore, it is advisable for the service provider to use a dedicated page (this page should be explicitly deployed on the page provided by the service) to illustrate their defense strategy, helping users confirm that the DNS rewriting they encounter may be from the Protective DNS service provided by this provider. 
+On the one hand, to demonstrate that the blocking action originates from the Protective DNS, the service provider SHOULD provide a page to explain their rewriting strategy. In the results of the empirical analysis, we found that some providers rewrite by using a secure IP address and deploy a page on this IP address to indicate that the website the user is accessing may be malicious. However, using an IP address controlled by the service provider poses potential security risks, specifically the risk of Dangling resource takeover, which is elaborated in Security Consideration x. Therefore, it is advisable for the service provider to use a dedicated page (this page should be explicitly deployed on the page provided by the service) to illustrate their defense strategy, helping users confirm that the DNS rewriting they encounter may be from the Protective DNS service provided by this provider.
 
 On the other hand, to avoid the impact of false positives, service providers SHOULD provide users with an appeal channel on the explanatory page, such as providing an email address. Through the analysis of the measurement results of academic papers, only 14 Protective DNS deploy explanatory pages on the secure IP addresses used for defense.
 
@@ -256,7 +252,7 @@ Furthermore, by integrating the operational considerations, we propose some secu
 
 To prevent the protection function from failing or even being bypassed, Protective DNS service providers need to fully configure the defense as much as possible, which mainly includes two aspects.
 
-**Avoid Redundant Configuration**. According to the measurement of Protective DNS services, the configurations of Protective DNS by some providers have defects. Specifically, along with the secure rewriting records, providers may also include the original malicious records in the DNS response. For the local stub resolver of users, the selection of the resolution result is uncontrollable, and users still have a high possibility of accessing malicious resources. Therefore, Protective DNS providers SHOULD avoid such redundant configurations to ensure the completeness of the defense effect. 
+**Avoid Redundant Configuration**. According to the measurement of Protective DNS services, the configurations of Protective DNS by some providers have defects. Specifically, along with the secure rewriting records, providers may also include the original malicious records in the DNS response. For the local stub resolver of users, the selection of the resolution result is uncontrollable, and users still have a high possibility of accessing malicious resources. Therefore, Protective DNS providers SHOULD avoid such redundant configurations to ensure the completeness of the defense effect.
 
 **Avoid Configuration Gaps**. While A records are the most common type of DNS resolution and are often the primary focus for defensive configuration by service providers—since they directly point users to malicious resources—empirical measurements have revealed that some Protective DNS providers fail to secure less common query types, such as TXT records. In these cases, the provider may return unfiltered responses, potentially exposing users to hidden threats. This oversight could be exploited to bypass PDNS protections, particularly when malicious domains embed harmful instructions within less scrutinized record types. Therefore, to ensure comprehensive defense, Protective DNS providers SHOULD configure defensive capabilities for all DNS record types, including TXT, MX, and others. However, situations such as DNSSEC also need to be considered, and detailed explanations can be found in Security Consideration 4.
 
@@ -264,9 +260,9 @@ To prevent the protection function from failing or even being bypassed, Protecti
 
 ## Security Consideration 2 - Avoid Over-Blocking
 
-The primary defense objective of Protective DNS is to prevent users from accessing any malicious resources, that is, to intercept as many malicious domain names as possible. However, through practical analysis, some Protective DNS systems exhibit the phenomenon of over-blocking, which refers to the collateral damage caused by overly aggressive blocking. In empirical measurement and analysis, it has been found that some Protective DNS services adopt overly aggressive defense strategies for DNS queries of a group (no less than one) of malicious domain names. That is, they temporarily block the domain name resolution of all requests from a client, and even legitimate domain names cannot be resolved normally. This phenomenon is called the Denial of Resolution (DoR) attack caused by Protective DNS. Attackers can exploit this phenomenon to cause a DoR effect on any victim. Specifically, by forging the source address and sending a set of queries for malicious domain names, they can prevent the victim from normally completing any domain name resolution, thus achieving the effect of a denial-of-service attack. 
+The primary defense objective of Protective DNS is to prevent users from accessing any malicious resources, that is, to intercept as many malicious domain names as possible. However, through practical analysis, some Protective DNS systems exhibit the phenomenon of over-blocking, which refers to the collateral damage caused by overly aggressive blocking. In empirical measurement and analysis, it has been found that some Protective DNS services adopt overly aggressive defense strategies for DNS queries of a group (no less than one) of malicious domain names. That is, they temporarily block the domain name resolution of all requests from a client, and even legitimate domain names cannot be resolved normally. This phenomenon is called the Denial of Resolution (DoR) attack caused by Protective DNS. Attackers can exploit this phenomenon to cause a DoR effect on any victim. Specifically, by forging the source address and sending a set of queries for malicious domain names, they can prevent the victim from normally completing any domain name resolution, thus achieving the effect of a denial-of-service attack.
 
-Therefore, Protective DNS service providers SHOULD avoid using aggressive defense strategies, such as the no-response strategy. At the same time, Protective DNS providers MUST pre-configure defense solutions against potential DoR risks. Specifically, when a client initiates a large number (higher than a certain threshold) of DNS query requests for malicious domain names to the Protective DNS server, the provider SHOULD NOT directly refuse to respond to any query requests for a certain period of time. Instead, it should send a relatively large DNS response to force the client to use DNS over TCP, effectively preventing attackers from launching DoR attacks constructed through IP spoofing. 
+Therefore, Protective DNS service providers SHOULD avoid using aggressive defense strategies, such as the no-response strategy. At the same time, Protective DNS providers MUST pre-configure defense solutions against potential DoR risks. Specifically, when a client initiates a large number (higher than a certain threshold) of DNS query requests for malicious domain names to the Protective DNS server, the provider SHOULD NOT directly refuse to respond to any query requests for a certain period of time. Instead, it should send a relatively large DNS response to force the client to use DNS over TCP, effectively preventing attackers from launching DoR attacks constructed through IP spoofing.
 
 ## Security Consideration 3 - Ensure Secure Resource Usage
 
