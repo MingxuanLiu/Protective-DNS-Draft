@@ -43,7 +43,7 @@ author:
 
 normative:
     RFC1034: # Domain names - concepts and facilities
-    RFC 1035: # Domain names - implementation and specification
+    RFC1035: # Domain names - implementation and specification
     RFC4033: # DNS Security Introduction and Requirements
     RPZ: 
         title: "DNS Response Policy Zones (RPZ) draft-ietf-dnsop-dns-rpz-00"
