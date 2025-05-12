@@ -220,7 +220,7 @@ malicious_domain.com          A              10                 controled_IP;
 |  (empty, as NXDomain means no such domain exists)  |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 ~~~
-{: #figure2 title="Format of empty Answer fileld in Protective DNS."}
+{: #figure3 title="Format of empty Answer fileld in Protective DNS."}
 
 ## Operational Consideration 2 - Provider an appropriate blocklist for defense
 
