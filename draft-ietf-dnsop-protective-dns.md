@@ -9,19 +9,19 @@ number:
 date:
 consensus: true
 v: 3
-# area: AREA
-workgroup: DNSOP
+area: ""
+workgroup: "Domain Name System Operations"
 keyword:
  - next generation
  - unicorn
  - sparkling distributed ledger
 venue:
-  group: WG
-  type: Working Group
-  mail: WG@example.com
-  arch: https://example.com/WG
-  github: USER/REPO
-  latest: https://example.com/LATEST
+  group: "Domain Name System Operations"
+  type: ""
+  mail: "dnsop@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/dnsop/"
+  github: "MingxuanLiu/Protective-DNS-Draft"
+  latest: "https://MingxuanLiu.github.io/Protective-DNS-Draft/draft-ietf-dnsop-protective-dns.html"
 
 author:
  -
