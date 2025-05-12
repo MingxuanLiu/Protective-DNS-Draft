@@ -227,7 +227,7 @@ malicious_domain.com          A              10                 controled_IP;
 
 ## Operational Consideration 2 - Provider an appropriate blocklist for defense
 
-A necessary condition for Protective DNS to achieve its defensive capability is to construct a blocklist that includes a series of malicious domain names to be blocked. The structural components of the domain name blocking list are as described in [DNS Response Policy Zones (RPZ)]. Through the empirical analysis of popular Protective DNS vendors, these vendors currently mainly focus on a series of items related to advertisements, privacy tracking, malware, phishing, and adult content.
+A necessary condition for Protective DNS to achieve its defensive capability is to construct a blocklist that includes a series of malicious domain names to be blocked. The structural components of the domain name blocking list are as described in {{RPZ}}. Through the empirical analysis of popular Protective DNS vendors, these vendors currently mainly focus on a series of items related to advertisements, privacy tracking, malware, phishing, and adult content.
 
 1) First, through the analysis of users of Protective DNS, Protective DNS providers should try their best to avoid using keywords for domain filtering, because this will increase the possibility of introducing false positives, which will affect the availability of Protective DNS.
 
