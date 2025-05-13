@@ -326,7 +326,7 @@ Table of Contents
    |empty (as NXDomain means no such domain exists)|
    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 
-         Figure 3: Format of empty Answer fileld in Protective DNS.
+          Figure 3: Format of NXDomain Response in Protective DNS.
 
 4.2.  Operational Consideration 2 - Provider an appropriate blocklist
       for defense
@@ -340,19 +340,18 @@ Table of Contents
    advertisements, privacy tracking, malware, phishing, and adult
    content.
 
-   1) First, through the analysis of users of Protective DNS, Protective
-   DNS providers should try their best to avoid using keywords for
-   domain filtering, because this will increase the possibility of
-   introducing false positives, which will affect the availability of
-   Protective DNS.
+   First, through the analysis of users of Protective DNS, Protective
+   DNS providers SHOULD avoid using keywords for domain filtering,
+   because this will increase the possibility of introducing false
+   positives, which will affect the availability of Protective DNS.
 
-   2) Second, Protective DNS providers should avoid using wildcard
-   blocking methods and should carry out defense at the granularity of
-   the minimum subdomain (that is, the Fully Qualified Domain Name), so
-   that the collateral damage caused can be minimized.
+   Second, Protective DNS providers SHOULD avoid using wildcard blocking
+   methods and should carry out defense at the granularity of the
+   minimum subdomain (that is, the Fully Qualified Domain Name), so that
+   the collateral damage caused can be minimized.
 
-   3) Finally, from the perspective of operational efficiency, the scale
-   of the blocklist deployed on the Protective DNS should be carefully
+   Finally, from the perspective of operational efficiency, the scale of
+   the blocklist deployed on the Protective DNS SHOULD be carefully
    selected.  It should not only avoid false positives but also choose
    an appropriate scale, as the scale of the blocklist will affect the
    response efficiency of the Protective DNS and the consumption of
@@ -383,7 +382,7 @@ Table of Contents
    website the user is accessing may be malicious.  However, using an IP
    address controlled by the service provider poses potential security
    risks, specifically the risk of Dangling resource takeover, which is
-   elaborated in Security Consideration x.  Therefore, it is advisable
+   elaborated in Security Consideration 3.  Therefore, it is advisable
    for the service provider to use a dedicated page (this page should be
    explicitly deployed on the page provided by the service) to
    illustrate their defense strategy, helping users confirm that the DNS
