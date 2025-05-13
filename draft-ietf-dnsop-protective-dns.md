@@ -151,42 +151,42 @@ The most crucial aspect for Protective DNS to achieve its defensive capability i
 
 1) Using the secure IP addresses in A record controlled by the provider:
 
-malicious_domain.com          A              10                 controled_IP;
+	malicious_domain.com    A    10    controled_IP;
 
 2) Using IP addresses with special purposes, such as the reserved address like 127.0.0.1, 0.0.0.0, 192.168.0.1 and so on:
 
-	malicious_domain.com          A              10                 127.0.0.1;
+	malicious_domain.com    A    10    127.0.0.1;
 
 3) Utilizing the CNAME record to rewrite the request to the domain name controlled by the provider:
 
-	malicious_domain.com          CNAME    10                 controled_domain.com;
+	malicious_domain.com    CNAME    10    controled_domain.com;
 
 4) Using an empty Answer field in the response to prevent users from accessing malicious resources:
 
 ~~~
   0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-|                    ID (two octets)                 |
+|                 ID (two octets)               |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 |QR|   Opcode  |AA|TC|RD|RA|   Z    |   RCODE   |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-|                    QDCOUNT (one octet)            |
+|                QDCOUNT (one octet)            |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-|                    ANCOUNT (one octet)            |
+|                ANCOUNT (one octet)            |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-|                    NSCOUNT (one octet)            |
+|                NSCOUNT (one octet)            |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-|                    ARCOUNT (one octet)            |
+|                ARCOUNT (one octet)            |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-;--------------------- Question Section ---------------------;
-|  Domain Name (variable length)                     |
+;--------------- Question Section --------------;
+|  Domain Name (variable length)                |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-|                    QTYPE (two octets)               |
+|              QTYPE (two octets)               |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-|                    QCLASS (two octets)              |
+|              QCLASS (two octets)              |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-;--------------------- Answer Section ---------------------;
-|  (empty, no resource records here)                  |
+;-------------- Answer Section -----------------;
+|  (empty, no resource records here)            |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 ~~~
 {: #figure2 title="Format of empty Answer fileld in Protective DNS."}
@@ -196,28 +196,28 @@ malicious_domain.com          A              10                 controled_IP;
 ~~~
   0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-|                    ID (two octets)                 |
+|               ID (two octets)                 |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 |QR|   Opcode  |AA|TC|RD|RA|   Z    |   RCODE   |
-|                   |          |    |    |       |  0  0  1  0  |
+|  |           |  |  |  |  |        | 0  0  1  0|
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-|                    QDCOUNT (one octet)            |
+|                QDCOUNT (one octet)            |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-|                    ANCOUNT (one octet)            |
+|                ANCOUNT (one octet)            |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-|                    NSCOUNT (one octet)            |
+|                NSCOUNT (one octet)            |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-|                    ARCOUNT (one octet)            |
+|                ARCOUNT (one octet)            |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-;--------------------- Question Section ---------------------;
-|  Queried Domain Name (variable length)             |
+;--------------- Question Section --------------;
+|  Queried Domain Name (variable length)        |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-|                    QTYPE (two octets)               |
+|              QTYPE (two octets)               |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-|                    QCLASS (two octets)              |
+|              QCLASS (two octets)              |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-;--------------------- Answer Section ---------------------;
-|  (empty, as NXDomain means no such domain exists)  |
+;------------- Answer Section ------------------;
+|empty (as NXDomain means no such domain exists)|
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 ~~~
 {: #figure3 title="Format of empty Answer fileld in Protective DNS."}
