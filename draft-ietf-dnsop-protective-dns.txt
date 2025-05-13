@@ -183,15 +183,15 @@ Table of Contents
 
    Figure 1 shows the workflow of Protective DNS.  First, when the
    Protective DNS resolver receives a DNS query request for domain name
-   A, it will match this domain name against the blocklist it maintains.
-   Subsequently, once the domain name is found in the blocklist,
-   Protective DNS will rewrite its DNS response, that is, resolve the
-   query to a series of "safe" results (such as the safe IP address
-   127.0.0.1), thus effectively preventing clients from accessing the
-   corresponding malicious resources.  Conversely, if the queried domain
-   name is not in the blocklist, a normal response will be returned.
-   That is, it will query the authoritative server or use the locally
-   cached results for the response.
+   A, it will match this domain name against the blocklist [RFC5782] it
+   maintains.  Subsequently, once the domain name is found in the
+   blocklist, Protective DNS will rewrite its DNS response, that is,
+   resolve the query to a series of "safe" results (such as the safe IP
+   address 127.0.0.1), thus effectively preventing clients from
+   accessing the corresponding malicious resources.  Conversely, if the
+   queried domain name is not in the blocklist, a normal response will
+   be returned.  That is, it will query the authoritative server or use
+   the locally cached results for the response.
 
    Through investigation, 28 out of 42 popular DNS providers have
    already offered Protective DNS services, which run on a total of 155
