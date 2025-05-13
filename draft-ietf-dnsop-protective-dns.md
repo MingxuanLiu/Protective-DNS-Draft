@@ -25,21 +25,21 @@ venue:
 
 author:
  -
+    fullname: Haixin Duan
+    organization: Tsinghua University
+    email: duanhx@tsinghua.edu.cn
+ -
     fullname: Mingxuan Liu
     organization: Zhongguancun Laboratory
     email: liumx@mail.zgclab.edu.cn
- -
-    fullname: Chaoyi Lu
-    organization: Zhongguancun Laboratory
-    email: lucy@zgclab.edu.cn
  -
     fullname: Baojun Liu
     organization: Tsinghua University
     email: lbj@tsinghua.edu.cn
  -
-    fullname: Haixin Duan
-    organization: Tsinghua University
-    email: duanhx@tsinghua.edu.cn
+    fullname: Chaoyi Lu
+    organization: Zhongguancun Laboratory
+    email: lucy@zgclab.edu.cn
 
 normative:
     RFC1034: # Domain names - concepts and facilities
