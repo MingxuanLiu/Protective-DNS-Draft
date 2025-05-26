@@ -2,9 +2,9 @@
 
 
 
-Domain Name System Operations                                    H. Duan
+Network Working Group                                            H. Duan
 Internet-Draft                                       Tsinghua University
-Intended status: Informational                                    M. Liu
+Intended status: Standards Track                                  M. Liu
 Expires: 27 November 2025                        Zhongguancun Laboratory
                                                                   B. Liu
                                                      Tsinghua University
@@ -41,11 +41,6 @@ About This Document
    protective-dns.html.  Status information for this document may be
    found at https://datatracker.ietf.org/doc/draft-liu-dnsop-protective-
    dns/.
-
-   Discussion of this document takes place on the Domain Name System
-   Operations mailing list (mailto:dnsop@ietf.org), which is archived at
-   https://mailarchive.ietf.org/arch/browse/dnsop/.  Subscribe at
-   https://www.ietf.org/mailman/listinfo/dnsop/.
 
    Source for this draft and an issue tracker can be found at
    https://github.com/MingxuanLiu/Protective-DNS-Draft.
@@ -597,19 +592,27 @@ Authors' Addresses
 
    Haixin Duan
    Tsinghua University
+   Beijing
+   China
    Email: duanhx@tsinghua.edu.cn
 
 
    Mingxuan Liu
    Zhongguancun Laboratory
+   Beijing
+   China
    Email: liumx@mail.zgclab.edu.cn
 
 
    Baojun Liu
    Tsinghua University
+   Beijing
+   China
    Email: lbj@tsinghua.edu.cn
 
 
    Chaoyi Lu
    Zhongguancun Laboratory
+   Beijing
+   China
    Email: lucy@zgclab.edu.cn

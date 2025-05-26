@@ -13,9 +13,6 @@
        Recent research work has delved deeply into a new type of DNS security service, Protective DNS, through various measurement methods, and it has been deployed in multiple DNS providers and even in national ISPs. Protective DNS identifies whether the domain names requested by customers are in the threat intelligence (blocklist) it maintains. For domain names listed in the blocklist, it rewrites the resolution results to secure resources to prevent users from accessing malicious resources, such as malicious servers (IP addresses), etc. This document summarizes the conclusions of these research works and provides specific and practical considerations and suggestions for the deployment and operation of Protective DNS. By following these considerations, Protective DNS service providers can effectively enhance the practicality and security of their services. 
     " name="description">
 <meta content="xml2rfc 3.28.1" name="generator">
-<meta content="next generation" name="keyword">
-<meta content="unicorn" name="keyword">
-<meta content="sparkling distributed ledger" name="keyword">
 <meta content="draft-liu-dnsop-protective-dns-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.28.1
@@ -1061,7 +1058,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <div id="internal-metadata" class="document-information">
 <dl id="identifiers">
 <dt class="label-workgroup">Workgroup:</dt>
-<dd class="workgroup">Domain Name System Operations</dd>
+<dd class="workgroup">Network Working Group</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
 <dd class="internet-draft">draft-liu-dnsop-protective-dns-latest</dd>
 <dt class="label-published">Published:</dt>
@@ -1069,7 +1066,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <time datetime="2025-05-26" class="published">26 May 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
-<dd class="intended-status">Informational</dd>
+<dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
 <dd class="expires"><time datetime="2025-11-27">27 November 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
@@ -1106,13 +1103,8 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <p id="section-note.1-2">
         The latest revision of this draft can be found at <span><a href="https://MingxuanLiu.github.io/Protective-DNS-Draft/draft-ietf-dnsop-protective-dns.html">https://MingxuanLiu.github.io/Protective-DNS-Draft/draft-ietf-dnsop-protective-dns.html</a></span>.
         Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-liu-dnsop-protective-dns/">https://datatracker.ietf.org/doc/draft-liu-dnsop-protective-dns/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
-<p id="section-note.1-3">
-        Discussion of this document takes place on the
-        Domain Name System Operations  mailing list (<span><a href="mailto:dnsop@ietf.org">mailto:dnsop@ietf.org</a></span>),
-        which is archived at <span><a href="https://mailarchive.ietf.org/arch/browse/dnsop/">https://mailarchive.ietf.org/arch/browse/dnsop/</a></span>.
-        Subscribe at <span><a href="https://www.ietf.org/mailman/listinfo/dnsop/">https://www.ietf.org/mailman/listinfo/dnsop/</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
-<p id="section-note.1-4">Source for this draft and an issue tracker can be found at
-        <span><a href="https://github.com/MingxuanLiu/Protective-DNS-Draft">https://github.com/MingxuanLiu/Protective-DNS-Draft</a></span>.<a href="#section-note.1-4" class="pilcrow">¶</a></p>
+<p id="section-note.1-3">Source for this draft and an issue tracker can be found at
+        <span><a href="https://github.com/MingxuanLiu/Protective-DNS-Draft">https://github.com/MingxuanLiu/Protective-DNS-Draft</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1568,6 +1560,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Haixin Duan</span></div>
 <div dir="auto" class="left"><span class="org">Tsinghua University</span></div>
+<div dir="auto" class="left"><span class="locality">Beijing</span></div>
+<div dir="auto" class="left"><span class="country-name">China</span></div>
 <div class="email">
 <span>Email:</span>
 <a href="mailto:duanhx@tsinghua.edu.cn" class="email">duanhx@tsinghua.edu.cn</a>
@@ -1576,6 +1570,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Mingxuan Liu</span></div>
 <div dir="auto" class="left"><span class="org">Zhongguancun Laboratory</span></div>
+<div dir="auto" class="left"><span class="locality">Beijing</span></div>
+<div dir="auto" class="left"><span class="country-name">China</span></div>
 <div class="email">
 <span>Email:</span>
 <a href="mailto:liumx@mail.zgclab.edu.cn" class="email">liumx@mail.zgclab.edu.cn</a>
@@ -1584,6 +1580,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Baojun Liu</span></div>
 <div dir="auto" class="left"><span class="org">Tsinghua University</span></div>
+<div dir="auto" class="left"><span class="locality">Beijing</span></div>
+<div dir="auto" class="left"><span class="country-name">China</span></div>
 <div class="email">
 <span>Email:</span>
 <a href="mailto:lbj@tsinghua.edu.cn" class="email">lbj@tsinghua.edu.cn</a>
@@ -1592,6 +1590,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Chaoyi Lu</span></div>
 <div dir="auto" class="left"><span class="org">Zhongguancun Laboratory</span></div>
+<div dir="auto" class="left"><span class="locality">Beijing</span></div>
+<div dir="auto" class="left"><span class="country-name">China</span></div>
 <div class="email">
 <span>Email:</span>
 <a href="mailto:lucy@zgclab.edu.cn" class="email">lucy@zgclab.edu.cn</a>
