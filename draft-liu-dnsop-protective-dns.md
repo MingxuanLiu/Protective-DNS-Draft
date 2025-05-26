@@ -3,7 +3,7 @@ title: "Considerations for Protective DNS Server Operators"
 abbrev: "PDNS"
 category: info
 
-docname: draft-ietf-dnsop-protective-dns-latest
+docname: draft-liu-dnsop-protective-dns-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
