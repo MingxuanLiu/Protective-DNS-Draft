@@ -1,7 +1,7 @@
 ---
 title: "Considerations for Protective DNS Server Operators"
 abbrev: "PDNS"
-category: info
+category: std
 
 docname: draft-liu-dnsop-protective-dns-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
@@ -9,36 +9,44 @@ number:
 date:
 consensus: true
 v: 3
-area: ""
-workgroup: "Domain Name System Operations"
-keyword:
- - next generation
- - unicorn
- - sparkling distributed ledger
+# area: ""
+# workgroup: "Domain Name System Operations"
+# keyword:
+#  - next generation
+#  - unicorn
+#  - sparkling distributed ledger
 venue:
-  group: "Domain Name System Operations"
-  type: ""
-  mail: "dnsop@ietf.org"
-  arch: "https://mailarchive.ietf.org/arch/browse/dnsop/"
+  # group: "Domain Name System Operations"
+  # type: ""
+  # mail: "dnsop@ietf.org"
+  # arch: "https://mailarchive.ietf.org/arch/browse/dnsop/"
   github: "MingxuanLiu/Protective-DNS-Draft"
   latest: "https://MingxuanLiu.github.io/Protective-DNS-Draft/draft-ietf-dnsop-protective-dns.html"
 
 author:
  -
     fullname: Haixin Duan
-    organization: Tsinghua University
+    org: Tsinghua University
+    city: Beijing
+    country: China
     email: duanhx@tsinghua.edu.cn
  -
     fullname: Mingxuan Liu
-    organization: Zhongguancun Laboratory
+    org: Zhongguancun Laboratory
+    city: Beijing
+    country: China
     email: liumx@mail.zgclab.edu.cn
  -
     fullname: Baojun Liu
-    organization: Tsinghua University
+    org: Tsinghua University
+    city: Beijing
+    country: China
     email: lbj@tsinghua.edu.cn
  -
     fullname: Chaoyi Lu
-    organization: Zhongguancun Laboratory
+    org: Zhongguancun Laboratory
+    city: Beijing
+    country: China
     email: lucy@zgclab.edu.cn
 
 normative:
