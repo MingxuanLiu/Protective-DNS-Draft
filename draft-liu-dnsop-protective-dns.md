@@ -9,7 +9,7 @@ number:
 date:
 consensus: true
 v: 3
-# area: ""
+# area: "AREA"
 # workgroup: "Domain Name System Operations"
 # keyword:
 #  - next generation
