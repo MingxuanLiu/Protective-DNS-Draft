@@ -5,16 +5,16 @@
 Domain Name System Operations                                    H. Duan
 Internet-Draft                                       Tsinghua University
 Intended status: Informational                                    M. Liu
-Expires: 14 November 2025                        Zhongguancun Laboratory
+Expires: 27 November 2025                        Zhongguancun Laboratory
                                                                   B. Liu
                                                      Tsinghua University
                                                                    C. Lu
                                                  Zhongguancun Laboratory
-                                                             13 May 2025
+                                                             26 May 2025
 
 
            Considerations for Protective DNS Server Operators
-                 draft-ietf-dnsop-protective-dns-latest
+                 draft-liu-dnsop-protective-dns-latest
 
 Abstract
 
@@ -39,8 +39,8 @@ About This Document
    The latest revision of this draft can be found at
    https://MingxuanLiu.github.io/Protective-DNS-Draft/draft-ietf-dnsop-
    protective-dns.html.  Status information for this document may be
-   found at https://datatracker.ietf.org/doc/draft-ietf-dnsop-
-   protective-dns/.
+   found at https://datatracker.ietf.org/doc/draft-liu-dnsop-protective-
+   dns/.
 
    Discussion of this document takes place on the Domain Name System
    Operations mailing list (mailto:dnsop@ietf.org), which is archived at
@@ -65,7 +65,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 November 2025.
+   This Internet-Draft will expire on 27 November 2025.
 
 Copyright Notice
 
