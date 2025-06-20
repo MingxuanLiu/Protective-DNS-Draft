@@ -52,6 +52,7 @@ author:
 normative:
     RFC1034: # Domain names - concepts and facilities
     RFC1035: # Domain names - implementation and specification
+    RFC5782: # DNS Blacklists and Whitelists
     RFC4033: # DNS Security Introduction and Requirements
     RFC4035: # Protocol Modifications for the DNS Security Extensions
     RFC8914: # Extended DNS Errors
@@ -65,7 +66,6 @@ normative:
         target: https://datatracker.ietf.org/doc/draft-ietf-dnsop-structured-dns-error/
 
 informative:
-    RFC5782: # DNS Blacklists and Whitelists
     SAC127:
         title: "SAC127 DNS Blocking Revisited"
 	date: May 16, 2025
