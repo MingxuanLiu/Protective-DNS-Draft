@@ -137,25 +137,7 @@ Notably, this document is primarily intended for readers familiar with Protectiv
 
 ## Overview of Protective DNS
 
-Figure 1 illustrates the operation flow of Protective DNS (PDNS) deployed on a recursive resolver (denoted as "Resolver" in the diagram). When the PDNS resolver receives a DNS query for domain A, it first matches the domain against its maintained blocklist. The resolver then makes a decision based on the blocklist lookup result. If the domain is found in the blocklist, PDNS rewrites the DNS response to resolve the query to a "safe" result (e.g., IP address 127.0.0.1), effectively preventing the client from accessing the corresponding malicious resource.Conversely, if the domain is not in the blocklist, the resolver returns a normal response by querying authoritative servers or using local cache results to respond to the client {{RFC1034}}, {{RFC1035}}. Thus, the two functional components that underpin the critical role of PDNS are the Blocklist and the Rewriting Policy.
-
-~~~
-                          ┏━━━━━━━━━━━━━━━━━━━━━━━━━┓
-                          ┃  Blocklist              ┃
-                          ┃     ▲ │                 ┃
-                          ┃     │ │                 ┃
- ┌───────────────┐        ┃     │ ▼                 ┃
- │ Authoritative │◀───────┃  Resolver  ───▶Rewriting┃
- │    Server     │───────▶┃            ◀─── Policy  ┃
- └───────────────┘        ┗━━━━━━━━━━━━━━━━━━━━━━━━━┛
-                                ▲  │  
-                                │  │
-                                │  ▼
-                         ┌─────────────────┐
-                         │     Client      │
-                         └─────────────────┘
-~~~
-{: #figure1 title="The workflow of Protective DNS."}
+Protective DNS (PDNS) is deployed on a recursive resolver. When the PDNS resolver receives a DNS query for domain A, it first matches the domain against its maintained blocklist. The resolver then makes a decision based on the blocklist lookup result. If the domain is found in the blocklist, PDNS rewrites the DNS response to resolve the query to a "safe" result (e.g., IP address 127.0.0.1), effectively preventing the client from accessing the corresponding malicious resource.Conversely, if the domain is not in the blocklist, the resolver returns a normal response by querying authoritative servers or using local cache results to respond to the client {{RFC1034}}, {{RFC1035}}. Thus, the two functional components that underpin the critical role of PDNS are the Blocklist and the Rewriting Policy.
 
 **Blocklist.** A Blocklist is a domain name list for which the PDNS resolver intends to rewrite resolution results for defensive purposes. Blocklist sources include multiple aspects: commercial threat intelligence (TI), open-source TI, vendor-maintained domain blacklists, and user complaints. PDNS deployments implement Blocklists in two primary forms:
 
@@ -164,7 +146,7 @@ Figure 1 illustrates the operation flow of Protective DNS (PDNS) deployed on a r
 
 The types of malicious domains included in Blocklists vary by vendor definition, encompassing but not limited to: malware, botnet command-and-control, phishing, fraud, and adult content.
 
-**Rewriting Polify.** Upon retrieving Blocklist results, the PDNS resolver must rewrite resolution results for domains marked as defensive targets. The Rewriting Policy is critical to PDNS's defensive capability. Primary implementations of the rewriting module include, but are not limited to: 
+**Rewriting Polify.** Upon retrieving Blocklist results, the PDNS resolver must rewrite resolution results for domains marked as defensive targets. The Rewriting Policy is critical to PDNS's defensive capability. Primary implementations of the rewriting module include, but are not limited to:
 
 1. DNS Response Policy Zones (RPZ) {{RPZ}}: Implemented as zone files {{RFC1034}}, {{RFC1035}}, this approach serves as a rewriting strategy guide, specifying both whether rewriting is required and providing domain-specific rewrite results.
 2. Domain Lists: This format consists of one domain per line, indicating only whether a domain requires rewriting.
@@ -307,7 +289,6 @@ Second, PDNS operators should consider the impact of TTL settings and appropriat
 
 As Protective DNS services introduce an additional step to query whether a domain is malicious during standard DNS resolution, operators must anticipate potential impacts on DNS resolution performance. Specifically, factors such as Blocklist deployment method (remote vs. local), scale, and domain matching techniques (e.g., hash matching) can affect performance. Experimental results show that loading a Blocklist with five million malicious domains can still be maintained within sub-second levels, but exceeding this scale may result in loading times exceeding 10 seconds, leading to unacceptable performance impacts.
 
-
 ## Operational Consideration 4 - Offering Explanation
 
 Protective DNS operates as a complete black-box service to users. Regardless of the rewriting strategy employed, users only perceive the blocking effect—i.e., the inability to access a domain. While providers can refine blocklist quality to minimize false positives, their inevitable presence significantly degrades user experience. Users may encounter unexplained inaccessibility that is indistinguishable from prevalent DNS tampering (e.g., censorship, man-in-the-middle attacks). Therefore, providing explanations for Protective DNS actions enhances usability. Operators should anticipate that omitted explanations may lead users to misperceive service instability or even switch to competing DNS providers.
@@ -361,6 +342,8 @@ Protective DNS may interact with other security practices in the DNS architectur
 As Protective DNS introduces new components, such as blocklists, service providers should consider fault diagnosis for denial-of-service (DoS) failures in individual components and corresponding fallback mechanisms to ensure performance stability. For example, in scenarios involving remote blocklist queries, providers should proactively diagnose the availability of remote blocklist interfaces on a regular basis. If remote blocklist query services become unavailable due to network issues or other causes, and no fallback mechanism is in place, this may render the provider’s DNS query services inoperable. Thus, providers must predefine fallback mechanisms—such as reverting to normal DNS resolution procedures.
 
 ## Security Consideration 6 - Privacy
+
+test.
 
 # IANA Considerations
 
