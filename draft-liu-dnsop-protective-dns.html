@@ -10,23 +10,25 @@
 <meta content="Baojun Liu" name="author">
 <meta content="Chaoyi Lu" name="author">
 <meta content="
-       Recent research work has delved deeply into a new type of DNS security service, Protective DNS, through various measurement methods, and it has been deployed in multiple DNS providers and even in national ISPs. Protective DNS identifies whether the domain names requested by customers are in the threat intelligence (blocklist) it maintains. For domain names listed in the blocklist, it rewrites the resolution results to secure resources to prevent users from accessing malicious resources, such as malicious servers (IP addresses), etc. This document summarizes the conclusions of these research works and provides specific and practical considerations and suggestions for the deployment and operation of Protective DNS. By following these considerations, Protective DNS service providers can effectively enhance the practicality and security of their services. 
+       Protective DNS identifies whether the domain names requested by client customers are in the blocklist (or threat intelligence) it maintains. For domain names listed in the blocklist, it rewrites the resolution results to secure resources to prevent users from accessing malicious resources, such as malicious servers (IP addresses), etc. 
+       Due to its flexible deployment model and effective defenses, the scale of Protective DNS deployments has grown continuously through numerous deployment efforts. Not only have well-known domain name resolution service providers begun deploying this defensive service, but some nations have also initiated national-level deployments. Concurrently, studies have also made several efforts to analyze Protective DNS, identifying a series of implementation discrepancies. 
+       Therefore, this document aims to provide specific and practical considerations for the deployment, operation and security of Protective DNS by summarizing relevant conclusions. It should be stated that this document is primarily intended for those willing to deploy Protective DNS for defensive purposes, offering concrete considerations regarding deployment. 
     " name="description">
-<meta content="xml2rfc 3.28.1" name="generator">
+<meta content="xml2rfc 3.29.0" name="generator">
 <meta content="draft-liu-dnsop-protective-dns-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.28.1
-    Python 3.12.10
+  xml2rfc 3.29.0
+    Python 3.12.11
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.6
-    lxml 5.3.0
+    lxml 5.3.1
     platformdirs 4.3.8
     pycountry 24.6.1
     PyYAML 6.0.2
-    requests 2.32.3
-    setuptools 70.3.0
+    requests 2.32.4
+    setuptools 80.9.0
     wcwidth 0.2.13
 -->
 <link href="draft-liu-dnsop-protective-dns.xml" rel="alternate" type="application/rfc+xml">
@@ -1046,11 +1048,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">PDNS</td>
-<td class="right">May 2025</td>
+<td class="right">June 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Duan, et al.</td>
-<td class="center">Expires 27 November 2025</td>
+<td class="center">Expires 22 December 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1063,12 +1065,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-liu-dnsop-protective-dns-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-05-26" class="published">26 May 2025</time>
+<time datetime="2025-06-20" class="published">20 June 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-11-27">27 November 2025</time></dd>
+<dd class="expires"><time datetime="2025-12-22">22 December 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1093,7 +1095,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Considerations for Protective DNS Server Operators</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">Recent research work has delved deeply into a new type of DNS security service, Protective DNS, through various measurement methods, and it has been deployed in multiple DNS providers and even in national ISPs. Protective DNS identifies whether the domain names requested by customers are in the threat intelligence (blocklist) it maintains. For domain names listed in the blocklist, it rewrites the resolution results to secure resources to prevent users from accessing malicious resources, such as malicious servers (IP addresses), etc. This document summarizes the conclusions of these research works and provides specific and practical considerations and suggestions for the deployment and operation of Protective DNS. By following these considerations, Protective DNS service providers can effectively enhance the practicality and security of their services.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">Protective DNS identifies whether the domain names requested by client customers are in the blocklist (or threat intelligence) it maintains. For domain names listed in the blocklist, it rewrites the resolution results to secure resources to prevent users from accessing malicious resources, such as malicious servers (IP addresses), etc.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">Due to its flexible deployment model and effective defenses, the scale of Protective DNS deployments has grown continuously through numerous deployment efforts. Not only have well-known domain name resolution service providers begun deploying this defensive service, but some nations have also initiated national-level deployments. Concurrently, studies have also made several efforts to analyze Protective DNS, identifying a series of implementation discrepancies.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+<p id="section-abstract-3">Therefore, this document aims to provide specific and practical considerations for the deployment, operation and security of Protective DNS by summarizing relevant conclusions. It should be stated that this document is primarily intended for those willing to deploy Protective DNS for defensive purposes, offering concrete considerations regarding deployment.<a href="#section-abstract-3" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1125,7 +1129,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 27 November 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 22 December 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1161,58 +1165,78 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
-            <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-background" class="internal xref">Background</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
-            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-operational-considerations" class="internal xref">Operational Considerations</a></p>
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-background" class="internal xref">Background</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
-                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-operational-consideration-1" class="internal xref">Operational Consideration 1 - Select an appropriate rewriting mechanism</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
+                <p id="section-toc.1-1.3.2.1.1" class="keepWithNext"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-overview-of-protective-dns" class="internal xref">Overview of Protective DNS</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
-                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-operational-consideration-2" class="internal xref">Operational Consideration 2 - Provider an appropriate blocklist for defense</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
-                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-operational-consideration-3" class="internal xref">Operational Consideration 3 - Offer transparent blocking policies</a></p>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-distinctions-of-protective-" class="internal xref">Distinctions of Protective DNS Technology</a></p>
 </li>
             </ul>
 </li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-deployment-status" class="internal xref">Deployment Status</a></p>
+</li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-operational-considerations" class="internal xref">Operational Considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
-                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-security-consideration-1-av" class="internal xref">Security Consideration 1 - Avoid Improper Configuration</a></p>
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-operational-consideration-1" class="internal xref">Operational Consideration 1 - Blocklist Selection</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
-                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-security-consideration-2-av" class="internal xref">Security Consideration 2 - Avoid Over-Blocking</a></p>
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-operational-consideration-2" class="internal xref">Operational Consideration 2 - Rewriting Policy Construction</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
-                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-security-consideration-3-en" class="internal xref">Security Consideration 3 - Ensure Secure Resource Usage</a></p>
+                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-operational-consideration-3" class="internal xref">Operational Consideration 3 - Performance Impact</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4">
-                <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-security-consideration-4-po" class="internal xref">Security Consideration 4 - Possess compatibility</a></p>
+                <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-operational-consideration-4" class="internal xref">Operational Consideration 4 - Offering Explanation</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-references" class="internal xref">References</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
-                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-security-consideration-1-po" class="internal xref">Security Consideration 1 - Policy Flaw</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
-                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
+                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-security-consideration-2-da" class="internal xref">Security Consideration 2 - Dangling Resources</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.3">
+                <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="auto internal xref">6.3</a>.  <a href="#name-security-consideration-3-ov" class="internal xref">Security Consideration 3 - Over-Blocking</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.4">
+                <p id="section-toc.1-1.6.2.4.1"><a href="#section-6.4" class="auto internal xref">6.4</a>.  <a href="#name-security-consideration-4-co" class="internal xref">Security Consideration 4 - Compatibility with other security practices</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5">
+                <p id="section-toc.1-1.6.2.5.1"><a href="#section-6.5" class="auto internal xref">6.5</a>.  <a href="#name-security-consideration-5-fa" class="internal xref">Security Consideration 5 - Fault Diagnosis</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.6">
+                <p id="section-toc.1-1.6.2.6.1"><a href="#section-6.6" class="auto internal xref">6.6</a>.  <a href="#name-security-consideration-6-pr" class="internal xref">Security Consideration 6 - Privacy</a></p>
 </li>
             </ul>
 </li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+</li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
+                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
+                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1223,8 +1247,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">Currently, 90% of cyber attack activities originate from domain name resolution <span>[<a href="#Cisco" class="cite xref">Cisco</a>]</span>. Therefore, the approach of blocking unintended network resource interactions based on the Domain Name System (DNS) has become a crucial network defense measure. DNS Filter <span>[<a href="#RPZ" class="cite xref">RPZ</a>]</span> is the most common blocking method in the DNS. For domain names that match the blocklist, it prevents access to unintended (especially malicious) network resources by rewriting their DNS responses, that is, rewriting the resolution results of these domain names to a securely controlled host instead of the original host address. Considering that this method can intercept attacks at the initial stage, it is commonly referred to as Protective DNS and has been deployed and implemented by multiple national governments and DNS vendors <span>[<a href="#DNS4EU" class="cite xref">DNS4EU</a>]</span>, <span>[<a href="#US-Protect" class="cite xref">US-Protect</a>]</span>, <span>[<a href="#Canada-Protect" class="cite xref">Canada-Protect</a>]</span>.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">Recent research has explored the current deployment status and security properties of Protective DNS. This document summarizes the conclusions of these studies. These security considerations are applicable to all DNS resolvers that offer Protective DNS services (including DNS resolvers of international ISPs and well-known DNS resolution servers), aiming to provide practical deployment suggestions for Protective DNS service providers and effectively enhance the availability and security of this service.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-1">Protective DNS (also termed as PDNS) is a lightweight defensive measure deployed at recursive resolvers to proactively rewrite DNS resolution responses for malicious domains, thereby preventing users from accessing malicious resources. Specifically, when a client initiates a domain name resolution request, PDNS first performs a security check on the target domain—determining whether the domain poses a security risk by matching it against blocklists. If the domain is identified as malicious, PDNS uses DNS rewriting mechanisms to intercept the resolution request and return a secure response (e.g., a safe server address controlled by the DNS service provider), blocking users from establishing connections with malicious resources. For legitimate domains, PDNS queries and receives responses from authoritative servers and returns normal response content to the client.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">The defensive benefits offered by PDNS have spurred extensive deployment efforts. Renowned DNS resolution service providers have increasingly deployed PDNS on their recursive servers. For example, Cloudflare DNS offers its standard DNS resolution service at 1.1.1.1, while deploying PDNS at 1.1.1.2 and 1.1.1.3. Moreover, some countries or regions have initiated national-level infrastructure deployments of PDNS. The UK's National Cyber Security Centre (NCSC), for instance, launched a PDNS service in 2017 to enhance cyber defenses, which has since been authorized for use by central government departments, local authorities, schools, and emergency services <span>[<a href="#UK-NCSC-PDNS" class="cite xref">UK-NCSC-PDNS</a>]</span>. Notably, statistics from the UK NCSC indicate that approximately 7.2 million individual users utilized the system in 2023 <span>[<a href="#UK-NCSC-PDNS-Usage" class="cite xref">UK-NCSC-PDNS-Usage</a>]</span>. In 2022, PDNS processed 810 billion DNS queries and blocked 11 billion queries involving 420,000 domains, accounting for approximately 2% of all queries <span>[<a href="#UK-Defence" class="cite xref">UK-Defence</a>]</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">As the deployment of PDNS continues to grow, efforts have been made to systematically analyze PDNS services, including deployment status, operational mechanism and security implications. Existing work, through active probing of PDNS services, has revealed that 9% of stable recursive resolvers deploy PDNS (in 2023) <span>[<a href="#NDSS24" class="cite xref">NDSS24</a>]</span>. These implementations exhibit significant discrepancies among providers in terms of rewriting policies, blocklist selection and performance. Furthermore, security risks such as implementation flaws, over-blocking, and dangling resources have been identified, which may compromise the protective capabilities of certain PDNS deployments and even lead to severe risks such as denial of service. Building on these findings, this document presents specific technical considerations spanning both operational and security aspects of PDNS. These recommendations are targeted at all DNS providers offering Protective DNS services (including those operated by international ISPs, public DNS providers, etc.), aiming to provide practical deployment guidance that enhances both the usability and security of PDNS implementations.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">Notably, this document is primarily intended for readers familiar with Protective DNS technology and somewhat aware of the potential impacts that deploying such technologies may entail. Moreover, existing documents <span>[<a href="#USENIX24" class="cite xref">USENIX24</a>]</span>, <span>[<a href="#SAC127" class="cite xref">SAC127</a>]</span> are recommended for legal considerations. On this basis, this document focuses on discussing technical considerations at the deployment level.<a href="#section-1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1243,81 +1269,54 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-background">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-background" class="section-name selfRef">Background</a>
       </h2>
-<p id="section-3-1">As the Domain Name System (DNS) serves as the starting point for most network activities <span>[<a href="#RFC1034" class="cite xref">RFC1034</a>]</span>, <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>, the defense mechanisms based on domain names have become one of the main approaches to defend against cyberattacks. The defense mechanisms at the domain name level are extremely diverse, and the nodes where blocking actions occur can be found among various domain name roles. For example, in the initial process of domain name registration, the registry and the registrar can use the method of Domain Seizure to delete malicious domain names from the registration data, thus preventing them from causing further harm. The Protective DNS defense mechanism that this document focuses on is implemented based on the DNS Filter <span>[<a href="#Error-Filter" class="cite xref">Error-Filter</a>]</span> technology and is mainly deployed on recursive servers. Since recursive servers are closer to the user side (compared with authoritative servers, registries, and registrars), the defensive effect of deploying this mechanism on recursive servers is more obvious, which is also the main focus of this document.<a href="#section-3-1" class="pilcrow">¶</a></p>
-<span id="name-the-workflow-of-protective-"></span><div id="figure1">
-<figure id="figure-1">
-        <div class="alignLeft art-text artwork" id="section-3-2.1">
-<pre>
-          +----------------+
-          | Threat         |
-          | Intelligence   |
-          +----------------+
-                ^
-                | query TI
-          +----------------+
-          | Protective DNS |
-          +----------------+
-      ^     |     ^
-      |     |     | query &amp; response
-      |     |     v
-+---------+  |  +----------------+
-| Client  |  |  | Authoritative  |
-+---------+  |  | Server         |
-      |     |  +----------------+
-      |     |
-      |     | response (rewritten) for blacklisted domains
-      |     | response for other domains
-      |     v
-+---------+
-| Client  |
-+---------+
-</pre>
-</div>
-<figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
-<a href="#name-the-workflow-of-protective-" class="selfRef">The workflow of Protective DNS.</a>
-        </figcaption></figure>
-</div>
-<p id="section-3-3">Figure 1 shows the workflow of Protective DNS. First, when the Protective DNS resolver receives a DNS query request for domain name A, it will match this domain name against the blocklist <span>[<a href="#RFC5782" class="cite xref">RFC5782</a>]</span> it maintains. Subsequently, once the domain name is found in the blocklist, Protective DNS will rewrite its DNS response, that is, resolve the query to a series of "safe" results (such as the safe IP address 127.0.0.1), thus effectively preventing clients from accessing the corresponding malicious resources. Conversely, if the queried domain name is not in the blocklist, a normal response will be returned. That is, it will query the authoritative server or use the locally cached results for the response.<a href="#section-3-3" class="pilcrow">¶</a></p>
-<p id="section-3-4">Through investigation, 28 out of 42 popular DNS providers have already offered Protective DNS services, which run on a total of 155 resolver IP addresses <span>[<a href="#NDSS24" class="cite xref">NDSS24</a>]</span>, <span>[<a href="#USENIX24" class="cite xref">USENIX24</a>]</span>. Among them, 8 providers support Protective DNS services and non-Protective DNS services on different resolver addresses respectively. For example, Cloudflare's Protectgive DNS service runs on 1.1.1.2 and 1.1.1.3, while 1.1.1.1 provides the original DNS service. At the same time, considering the defensive effectiveness of Protective DNS, countries and regions such as the United States <span>[<a href="#US-Protect" class="cite xref">US-Protect</a>]</span>, the United Kingdom <span>[<a href="#DNS4EU" class="cite xref">DNS4EU</a>]</span>, and Canada <span>[<a href="#Canada-Protect" class="cite xref">Canada-Protect</a>]</span> have listed Protective DNS as a defense infrastructure for national-level deployment and application.<a href="#section-3-4" class="pilcrow">¶</a></p>
-<p id="section-3-5">The defense strategies implemented by Protective DNS are diverse. The specific rewriting strategies mainly include secure IP addresses controlled by the providers, special-use IPs (e.g., 127.0.0.1), secure CNAMEs, responding with specific Response Codes (e.g., NXDomain, ServerFail), and providing an Empty Answer. Meanwhile, different providers' Protective DNS services focus on different types of malicious content, including advertisements, trackers, malware, phishing, and adult content.<a href="#section-3-5" class="pilcrow">¶</a></p>
-<p id="section-3-6">Protective DNS is implemented based on DNS Filter technology. The two protocols most closely related to it are as follows: 1) The <span>[<a href="#RPZ" class="cite xref">RPZ</a>]</span> protocol defines the response strategies of the DNS Filter, including the setting methods of the Root Zone and the response strategies; 2)The <span>[<a href="#Error-Filter" class="cite xref">Error-Filter</a>]</span> defines the structural definitions for stating the filtering results and the reasons in the response.<a href="#section-3-6" class="pilcrow">¶</a></p>
-<p id="section-3-7">Although the application requirements and deployment practices of Protective DNS are increasingly growing, due to the lack of guidance suggestions for deployment, Protective DNS faces serious security flaws. This document combines the conclusions of these research works with the measurement results to form some specific deployment suggestions, aiming to enhance the practicality and security of Protective DNS deployment. In the subsequent chapters, we will summarize the conclusions from the academic papers obtained through the measurement methods into conclusions that are helpful for Protective DNS service providers as a reference.<a href="#section-3-7" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="operational-considerations">
-<section id="section-4">
-      <h2 id="name-operational-considerations">
-<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-operational-considerations" class="section-name selfRef">Operational Considerations</a>
-      </h2>
-<p id="section-4-1">Considering that deployment practice is the first step in using and even maintaining the security of Protective DNS, in this section, we propose a series of operational considerations that cover multiple aspects of deployment practice, including rewriting strategies, defense strategies, and transparency.<a href="#section-4-1" class="pilcrow">¶</a></p>
-<div id="operational-consideration-1-select-an-appropriate-rewriting-mechanism">
-<section id="section-4.1">
-        <h3 id="name-operational-consideration-1">
-<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-operational-consideration-1" class="section-name selfRef">Operational Consideration 1 - Select an appropriate rewriting mechanism</a>
+<div id="overview-of-protective-dns">
+<section id="section-3.1">
+        <h3 id="name-overview-of-protective-dns">
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-overview-of-protective-dns" class="section-name selfRef">Overview of Protective DNS</a>
         </h3>
-<p id="section-4.1-1">The most crucial aspect for Protective DNS to achieve its defensive capability is to adopt the rewriting strategy for DNS filtering to prevent users from accessing malicious resources. Through summarizing the empirical analysis of popular Protective DNS providers and generalizing the DNS Filter technology, there are mainly five types of rewritings that occur in practice:<a href="#section-4.1-1" class="pilcrow">¶</a></p>
-<p id="section-4.1-2">1) Using the secure IP addresses in A record controlled by the provider:<a href="#section-4.1-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4.1-3">
+<p id="section-3.1-1">Protective DNS (PDNS) is deployed on a recursive resolver. When the PDNS resolver receives a DNS query for domain A, it first matches the domain against its maintained blocklist. The resolver then makes a decision based on the blocklist lookup result. If the domain is found in the blocklist, PDNS rewrites the DNS response to resolve the query to a "safe" result (e.g., IP address 127.0.0.1), effectively preventing the client from accessing the corresponding malicious resource.Conversely, if the domain is not in the blocklist, the resolver returns a normal response by querying authoritative servers or using local cache results to respond to the client <span>[<a href="#RFC1034" class="cite xref">RFC1034</a>]</span>, <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>. Thus, the two functional components that underpin the critical role of PDNS are the Blocklist and the Rewriting Policy.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2"><strong>Blocklist.</strong> A Blocklist is a domain name list for which the PDNS resolver intends to rewrite resolution results for defensive purposes. Blocklist sources include multiple aspects: commercial threat intelligence (TI), open-source TI, vendor-maintained domain blacklists, and user complaints. PDNS deployments implement Blocklists in two primary forms:<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-3.1-3">
+<li id="section-3.1-3.1">
+            <p id="section-3.1-3.1.1">Local Deployment: storing the blocklist directly on the PDNS server.<a href="#section-3.1-3.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-3.1-3.2">
+            <p id="section-3.1-3.2.1">Remote Query: performing lookups via network interfaces (e.g., APIs，DNSBL <span>[<a href="#RFC5782" class="cite xref">RFC5782</a>]</span>).<a href="#section-3.1-3.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ol>
+<p id="section-3.1-4">The types of malicious domains included in Blocklists vary by vendor definition, encompassing but not limited to: malware, botnet command-and-control, phishing, fraud, and adult content.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
+<p id="section-3.1-5"><strong>Rewriting Polify.</strong> Upon retrieving Blocklist results, the PDNS resolver must rewrite resolution results for domains marked as defensive targets. The Rewriting Policy is critical to PDNS's defensive capability. Primary implementations of the rewriting module include, but are not limited to:<a href="#section-3.1-5" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-3.1-6">
+<li id="section-3.1-6.1">
+            <p id="section-3.1-6.1.1">DNS Response Policy Zones (RPZ) <span>[<a href="#RPZ" class="cite xref">RPZ</a>]</span>: Implemented as zone files <span>[<a href="#RFC1034" class="cite xref">RFC1034</a>]</span>, <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>, this approach serves as a rewriting strategy guide, specifying both whether rewriting is required and providing domain-specific rewrite results.<a href="#section-3.1-6.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-3.1-6.2">
+            <p id="section-3.1-6.2.1">Domain Lists: This format consists of one domain per line, indicating only whether a domain requires rewriting.<a href="#section-3.1-6.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ol>
+<p id="section-3.1-7">Furthermore, rewriting strategies exist in multiple forms. Based on empirical analysis of leading Protective DNS vendors, this document summarizes five specific rewriting policies.<a href="#section-3.1-7" class="pilcrow">¶</a></p>
+<p id="section-3.1-8">1) Using the secure IP addresses in A record controlled by the provider:<a href="#section-3.1-8" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.1-9">
 <pre>
     malicious_domain.com    A    10    controled_IP;
-</pre><a href="#section-4.1-3" class="pilcrow">¶</a>
+</pre><a href="#section-3.1-9" class="pilcrow">¶</a>
 </div>
-<p id="section-4.1-4">2) Using IP addresses with special purposes, such as the reserved address like 127.0.0.1, 0.0.0.0, 192.168.0.1 and so on:<a href="#section-4.1-4" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4.1-5">
+<p id="section-3.1-10">2) Using IP addresses with special purposes, such as the reserved address like 127.0.0.1, 0.0.0.0, 192.168.0.1 and so on:<a href="#section-3.1-10" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.1-11">
 <pre>
     malicious_domain.com    A    10    127.0.0.1;
-</pre><a href="#section-4.1-5" class="pilcrow">¶</a>
+</pre><a href="#section-3.1-11" class="pilcrow">¶</a>
 </div>
-<p id="section-4.1-6">3) Utilizing the CNAME record to rewrite the request to the domain name controlled by the provider:<a href="#section-4.1-6" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4.1-7">
+<p id="section-3.1-12">3) Utilizing the CNAME record to rewrite the request to the domain name controlled by the provider:<a href="#section-3.1-12" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.1-13">
 <pre>
     malicious_domain.com    CNAME    10    controled_domain.com;
-</pre><a href="#section-4.1-7" class="pilcrow">¶</a>
+</pre><a href="#section-3.1-13" class="pilcrow">¶</a>
 </div>
-<p id="section-4.1-8">4) Using an empty Answer field in the response to prevent users from accessing malicious resources:<a href="#section-4.1-8" class="pilcrow">¶</a></p>
+<p id="section-3.1-14">4) Using an empty Answer field in the response to prevent users from accessing malicious resources:<a href="#section-3.1-14" class="pilcrow">¶</a></p>
 <span id="name-format-of-empty-answer-file"></span><div id="figure2">
-<figure id="figure-2">
-          <div class="alignLeft art-text artwork" id="section-4.1-9.1">
+<figure id="figure-1">
+          <div class="alignLeft art-text artwork" id="section-3.1-15.1">
 <pre>
   0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
@@ -1345,14 +1344,14 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 </pre>
 </div>
-<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
+<figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
 <a href="#name-format-of-empty-answer-file" class="selfRef">Format of empty Answer fileld in Protective DNS.</a>
           </figcaption></figure>
 </div>
-<p id="section-4.1-10">5) Using special response codes for the reply, such as NXDomain, ServerFail, etc:<a href="#section-4.1-10" class="pilcrow">¶</a></p>
+<p id="section-3.1-16">5) Using special response codes for the reply, such as NXDomain, ServerFail, etc:<a href="#section-3.1-16" class="pilcrow">¶</a></p>
 <span id="name-format-of-nxdomain-response"></span><div id="figure3">
-<figure id="figure-3">
-          <div class="alignLeft art-text artwork" id="section-4.1-11.1">
+<figure id="figure-2">
+          <div class="alignLeft art-text artwork" id="section-3.1-17.1">
 <pre>
   0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
@@ -1381,103 +1380,201 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 </pre>
 </div>
-<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
+<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
 <a href="#name-format-of-nxdomain-response" class="selfRef">Format of NXDomain Response in Protective DNS.</a>
           </figcaption></figure>
 </div>
+<p id="section-3.1-18"><strong>Deployment Practices.</strong> Leading DNS providers have increasingly offered Protective DNS services. Observations of practical deployments, such as Cloudflare and Quad9. For example, Cloudflare operates standard DNS services on 1.1.1.1, while PDNS servers on 1.1.1.2 and 1.1.1.3 implement differentiated protection: 1) 1.1.1.2 focuses on malware defense; 2) 1.1.1.3 defends against both malware and adult content. Additionally, recognizing PDNS's defensive efficacy, nations including the U.S. <span>[<a href="#US-Protect" class="cite xref">US-Protect</a>]</span>, U.K. <span>[<a href="#UK-NCSC-PDNS" class="cite xref">UK-NCSC-PDNS</a>]</span>, and Europe <span>[<a href="#DNS4EU" class="cite xref">DNS4EU</a>]</span> have designated PDNS as critical defensive infrastructure for national-level deployments.<a href="#section-3.1-18" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="operational-consideration-2-provider-an-appropriate-blocklist-for-defense">
-<section id="section-4.2">
+<div id="distinctions-of-protective-dns-technology">
+<section id="section-3.2">
+        <h3 id="name-distinctions-of-protective-">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-distinctions-of-protective-" class="section-name selfRef">Distinctions of Protective DNS Technology</a>
+        </h3>
+<p id="section-3.2-1">Protective DNS constitutes a subset of DNS Blocking (or DNS Filtering), sharing the goal of security defense by leveraging known blocklists to prevent user exposure to malicious resources. Generally, DNS Blocking and DNS Filtering are considered synonymous <span>[<a href="#SAC127" class="cite xref">SAC127</a>]</span>. DNS Blocking is a broader security concept encompassing any rewriting operations of DNS resolution flows to restrict access to specific domains. Its applicability spans diverse scenarios and architectural layers, including defence at any DNS resolution role (client, recursive resolver, authoritative server) and other security use scenarios (e.g., spam filtering, gateway firewall protection). In contrast, PDNS represents a specific implementation of DNS Blocking deployed on recursive resolvers.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-2">Several prior documents define specific techniques within DNS Blocking:<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-3.2-3">
+<li id="section-3.2-3.1">
+            <p id="section-3.2-3.1.1">DNS Blacklist (DNSBL)<span>[<a href="#RFC5782" class="cite xref">RFC5782</a>]</span>: DNSBL represents a DNS-based blacklist query technology, serving as a concrete implementation of blocklist querying within the broader DNS Blocking paradigm (including PDNS). First, it maintains blacklists of IP addresses/domains associated with spam, malicious activities, etc. Then, they utilize DNS queries to determine whether to block related traffic.<a href="#section-3.2-3.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-3.2-3.2">
+            <p id="section-3.2-3.2.1">DNS Response Policy Zones (RPZ) <span>[<a href="#RPZ" class="cite xref">RPZ</a>]</span>: Beyond remote blocklist querying (e.g., DNSBL), local deployment offers another blocklist deployment strategy. RPZ achieves localized blocklist querying via a zone file containing rewrite instructions for each malicious domain, often utilized in the scenario like DNS Firewall. RPZ supports multiple triggering mechanisms. Among these, QNAME trigger is the primary mode adopted by PDNS.<a href="#section-3.2-3.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ol>
+<p id="section-3.2-4">Another similar security concept is censorship. While censorship shares the objective of preventing end-users from accessing specific resources with DNS Blocking, its blocking strategies are far more diverse. Domain blacklist-based blocking represents just one type of DNS-layer mitigation, alongside techniques like DNS poisoning. Cross-layer mechanisms include TCP reset attacks (sending forged RST packets), IP blocking, HTTPS man-in-the-middle attacks, and Deep Packet Inspection (DPI) for payload analysis.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
+<p id="section-3.2-5">Additionally, as the Domain Name System serves as the starting point for most network activities, domain-based defense mechanisms have become one of the primary approaches to countering cyberattacks. Defense mechanisms at the domain level are diverse, with blocking actions occurring across various roles in the domain ecosystem. For example, during the initial domain registration process, registries and registrars can use Domain Seizure to remove malicious domains from registration data, thereby preventing their continued harm to users. Registries and registrars can also employ sinkhole technology to forcefully resolve some malicious domains to domain black holes. The Protective DNS defense mechanism focused on in this document is primarily deployed on recursive resolvers. Because recursive resolvers are closer to the user side (compared to authoritative servers, registries, and registrars), deploying this mechanism on recursive resolvers achieves more significant defense effects, which is the main focus of this document.<a href="#section-3.2-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="deployment-status">
+<section id="section-4">
+      <h2 id="name-deployment-status">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-deployment-status" class="section-name selfRef">Deployment Status</a>
+      </h2>
+<p id="section-4-1">Due to the significant protective efficacy of Protective DNS, existing academic efforts have evaluated its deployment status through measurement. The results indicate an optimistic adoption trend of PDNS across large-scale DNS vendors, in-the-wild recursive resolvers, and even at the national level.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-2">Existing work, through a combination of surveying publicly available documentation from widely adopted DNS service providers and active testing, confirms that two-thirds of recursive service providers already offer Protective DNS services. Notably, practices vary significantly across vendors, including differences in the types of malicious domains defended against and rewrite policies. In terms of deployment strategies, the majority of vendors employ hybrid deployments, providing both Protective DNS and regular DNS resolution on a single resolver IP address. A smaller subset deploys Protective DNS and regular DNS resolution on separate resolver IPs, and in some cases, even different resolver servers from the same vendor may defend against distinct types of malicious domains.<a href="#section-4-2" class="pilcrow">¶</a></p>
+<p id="section-4-3">Furthermore, existing studies using active scanning in 2023 of the IPv4 address space confirm that approximately 9% of stable recursive resolvers have deployed Protective DNS capabilities, covering almost two-thirds of the world's countries. By analyzing the types of malicious domains defended against, research has found that Malware, botnet, Phishing, and Spam are the most common categories, with observable blocklist overlap across different recursive resolution services. In terms of rewrite policies, using safe IP addresses and special-purpose IP addresses represents the most prevalent rewriting approach.<a href="#section-4-3" class="pilcrow">¶</a></p>
+<p id="section-4-4">Additionally, several countries and regions have even deployed national Protective DNS projects, including:<a href="#section-4-4" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-4-5">
+<li id="section-4-5.1">
+          <p id="section-4-5.1.1">DNS4EU <span>[<a href="#DNS4EU" class="cite xref">DNS4EU</a>]</span>：Launched in January 2023 under the auspices of the European Union Agency for Cybersecurity (ENISA), this initiative serves as an alternative to prevailing public DNS resolution services. It is designed to deliver protective, privacy-compliant, and resilient DNS capabilities, thereby enhancing the EU's digital sovereignty and security. Any device connected to DNS4EU resolvers that attempts to access a malicious domain (e.g., one hosting malware or phishing content) is immediately blocked, preventing potential harm. Leveraging real-time threat monitoring and defense mechanisms, the project ensures that malicious domains identified in one EU jurisdiction are countered across multiple member states to contain their spread. DNS4EU provides DNS security assurances to critical sectors including EU citizens, public institutions, government entities, and operators, while also supporting voluntary adoption or opt-out by EU residents.<a href="#section-4-5.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li id="section-4-5.2">
+          <p id="section-4-5.2.1">PDNS in UK <span>[<a href="#UK-Defence" class="cite xref">UK-Defence</a>]</span>：Supported by the UK's National Cyber Security Centre (NCSC), this initiative advises private enterprises and government agencies to adopt Protective DNS to safeguard their IT assets and network security. By blocking access to known malicious domains, it significantly reduces the effectiveness of ransomware, phishing, botnet, and malware attacks. According to NCSC statistics, in 2022, the project's PDNS service processed 810 billion DNS queries and blocked 11 billion queries involving 420,000 distinct domains <span>[<a href="#UK-Defence" class="cite xref">UK-Defence</a>]</span>.<a href="#section-4-5.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li id="section-4-5.3">
+          <p id="section-4-5.3.1">PDNS in US <span>[<a href="#US-Protect" class="cite xref">US-Protect</a>]</span>：This initiative, launched by the Cybersecurity and Infrastructure Security Agency (CISA) in 2022, is designed to provide security safeguards for the United States' national critical infrastructure. The project protects the federal government by blocking network traffic at the DNS resolution layer from reaching potentially malicious destinations, enhancing resilience against intrusions and attacks. When Protective DNS detects a DNS request matching threat intelligence indicators, the service blocks, redirects, or sinks the query response to a secure endpoint, while sending alerts to the source agency and CISA. The initiative mandates the use of this Protective DNS service by all Federal Civil Executive Branch (FCEB) agencies and offers limited availability to infrastructure participants in pilot programs.<a href="#section-4-5.3.1" class="pilcrow">¶</a></p>
+</li>
+      </ol>
+</section>
+</div>
+<div id="operational-considerations">
+<section id="section-5">
+      <h2 id="name-operational-considerations">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-operational-considerations" class="section-name selfRef">Operational Considerations</a>
+      </h2>
+<p id="section-5-1">Considering that deployment practice is the first step in using and even maintaining the security of Protective DNS, in this section, we propose a series of operational considerations that cover multiple aspects of deployment practice, including blocklist selection, rewriting strategie construction, performance impact and offering explanation.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<div id="operational-consideration-1-blocklist-selection">
+<section id="section-5.1">
+        <h3 id="name-operational-consideration-1">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-operational-consideration-1" class="section-name selfRef">Operational Consideration 1 - Blocklist Selection</a>
+        </h3>
+<p id="section-5.1-1">One of the necessary condition for Protective DNS to achieve its defensive capability is to construct a blocklist that includes a series of malicious domain names to be blocked.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-2">First, Protective DNS operators need to construct a Blocklist. On one hand, they should choose the Blocklist sources, such as open-source threat intelligence, commercial threat feeds, self-collected malicious domains, and user feedback. On the other hand, they should specify the types of malicious domains to block, including but not limited to malware, botnet, phishing, spam, tracking, and adult content. Most importantly, operators ideally should verify the correctness of these malicious domains to avoid false positives that could impact access to legitimate domains.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.1-3">Second, PDNS operators should select an appropriate Blocklist deployment approach based on operational context (including device resource constraints and network access patterns) and application scenarios, such as deploying in RPZ format on resolvers or using network interfaces for remote querying. Remote querying approaches require preemptive consideration of potential privacy implications and impacts from network instability. Local deployments necessitate an advanced assessment of local resource limitations. Specifically, the Blocklist scale deployed on Protective DNS must be carefully defined based on the process capability. Since blocklist size directly affects both the response efficiency of Protective DNS and hardware resource consumption (e.g., CPU, memory) on the hosting device.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.1-4">Most critically, operators should endeavor to avoid controversial Blocklist formats to minimize the impact of potential false positives. First, PDNS should refrain from using keywords as Blocklist entries, as this exacerbates the likelihood of introducing false positives and undermines PDNS availability. Second, PDNS providers should avoid using wildcard domains in Blocklists, as such practices may also lead to false positives. To maximize the mitigation of false positives, defense at the granularity of the minimum subdomain (i.e., FQDN) may cause the least collateral damage.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="operational-consideration-2-rewriting-policy-construction">
+<section id="section-5.2">
         <h3 id="name-operational-consideration-2">
-<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-operational-consideration-2" class="section-name selfRef">Operational Consideration 2 - Provider an appropriate blocklist for defense</a>
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-operational-consideration-2" class="section-name selfRef">Operational Consideration 2 - Rewriting Policy Construction</a>
         </h3>
-<p id="section-4.2-1">A necessary condition for Protective DNS to achieve its defensive capability is to construct a blocklist that includes a series of malicious domain names to be blocked. The structural components of the domain name blocking list are as described in <span>[<a href="#RPZ" class="cite xref">RPZ</a>]</span>. Through the empirical analysis of popular Protective DNS vendors, these vendors currently mainly focus on a series of items related to advertisements, privacy tracking, malware, phishing, and adult content.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
-<p id="section-4.2-2">First, through the analysis of users of Protective DNS, Protective DNS providers <span class="bcp14">SHOULD</span> avoid using keywords for domain filtering, because this will increase the possibility of introducing false positives, which will affect the availability of Protective DNS.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
-<p id="section-4.2-3">Second, Protective DNS providers <span class="bcp14">SHOULD</span> avoid using wildcard blocking methods and should carry out defense at the granularity of the minimum subdomain (that is, the Fully Qualified Domain Name), so that the collateral damage caused can be minimized.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
-<p id="section-4.2-4">Finally, from the perspective of operational efficiency, the scale of the blocklist deployed on the Protective DNS <span class="bcp14">SHOULD</span> be carefully selected. It should not only avoid false positives but also choose an appropriate scale, as the scale of the blocklist will affect the response efficiency of the Protective DNS and the consumption of hardware resources of the device (such as CPU and memory).<a href="#section-4.2-4" class="pilcrow">¶</a></p>
+<p id="section-5.2-1">Based on the summarization of empirical analyses of popular Protective DNS providers, five primary rewriting approaches have been identified in practice: 1) Using safe IP addresses controlled by the PDNS provider; 2) Employing special-purpose IP addresses (e.g., reserved addresses like 127.0.0.1); 3) Rewriting requests to PDNS provider-controlled domains via CNAME records; 4) Sending responses with empty Answer sections ; 5) Returning special response codes (e.g., NXDomain, ServerFail). Each rewriting strategy caters to specific scenarios, requiring providers to select appropriate approaches based on their application requirements, specifically as follows:<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">1) Secure IP addresses: Under this policy, the rewritten target address is a server under the PDNS provider's control, enabling PDNS providers to monitor traffic. Specifically, the controlled server acts as a "honeypot" managed by the provider, capturing DNS traffic of malicious domain names for further analysis of threat behaviors (e.g., malware communications, exploit attempts). However, this approach imposes operational overhead on PDNS providers, who must actively monitor the status of these servers. Also, this scenario necessitates consideration of privacy risks arising from traffic monitoring.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.2-3">2) IP addresses with special purposes (like 0.0.0.0): Due to the non-routable nature of these IP addresses on public networks, they are better suited for scenarios with strict privacy protection requirements, such as when users do not want any third parties to obtain their network behavior. However, PDNS operators must consider potential risks when using these special IP addresses. For example: a) 192.168.0.1 is typically used for local area network devices. Such configurations may lead to unintended access to internal network devices if clients mistakenly connect to them; b) 127.0.0.1 is commonly used for local inter-process communication. Redirecting to this address may cause clients to attempt connecting to local services, which could be exploited if vulnerabilities exist—such as through port scanning or service spoofing. This is particularly risky when users mistake local services for external ones, potentially exposing sensitive information or enabling attacks. Meanwhile, this approach lacks transparency for users in the event of false positives, as it cannot provide explanatory feedback, which is discussed in detail in the Security Considerations.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+<p id="section-5.2-4">3) Secure CNAME: This strategy, similar to using controlled IP addresses, enables providers to dynamically monitor traffic. However, it is critical to remain vigilant against dangling resource risks arising from improper management, details shown in Security Considerations.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
+<p id="section-5.2-5">4) Empty Answer field: This strategy represents a minimalist defense approach, silently blocking malicious access without requiring additional processing. However, it undermines the transparency of PDNS services for users and may escalate to more aggressive implementations—such as refusing to return resolution responses— which entail denial-of-response risks detailed in the Security Considerations.<a href="#section-5.2-5" class="pilcrow">¶</a></p>
+<p id="section-5.2-6">5) Special response codes (like NXDomain): This strategy is compatible with traditional DNS error scenarios, which helps prevent malware from detecting the defensive mechanisms of PDNS. Such practices may also undermine the transparency of Protective DNS services, making it difficult for users to understand the rationale behind rewriting actions.<a href="#section-5.2-6" class="pilcrow">¶</a></p>
+<p id="section-5.2-7">Second, PDNS operators should consider the impact of TTL settings and appropriately configure the TTL for rewritten records. On one hand, an excessively long TTL may lead to delayed updates of defense strategies for malicious domains. On the other hand, a too-short TTL triggers frequent queries, increasing PDNS server load and potentially degrading performance.<a href="#section-5.2-7" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="operational-consideration-3-offer-transparent-blocking-policies">
-<section id="section-4.3">
+<div id="operational-consideration-3-performance-impact">
+<section id="section-5.3">
         <h3 id="name-operational-consideration-3">
-<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-operational-consideration-3" class="section-name selfRef">Operational Consideration 3 - Offer transparent blocking policies</a>
+<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-operational-consideration-3" class="section-name selfRef">Operational Consideration 3 - Performance Impact</a>
         </h3>
-<p id="section-4.3-1">Protective DNS is a completely black-box service for users. Regardless of the rewriting strategy adopted by Protective DNS, users can only perceive the effect of defensive blocking, that is, the domain name cannot be accessed. Although Protective DNS providers can refine and improve the quality of the blocklist (filtering out false positives as much as possible), the existence of false positives that slip through the net can still severely damage the user experience. From the user's perspective, the website they want to access is inexplicably inaccessible, and it is difficult to distinguish from a large number of DNS tampering behaviors on the network (such as censorship, man-in-the-middle hijacking, etc.). Therefore, from the perspective of enhancing the availability of Protective DNS, we recommend that providers <span class="bcp14">MUST</span> ensure transparency as much as possible.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
-<p id="section-4.3-2">On the one hand, to demonstrate that the blocking action originates from the Protective DNS, the service provider <span class="bcp14">SHOULD</span> provide a page to explain their rewriting strategy. In the results of the empirical analysis, we found that some providers rewrite by using a secure IP address and deploy a page on this IP address to indicate that the website the user is accessing may be malicious. However, using an IP address controlled by the service provider poses potential security risks, specifically the risk of Dangling resource takeover, which is elaborated in Security Consideration 3. Therefore, it is advisable for the service provider to use a dedicated page (this page should be explicitly deployed on the page provided by the service) to illustrate their defense strategy, helping users confirm that the DNS rewriting they encounter may be from the Protective DNS service provided by this provider.<a href="#section-4.3-2" class="pilcrow">¶</a></p>
-<p id="section-4.3-3">On the other hand, to avoid the impact of false positives, service providers <span class="bcp14">SHOULD</span> provide users with an appeal channel on the explanatory page, such as providing an email address. Through the analysis of the measurement results of academic papers, only 14 Protective DNS deploy explanatory pages on the secure IP addresses used for defense.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
+<p id="section-5.3-1">As Protective DNS services introduce an additional step to query whether a domain is malicious during standard DNS resolution, operators must anticipate potential impacts on DNS resolution performance. Specifically, factors such as Blocklist deployment method (remote vs. local), scale, and domain matching techniques (e.g., hash matching) can affect performance. Experimental results show that loading a Blocklist with five million malicious domains can still be maintained within sub-second levels, but exceeding this scale may result in loading times exceeding 10 seconds, leading to unacceptable performance impacts.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="operational-consideration-4-offering-explanation">
+<section id="section-5.4">
+        <h3 id="name-operational-consideration-4">
+<a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-operational-consideration-4" class="section-name selfRef">Operational Consideration 4 - Offering Explanation</a>
+        </h3>
+<p id="section-5.4-1">Protective DNS operates as a complete black-box service to users. Regardless of the rewriting strategy employed, users only perceive the blocking effect—i.e., the inability to access a domain. While providers can refine blocklist quality to minimize false positives, their inevitable presence significantly degrades user experience. Users may encounter unexplained inaccessibility that is indistinguishable from prevalent DNS tampering (e.g., censorship, man-in-the-middle attacks). Therefore, providing explanations for Protective DNS actions enhances usability. Operators should anticipate that omitted explanations may lead users to misperceive service instability or even switch to competing DNS providers.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+<p id="section-5.4-2">This explanatory of PDNS can be realized through multiple approaches. First, to indicate that blocking originates from Protective DNS, service providers may offer a dedicated landing page explaining their protective services, helping users confirm that observed DNS rewriting is likely due to the provider’s Protective DNS. Empirical analyses show some providers rewrite to a secure IP address hosting a page notifying users of potential malicious website access. However, using a provider-controlled IP introduces risks of dangling resource takeover, detailed in Security Consideration. Second, the EDE (Extended DNS Error) <span>[<a href="#RFC8914" class="cite xref">RFC8914</a>]</span>, <span>[<a href="#Structered-Error" class="cite xref">Structered-Error</a>]</span> protocol can be employed to specify in extension fields that rewriting results from Protective DNS defense against malicious domains.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
+<p id="section-5.4-3">Moreover, providing user appeal mechanisms on explanatory pages, such as providing an email address, could mitigate negative impacts from potential false positives.<a href="#section-5.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
 <div id="security-considerations">
-<section id="section-5">
+<section id="section-6">
       <h2 id="name-security-considerations">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-5-1">Furthermore, by integrating the operational considerations, we propose some security considerations to enhance the security of Protective DNS on the basis of improving its practicality. We put forward specific considerations covering multiple dimensions, and for each consideration factor, we provide specific recommended solutions, including aspects such as security blocking strategies, rewriting strategies, and privacy protection.<a href="#section-5-1" class="pilcrow">¶</a></p>
-<div id="security-consideration-1-avoid-improper-configuration">
-<section id="section-5.1">
-        <h3 id="name-security-consideration-1-av">
-<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-security-consideration-1-av" class="section-name selfRef">Security Consideration 1 - Avoid Improper Configuration</a>
+<p id="section-6-1">Furthermore, by integrating the operational considerations, we propose some security considerations to enhance the security of Protective DNS on the basis of improving its practicality. We put forward specific considerations covering multiple dimensions, and for each consideration factor, we provide specific recommended solutions, including policy flaws, over-blocking, dangling resources, compatibility with other security practices, fault diagnosis and privacy.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<div id="security-consideration-1-policy-flaw">
+<section id="section-6.1">
+        <h3 id="name-security-consideration-1-po">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-security-consideration-1-po" class="section-name selfRef">Security Consideration 1 - Policy Flaw</a>
         </h3>
-<p id="section-5.1-1">To prevent the protection function from failing or even being bypassed, Protective DNS service providers need to fully configure the defense as much as possible, which mainly includes two aspects.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.1-2"><strong>Avoid Redundant Configuration</strong>. According to the measurement of Protective DNS services, the configurations of Protective DNS by some providers have defects. Specifically, along with the secure rewriting records, providers may also include the original malicious records in the DNS response. For the local stub resolver of users, the selection of the resolution result is uncontrollable, and users still have a high possibility of accessing malicious resources. Therefore, Protective DNS providers <span class="bcp14">SHOULD</span> avoid such redundant configurations to ensure the completeness of the defense effect.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
-<p id="section-5.1-3"><strong>Avoid Configuration Gaps</strong>. While A records are the most common type of DNS resolution and are often the primary focus for defensive configuration by service providers—since they directly point users to malicious resources—empirical measurements have revealed that some Protective DNS providers fail to secure less common query types, such as TXT records. In these cases, the provider may return unfiltered responses, potentially exposing users to hidden threats. This oversight could be exploited to bypass PDNS protections, particularly when malicious domains embed harmful instructions within less scrutinized record types. Therefore, to ensure comprehensive defense, Protective DNS providers <span class="bcp14">SHOULD</span> configure defensive capabilities for all DNS record types, including TXT, MX, and others. However, situations such as DNSSEC also need to be considered, and detailed explanations can be found in Security Consideration 4.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
-<p id="section-5.1-4"><strong>Avoid Function Gaps</strong>. In addition to the defensive configuration of the response results, Protective DNS service providers should ensure that the defensive functions are effective in any functional scenario. Specifically, encrypted DNS should also have the same defensive effect as non-encrypted DNS, to prevent malicious domain names from bypassing the defense by merely using encrypted DNS.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+<p id="section-6.1-1">To prevent the protection function from flaws or even being bypassed, service providers should consider the following three aspects.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-2"><strong>Redundant Rdata.</strong> According to the measurement of Protective DNS services, the configurations of Rdata in rewritten records by some providers have defects. Specifically, existing reseaerch work noticed that along with the secure rewriting records, several PDNS providers may also include the original malicious records in the DNS response. For local stub resolvers of users, the selection of the resolution result is uncontrollable, and users still have a high possibility of accessing malicious resources. Therefore, Protective DNS providers <span class="bcp14">SHOULD</span> avoid such redundant configurations to ensure the completeness of the defense effect.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
+<p id="section-6.1-3"><strong>Missing Rtype.</strong> While A records are the most common type of DNS resolution and are often the primary focus for defensive configuration by service providers—since they directly point users to malicious resources—empirical measurements have revealed that some Protective DNS providers fail to secure less common query types, such as TXT records. In these cases, the provider may return unfiltered responses, potentially exposing users to hidden threats. This oversight could be exploited to bypass PDNS protections, particularly when malicious domains embed harmful instructions within less scrutinized record types. Therefore, to ensure comprehensive defense, Protective DNS providers <span class="bcp14">SHOULD</span> configure defensive capabilities for all DNS record types, including TXT, MX, and others.<a href="#section-6.1-3" class="pilcrow">¶</a></p>
+<p id="section-6.1-4"><strong>Policy coverage.</strong> In addition to the defensive configuration of the response results, Protective DNS service providers should ensure that the defensive functions are effective in any functional scenario. Specifically, encrypted DNS should also have the same defensive effect as non-encrypted DNS, to prevent malicious domain names from bypassing the defense by merely using encrypted DNS. Additionally, IPv6 scenarios should also be taken into consideration.<a href="#section-6.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="security-consideration-2-avoid-over-blocking">
-<section id="section-5.2">
-        <h3 id="name-security-consideration-2-av">
-<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-security-consideration-2-av" class="section-name selfRef">Security Consideration 2 - Avoid Over-Blocking</a>
+<div id="security-consideration-2-dangling-resources">
+<section id="section-6.2">
+        <h3 id="name-security-consideration-2-da">
+<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-security-consideration-2-da" class="section-name selfRef">Security Consideration 2 - Dangling Resources</a>
         </h3>
-<p id="section-5.2-1">The primary defense objective of Protective DNS is to prevent users from accessing any malicious resources, that is, to intercept as many malicious domain names as possible. However, through practical analysis, some Protective DNS systems exhibit the phenomenon of over-blocking, which refers to the collateral damage caused by overly aggressive blocking. In empirical measurement and analysis, it has been found that some Protective DNS services adopt overly aggressive defense strategies for DNS queries of a group (no less than one) of malicious domain names. That is, they temporarily block the domain name resolution of all requests from a client, and even legitimate domain names cannot be resolved normally. This phenomenon is called the Denial of Resolution (DoR) attack caused by Protective DNS. Attackers can exploit this phenomenon to cause a DoR effect on any victim. Specifically, by forging the source address and sending a set of queries for malicious domain names, they can prevent the victim from normally completing any domain name resolution, thus achieving the effect of a denial-of-service attack.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.2-2">Therefore, Protective DNS service providers <span class="bcp14">SHOULD</span> avoid using aggressive defense strategies, such as the no-response strategy. At the same time, Protective DNS providers <span class="bcp14">MUST</span> pre-configure defense solutions against potential DoR risks. Specifically, when a client initiates a large number (higher than a certain threshold) of DNS query requests for malicious domain names to the Protective DNS server, the provider <span class="bcp14">SHOULD NOT</span> directly refuse to respond to any query requests for a certain period of time. Instead, it should send a relatively large DNS response to force the client to use DNS over TCP, effectively preventing attackers from launching DoR attacks constructed through IP spoofing.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<p id="section-6.2-1">For controllability considerations, some Protective DNS providers use self-controlled domains or IPs as rewriting strategies. However, mismanagement of these rewritten resources may lead to takeover risks from Dangling resources, specifically:<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-6.2-2">
+<li id="section-6.2-2.1">
+            <p id="section-6.2-2.1.1">If the rewritten IP is a cloud service IP, obsolete IP addresses pose a takeover risk.<a href="#section-6.2-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-6.2-2.2">
+            <p id="section-6.2-2.2.1">If the rewritten CNAME domain expires, there is an expired domain takeover risk.<a href="#section-6.2-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-6.2-2.3">
+            <p id="section-6.2-2.3.1">If the rewritten CNAME domain belongs to a third-party service, subdomain takeover risks may arise.<a href="#section-6.2-2.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ol>
+<p id="section-6.2-3">Upon gaining control of vulnerable rewritten resources (e.g., those at expiry risk), attackers can trigger queries for malicious domains to the compromised Protective DNS server via phishing or similar tactics. They can then return modified malicious content to victims, enabling connections between victims and attacker servers.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
+<p id="section-6.2-4">Therefore, Protective DNS service providers should exercise caution when using third-party network resources. On one hand, they should consider the financial and management costs required for regular maintenance of these resources. On the other hand, they need to periodically verify the status of these third-party services to avoid dangling resource risks.<a href="#section-6.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="security-consideration-3-ensure-secure-resource-usage">
-<section id="section-5.3">
-        <h3 id="name-security-consideration-3-en">
-<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-security-consideration-3-en" class="section-name selfRef">Security Consideration 3 - Ensure Secure Resource Usage</a>
+<div id="security-consideration-3-over-blocking">
+<section id="section-6.3">
+        <h3 id="name-security-consideration-3-ov">
+<a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-security-consideration-3-ov" class="section-name selfRef">Security Consideration 3 - Over-Blocking</a>
         </h3>
-<p id="section-5.3-1">Out of considerations for controllability, most Protective DNS providers will adopt domain names or IP addresses under their control as a rewriting strategy. However, improper management of these rewritten resources can expose serious security risks. For instance, after a third-party attacker takes over rewritten resources with vulnerabilities (such as those with expiration risks) and gains control over these resources, the attacker can trigger query requests for malicious domain names from victims to the Protective DNS server whose resources are under the attacker's control through means like phishing, and return modified malicious content to the victims, thereby establishing a connection between the victims and the attacker's server.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
-<p id="section-5.3-2">Therefore, Protective DNS should strive to avoid using third-party resources as its rewriting infrastructure, such as cloud services. Even when using third-party resources, it is essential to use them with caution and regularly confirm the availability status of these resources.<a href="#section-5.3-2" class="pilcrow">¶</a></p>
+<p id="section-6.3-1">Protective DNS rewriting should minimize over-blocking, as this introduces significant collateral damage in two primary aspects.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
+<p id="section-6.3-2"><strong>Blocklist Construction.</strong> First and foremost, Protective DNS service providers should strive to avoid errors in blocklists, as this represents the most direct cause of collateral damage to unrelated parties. Secondly, generalizing target domains for blocking in Protective DNS may also lead to collateral damage. Using keywords as blocklist entries exacerbates the likelihood of false positives, causing unintended blocking of unrelated domains and degrading PDNS availability. Employing wildcard domains in blocklists similarly introduces false positives. Meanwhile, blocking at the second-level domain (SLD) or top-level domain (TLD) tiers can also trigger false positives—for example, cloud services often host user-specific services on subdomains, so blocking the apex domain of such a cloud service would impact numerous unrelated services. Thus, defending at the granularity of the minimum subdomain (i.e., fully qualified domain name, FQDN) minimizes collateral damage. Finally, providers must promptly update blocklists to avoid false positives from delayed updates.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
+<p id="section-6.3-3"><strong>Blocking Policy.</strong> The primary defense objective of Protective DNS is to prevent users from accessing any malicious resources, i.e., intercept as many malicious domains as possible. However, empirical analysis has shown that some Protective DNS implementations exhibit over-blocking—collateral damage from overly aggressive blocking. Measurements reveal that certain Protective DNS services apply extreme defensive strategies to queries for a set of malicious domains (≥1), temporarily blocking all domain resolution for the client—including legitimate domains. This introduces denial-of-response (DoR) risks, as attackers can exploit this behavior to impose DoR on arbitrary victims. Specifically, sending a set of malicious domain queries with spoofed source addresses can force the victim’s client to lose all DNS resolution capabilities, effectively executing a denial-of-service attack.<a href="#section-6.3-3" class="pilcrow">¶</a></p>
+<p id="section-6.3-4">Therefore, PDNS service providers should exercise caution when implementing aggressive defensive strategies and consider the potential impact of such approaches in advance. Concurrently, Protective DNS providers must preconfigure defense mechanisms against potential denial-of-resolution (DoR) risks. Specifically, when a client initiates a large volume of DNS queries (above a certain threshold) for malicious domains to a Protective DNS server, providers should consider the impact of directly denying all DNS query responses from the client for a period of time. To effectively mitigate denial-of-response attacks, providers can send a large DNS response to force clients to use DNS over TCP, thereby thwarting DoR attacks constructed via IP spoofing.<a href="#section-6.3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="security-consideration-4-possess-compatibility">
-<section id="section-5.4">
-        <h3 id="name-security-consideration-4-po">
-<a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-security-consideration-4-po" class="section-name selfRef">Security Consideration 4 - Possess compatibility</a>
+<div id="security-consideration-4-compatibility-with-other-security-practices">
+<section id="section-6.4">
+        <h3 id="name-security-consideration-4-co">
+<a href="#section-6.4" class="section-number selfRef">6.4. </a><a href="#name-security-consideration-4-co" class="section-name selfRef">Security Consideration 4 - Compatibility with other security practices</a>
         </h3>
-<p id="section-5.4-1">Since the defense mechanism implemented by Protective DNS requires rewriting the original DNS response content, this rewriting operation needs to ensure compatibility with other protocols and functions within the DNS architecture. Specifically, the rewriting performed by Protective DNS should not conflict with the processing of DNSSEC as specified in <span>[<a href="#RFC4033" class="cite xref">RFC4033</a>]</span>. This is because if the rewriting of the DNS response by Protective DNS does not follow certain specifications, it may interfere with the verification process of DNSSEC. For example, if Protective DNS deletes or modifies DNSSEC-related records when rewriting the response, it may lead to the failure of DNSSEC verification. Therefore, when Protective DNS rewrites the response, it should handle DNSSEC records correctly and maintain their integrity to avoid conflicts with the DNSSEC mechanism. This item mainly focuses on DNSSEC-related records and does not conflict with Security Consideration 1.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+<p id="section-6.4-1">Protective DNS may interact with other security practices in the DNS architecture, such as DNSSEC <span>[<a href="#RFC4033" class="cite xref">RFC4033</a>]</span>. Under normal circumstances, DNSSEC primarily operates between recursive resolvers and authoritative servers. For Protective DNS, when a malicious domain matches the blocklist, if the PDNS server does not query the authoritative server for DNSSEC records, the mutual impact between PDNS and DNSSEC remains limited. However, PDNS service providers must consider scenarios where clients request PDNS servers to perform DNSSEC queries and validation for blocked malicious domains—such as by setting the DO (DNSSEC OK) bit <span>[<a href="#RFC4035" class="cite xref">RFC4035</a>]</span>. In such cases, PDNS rewriting protection may affect the normal operation of DNSSEC.Therefore, PDNS service providers should pre-emptively consider the mutual impacts between PDNS services and other security practices.<a href="#section-6.4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="security-consideration-5-fault-diagnosis">
+<section id="section-6.5">
+        <h3 id="name-security-consideration-5-fa">
+<a href="#section-6.5" class="section-number selfRef">6.5. </a><a href="#name-security-consideration-5-fa" class="section-name selfRef">Security Consideration 5 - Fault Diagnosis</a>
+        </h3>
+<p id="section-6.5-1">As Protective DNS introduces new components, such as blocklists, service providers should consider fault diagnosis for denial-of-service (DoS) failures in individual components and corresponding fallback mechanisms to ensure performance stability. For example, in scenarios involving remote blocklist queries, providers should proactively diagnose the availability of remote blocklist interfaces on a regular basis. If remote blocklist query services become unavailable due to network issues or other causes, and no fallback mechanism is in place, this may render the provider’s DNS query services inoperable. Thus, providers must predefine fallback mechanisms—such as reverting to normal DNS resolution procedures.<a href="#section-6.5-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="security-consideration-6-privacy">
+<section id="section-6.6">
+        <h3 id="name-security-consideration-6-pr">
+<a href="#section-6.6" class="section-number selfRef">6.6. </a><a href="#name-security-consideration-6-pr" class="section-name selfRef">Security Consideration 6 - Privacy</a>
+        </h3>
+<p id="section-6.6-1">test.<a href="#section-6.6-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
 <div id="iana-considerations">
-<section id="section-6">
+<section id="section-7">
       <h2 id="name-iana-considerations">
-<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-6-1">This document has no IANA actions.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-7-1">This document has no IANA actions.<a href="#section-7-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-combined-references">
-<section id="section-7">
+<section id="section-8">
       <h2 id="name-references">
-<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-references" class="section-name selfRef">References</a>
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
 <div id="sec-normative-references">
-<section id="section-7.1">
+<section id="section-8.1">
         <h3 id="name-normative-references">
-<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
-<dt id="Error-Filter">[Error-Filter]</dt>
-        <dd>
-<span class="refTitle">"Structured Error Data for Filtered DNS draft-ietf-dnsop-structured-dns-error-13"</span>, <time datetime="2025-04" class="refDate">April 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-ietf-dnsop-structured-dns-error/">https://datatracker.ietf.org/doc/draft-ietf-dnsop-structured-dns-error/</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC1034">[RFC1034]</dt>
         <dd>
 <span class="refAuthor">Mockapetris, P.</span>, <span class="refTitle">"Domain names - concepts and facilities"</span>, <span class="seriesInfo">STD 13</span>, <span class="seriesInfo">RFC 1034</span>, <span class="seriesInfo">DOI 10.17487/RFC1034</span>, <time datetime="1987-11" class="refDate">November 1987</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc1034">https://www.rfc-editor.org/rfc/rfc1034</a>&gt;</span>. </dd>
@@ -1494,21 +1591,37 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         <dd>
 <span class="refAuthor">Arends, R.</span>, <span class="refAuthor">Austein, R.</span>, <span class="refAuthor">Larson, M.</span>, <span class="refAuthor">Massey, D.</span>, and <span class="refAuthor">S. Rose</span>, <span class="refTitle">"DNS Security Introduction and Requirements"</span>, <span class="seriesInfo">RFC 4033</span>, <span class="seriesInfo">DOI 10.17487/RFC4033</span>, <time datetime="2005-03" class="refDate">March 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4033">https://www.rfc-editor.org/rfc/rfc4033</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC4035">[RFC4035]</dt>
+        <dd>
+<span class="refAuthor">Arends, R.</span>, <span class="refAuthor">Austein, R.</span>, <span class="refAuthor">Larson, M.</span>, <span class="refAuthor">Massey, D.</span>, and <span class="refAuthor">S. Rose</span>, <span class="refTitle">"Protocol Modifications for the DNS Security Extensions"</span>, <span class="seriesInfo">RFC 4035</span>, <span class="seriesInfo">DOI 10.17487/RFC4035</span>, <time datetime="2005-03" class="refDate">March 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4035">https://www.rfc-editor.org/rfc/rfc4035</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5782">[RFC5782]</dt>
+        <dd>
+<span class="refAuthor">Levine, J.</span>, <span class="refTitle">"DNS Blacklists and Whitelists"</span>, <span class="seriesInfo">RFC 5782</span>, <span class="seriesInfo">DOI 10.17487/RFC5782</span>, <time datetime="2010-02" class="refDate">February 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5782">https://www.rfc-editor.org/rfc/rfc5782</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
         <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC8914">[RFC8914]</dt>
+        <dd>
+<span class="refAuthor">Kumari, W.</span>, <span class="refAuthor">Hunt, E.</span>, <span class="refAuthor">Arends, R.</span>, <span class="refAuthor">Hardaker, W.</span>, and <span class="refAuthor">D. Lawrence</span>, <span class="refTitle">"Extended DNS Errors"</span>, <span class="seriesInfo">RFC 8914</span>, <span class="seriesInfo">DOI 10.17487/RFC8914</span>, <time datetime="2020-10" class="refDate">October 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8914">https://www.rfc-editor.org/rfc/rfc8914</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RPZ">[RPZ]</dt>
-      <dd>
+        <dd>
 <span class="refTitle">"DNS Response Policy Zones (RPZ) draft-ietf-dnsop-dns-rpz-00"</span>, <time datetime="2017-03" class="refDate">March 2017</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-dnsop-dns-rpz-00">https://datatracker.ietf.org/doc/html/draft-ietf-dnsop-dns-rpz-00</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="Structered-Error">[Structered-Error]</dt>
+      <dd>
+<span class="refTitle">"Structured Error Data for Filtered DNS draft-ietf-dnsop-structured-dns-error-13"</span>, <time datetime="2025-04" class="refDate">April 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/draft-ietf-dnsop-structured-dns-error/">https://datatracker.ietf.org/doc/draft-ietf-dnsop-structured-dns-error/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
 </div>
 <div id="sec-informative-references">
-<section id="section-7.2">
+<section id="section-8.2">
         <h3 id="name-informative-references">
-<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
 <dt id="Canada-Protect">[Canada-Protect]</dt>
@@ -1527,9 +1640,21 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         <dd>
 <span class="refTitle">"Understanding the Implementation and Security Implications of Protective DNS Services"</span>, <time datetime="2024-03" class="refDate">March 2024</time>, <span>&lt;<a href="https://www.ndss-symposium.org/ndss-paper/understanding-the-implementation-and-security-implications-of-protective-dns-services/">https://www.ndss-symposium.org/ndss-paper/understanding-the-implementation-and-security-implications-of-protective-dns-services/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC5782">[RFC5782]</dt>
+<dt id="SAC127">[SAC127]</dt>
         <dd>
-<span class="refAuthor">Levine, J.</span>, <span class="refTitle">"DNS Blacklists and Whitelists"</span>, <span class="seriesInfo">RFC 5782</span>, <span class="seriesInfo">DOI 10.17487/RFC5782</span>, <time datetime="2010-02" class="refDate">February 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5782">https://www.rfc-editor.org/rfc/rfc5782</a>&gt;</span>. </dd>
+<span class="refTitle">"SAC127 DNS Blocking Revisited"</span>, <time datetime="2025-05" class="refDate">May 2025</time>, <span>&lt;<a href="https://itp.cdn.icann.org/en/files/security-and-stability-advisory-committee-ssac-reports/sac127-dns-blocking-revisited-16-05-2025-en.pdf">https://itp.cdn.icann.org/en/files/security-and-stability-advisory-committee-ssac-reports/sac127-dns-blocking-revisited-16-05-2025-en.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="UK-Defence">[UK-Defence]</dt>
+        <dd>
+<span class="refTitle">"Active Cyber Defence"</span>, <time datetime="2022" class="refDate">2022</time>, <span>&lt;<a href="https://www.ncsc.gov.uk/files/ACD6-full-report.pdf">https://www.ncsc.gov.uk/files/ACD6-full-report.pdf</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="UK-NCSC-PDNS">[UK-NCSC-PDNS]</dt>
+        <dd>
+<span class="refTitle">"NCSC announces new partnership for PDNS delivery"</span>, <time datetime="2024-04" class="refDate">April 2024</time>, <span>&lt;<a href="https://4thplatform.co.uk/2024/04/19/ncsc-announces-new-partnership-for-pdns-delivery-2-2/">https://4thplatform.co.uk/2024/04/19/ncsc-announces-new-partnership-for-pdns-delivery-2-2/</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="UK-NCSC-PDNS-Usage">[UK-NCSC-PDNS-Usage]</dt>
+        <dd>
+<span class="refTitle">"Experts in Domain Name System (DNS) Services"</span>, <time datetime="2025" class="refDate">2025</time>, <span>&lt;<a href="https://nominet.uk/dns-services/">https://nominet.uk/dns-services/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="US-Protect">[US-Protect]</dt>
         <dd>
