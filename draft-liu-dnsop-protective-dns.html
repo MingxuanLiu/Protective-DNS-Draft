@@ -10,9 +10,9 @@
 <meta content="Baojun Liu" name="author">
 <meta content="Chaoyi Lu" name="author">
 <meta content="
-       Protective DNS identifies whether the domain names requested by client customers are in the blocklist (or threat intelligence) it maintains. For domain names listed in the blocklist, it rewrites the resolution results to secure resources to prevent users from accessing malicious resources, such as malicious servers (IP addresses), etc. 
-       Due to its flexible deployment model and effective defenses, the scale of Protective DNS deployments has grown continuously through numerous deployment efforts. Not only have well-known domain name resolution service providers begun deploying this defensive service, but some nations have also initiated national-level deployments. Concurrently, studies have also made several efforts to analyze Protective DNS, identifying a series of implementation discrepancies. 
-       Therefore, this document aims to provide specific and practical considerations for the deployment, operation and security of Protective DNS by summarizing relevant conclusions. It should be stated that this document is primarily intended for those willing to deploy Protective DNS for defensive purposes, offering concrete considerations regarding deployment. 
+       Protective DNS identifies whether domain names requested by clients are in its maintained blocklist. For blocklisted domains, it rewrites resolution responses to point to secure resources (e.g., safe servers) to prevent user access to malicious entities. 
+       Owing to its effective defenses, Protective DNS deployment has surged through numerous efforts. Not only have renowned DNS resolution service providers adopted this defense, but some nations have also launched national-scale deployments. Concurrently, studies have attempted to analyze Protective DNS, identifying a series of implementation inconsistencies. 
+       Thus, this document aims to provide specific operational and security considerations for Protective DNS by synthesizing key findings. It is intended primarily for entities seeking to deploy Protective DNS for defensive purposes, offering concrete deployment recommendations. 
     " name="description">
 <meta content="xml2rfc 3.29.0" name="generator">
 <meta content="draft-liu-dnsop-protective-dns-latest" name="ietf.draft">
@@ -1095,9 +1095,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Considerations for Protective DNS Server Operators</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">Protective DNS identifies whether the domain names requested by client customers are in the blocklist (or threat intelligence) it maintains. For domain names listed in the blocklist, it rewrites the resolution results to secure resources to prevent users from accessing malicious resources, such as malicious servers (IP addresses), etc.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
-<p id="section-abstract-2">Due to its flexible deployment model and effective defenses, the scale of Protective DNS deployments has grown continuously through numerous deployment efforts. Not only have well-known domain name resolution service providers begun deploying this defensive service, but some nations have also initiated national-level deployments. Concurrently, studies have also made several efforts to analyze Protective DNS, identifying a series of implementation discrepancies.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
-<p id="section-abstract-3">Therefore, this document aims to provide specific and practical considerations for the deployment, operation and security of Protective DNS by summarizing relevant conclusions. It should be stated that this document is primarily intended for those willing to deploy Protective DNS for defensive purposes, offering concrete considerations regarding deployment.<a href="#section-abstract-3" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">Protective DNS identifies whether domain names requested by clients are in its maintained blocklist. For blocklisted domains, it rewrites resolution responses to point to secure resources (e.g., safe servers) to prevent user access to malicious entities.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">Owing to its effective defenses, Protective DNS deployment has surged through numerous efforts. Not only have renowned DNS resolution service providers adopted this defense, but some nations have also launched national-scale deployments. Concurrently, studies have attempted to analyze Protective DNS, identifying a series of implementation inconsistencies.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+<p id="section-abstract-3">Thus, this document aims to provide specific operational and security considerations for Protective DNS by synthesizing key findings. It is intended primarily for entities seeking to deploy Protective DNS for defensive purposes, offering concrete deployment recommendations.<a href="#section-abstract-3" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1212,9 +1212,6 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5">
                 <p id="section-toc.1-1.6.2.5.1"><a href="#section-6.5" class="auto internal xref">6.5</a>.  <a href="#name-security-consideration-5-fa" class="internal xref">Security Consideration 5 - Fault Diagnosis</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.6">
-                <p id="section-toc.1-1.6.2.6.1"><a href="#section-6.6" class="auto internal xref">6.6</a>.  <a href="#name-security-consideration-6-pr" class="internal xref">Security Consideration 6 - Privacy</a></p>
 </li>
             </ul>
 </li>
@@ -1544,14 +1541,6 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <a href="#section-6.5" class="section-number selfRef">6.5. </a><a href="#name-security-consideration-5-fa" class="section-name selfRef">Security Consideration 5 - Fault Diagnosis</a>
         </h3>
 <p id="section-6.5-1">As Protective DNS introduces new components, such as blocklists, service providers should consider fault diagnosis for denial-of-service (DoS) failures in individual components and corresponding fallback mechanisms to ensure performance stability. For example, in scenarios involving remote blocklist queries, providers should proactively diagnose the availability of remote blocklist interfaces on a regular basis. If remote blocklist query services become unavailable due to network issues or other causes, and no fallback mechanism is in place, this may render the provider’s DNS query services inoperable. Thus, providers must predefine fallback mechanisms—such as reverting to normal DNS resolution procedures.<a href="#section-6.5-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="security-consideration-6-privacy">
-<section id="section-6.6">
-        <h3 id="name-security-consideration-6-pr">
-<a href="#section-6.6" class="section-number selfRef">6.6. </a><a href="#name-security-consideration-6-pr" class="section-name selfRef">Security Consideration 6 - Privacy</a>
-        </h3>
-<p id="section-6.6-1">test.<a href="#section-6.6-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
