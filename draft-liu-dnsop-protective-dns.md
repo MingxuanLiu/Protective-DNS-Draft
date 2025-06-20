@@ -109,11 +109,11 @@ informative:
 
 --- abstract
 
-Protective DNS identifies whether the domain names requested by client customers are in the blocklist (or threat intelligence) it maintains. For domain names listed in the blocklist, it rewrites the resolution results to secure resources to prevent users from accessing malicious resources, such as malicious servers (IP addresses), etc.
+Protective DNS identifies whether domain names requested by clients are in its maintained blocklist. For blocklisted domains, it rewrites resolution responses to point to secure resources (e.g., safe servers) to prevent user access to malicious entities.
 
-Due to its flexible deployment model and effective defenses, the scale of Protective DNS deployments has grown continuously through numerous deployment efforts. Not only have well-known domain name resolution service providers begun deploying this defensive service, but some nations have also initiated national-level deployments. Concurrently, studies have also made several efforts to analyze Protective DNS, identifying a series of implementation discrepancies.
+Owing to its effective defenses, Protective DNS deployment has surged through numerous efforts. Not only have renowned DNS resolution service providers adopted this defense, but some nations have also launched national-scale deployments. Concurrently, studies have attempted to analyze Protective DNS, identifying a series of implementation inconsistencies.
 
-Therefore, this document aims to provide specific and practical considerations for the deployment, operation and security of Protective DNS by summarizing relevant conclusions. It should be stated that this document is primarily intended for those willing to deploy Protective DNS for defensive purposes, offering concrete considerations regarding deployment.
+Thus, this document aims to provide specific operational and security considerations for Protective DNS by synthesizing key findings. It is intended primarily for entities seeking to deploy Protective DNS for defensive purposes, offering concrete deployment recommendations.
 
 --- middle
 
@@ -340,10 +340,6 @@ Protective DNS may interact with other security practices in the DNS architectur
 ## Security Consideration 5 - Fault Diagnosis
 
 As Protective DNS introduces new components, such as blocklists, service providers should consider fault diagnosis for denial-of-service (DoS) failures in individual components and corresponding fallback mechanisms to ensure performance stability. For example, in scenarios involving remote blocklist queries, providers should proactively diagnose the availability of remote blocklist interfaces on a regular basis. If remote blocklist query services become unavailable due to network issues or other causes, and no fallback mechanism is in place, this may render the provider’s DNS query services inoperable. Thus, providers must predefine fallback mechanisms—such as reverting to normal DNS resolution procedures.
-
-## Security Consideration 6 - Privacy
-
-test.
 
 # IANA Considerations
 
