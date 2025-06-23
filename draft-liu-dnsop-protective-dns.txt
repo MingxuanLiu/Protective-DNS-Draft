@@ -207,7 +207,7 @@ Table of Contents
    and-control (C2), phishing, fraud, and adult content.
 
    *Rewriting Policy.* Upon retrieving Blocklist matching results, the
-   PDNS server must rewrite resolution responses for domains marked as
+   PDNS server should rewrite resolution responses for domains marked as
    malicious targets.  The Rewriting Policy is critical to PDNS's
    defensive capability.  Primary implementations of the rewriting
    module include, but are not limited to:
@@ -483,10 +483,11 @@ Table of Contents
    require proactive consideration of potential privacy implications and
    impacts from network instability.  Local deployments necessitate a
    thorough assessment of local resource limitations.  Specifically, the
-   Blocklist scale deployed on Protective DNS must be carefully defined
-   based on the system's processing capability.  Blocklist size directly
-   affects both the response efficiency of Protective DNS and hardware
-   resource consumption (e.g., CPU, memory) on the hosting device.
+   Blocklist scale deployed on Protective DNS should be carefully
+   defined based on the system's processing capability.  Blocklist size
+   directly affects both the response efficiency of Protective DNS and
+   hardware resource consumption (e.g., CPU, memory) on the hosting
+   device.
 
    Most critically, operators should strive to avoid controversial
    blocklist formats to minimize the impact of potential false
@@ -617,60 +618,59 @@ Table of Contents
 6.  Security Considerations
 
    Furthermore, by integrating the operational considerations, we
-   propose some security considerations to enhance the security of
-   Protective DNS on the basis of improving its practicality.  We put
-   forward specific considerations covering multiple dimensions, and for
-   each consideration factor, we provide specific recommended solutions,
-   including policy flaws, over-blocking, dangling resources,
-   compatibility with other security practices, fault diagnosis and
-   privacy.
+   propose security considerations to enhance the security of Protective
+   DNS on the basis of improving its practicality.  We outline specific
+   considerations covering multiple dimensions.  For each factor, we
+   provide specific recommended mitigations, including policy flaws,
+   over-blocking, dangling resource risks, compatibility with other
+   security practices and fault diagnosis.
 
 6.1.  Security Consideration 1 - Policy Flaw
 
-   To prevent the protection function from flaws or even being bypassed,
+   To prevent flaws in the protection function or even bypassing,
    service providers should consider the following three aspects.
 
-   *Redundant Rdata.* According to the measurement of Protective DNS
+   *Redundant Rdata.* According to measurements of Protective DNS
    services, the configurations of Rdata in rewritten records by some
-   providers have defects.  Specifically, existing reseaerch work
-   noticed that along with the secure rewriting records, several PDNS
-   providers may also include the original malicious records in the DNS
-   response.  For local stub resolvers of users, the selection of the
-   resolution result is uncontrollable, and users still have a high
-   possibility of accessing malicious resources.  Therefore, Protective
-   DNS providers SHOULD avoid such redundant configurations to ensure
-   the completeness of the defense effect.
+   providers have defects.  Specifically, along with the rewritten
+   records, several PDNS providers may also include the original
+   malicious records in the DNS response.  For local stub resolvers of
+   users, the selection of the resolution result is uncontrollable, and
+   users still have a high probability of accessing malicious resources.
+   Therefore, Protective DNS providers should avoid such redundant
+   configurations to ensure the completeness of the defense
+   effectiveness.
 
-   *Missing Rtype.* While A records are the most common type of DNS
-   resolution and are often the primary focus for defensive
+   *Missing Record type.* While A records are the most common type of
+   DNS resolution and are often the primary focus of defensive
    configuration by service providers—since they directly point users to
    malicious resources—empirical measurements have revealed that some
-   Protective DNS providers fail to secure less common query types, such
-   as TXT records.  In these cases, the provider may return unfiltered
-   responses, potentially exposing users to hidden threats.  This
-   oversight could be exploited to bypass PDNS protections, particularly
-   when malicious domains embed harmful instructions within less
-   scrutinized record types.  Therefore, to ensure comprehensive
-   defense, Protective DNS providers SHOULD configure defensive
-   capabilities for all DNS record types, including TXT, MX, and others.
+   Protective DNS providers fail to protect less common query types,
+   such as TXT records.  In these cases, the provider may return
+   original responses, potentially exposing users to hidden threats.
+   This oversight could be exploited to bypass PDNS protections,
+   particularly when malicious domains embed harmful instructions within
+   less scrutinized record types.  Therefore, PDNS providers should
+   proactively consider the potential impacts of missing record type
+   configurations.
 
-   *Policy coverage.* In addition to the defensive configuration of the
-   response results, Protective DNS service providers should ensure that
-   the defensive functions are effective in any functional scenario.
+   *Policy Coverage.* In addition to the defensive configuration of the
+   response results, Protective DNS providers should ensure that the
+   defensive functions are effective in all functional scenario.
    Specifically, encrypted DNS should also have the same defensive
    effect as non-encrypted DNS, to prevent malicious domain names from
    bypassing the defense by merely using encrypted DNS.  Additionally,
-   IPv6 scenarios should also be taken into consideration.
+   IPv6 scenarios should also be considered.
 
 6.2.  Security Consideration 2 - Dangling Resources
 
-   For controllability considerations, some Protective DNS providers use
-   self-controlled domains or IPs as rewriting strategies.  However,
-   mismanagement of these rewritten resources may lead to takeover risks
-   from Dangling resources, specifically:
+   Some Protective DNS providers use self-controlled domains or IPs as
+   rewriting strategies.  However, mismanagement of these rewritten
+   resources may lead to takeover risks from Dangling Resources,
+   specifically:
 
-   1.  If the rewritten IP is a cloud service IP, obsolete IP addresses
-       pose a takeover risk.
+   1.  If the rewritten IP is a cloud service IP, obsolete cloud IP
+       addresses pose a takeover risk.
 
    2.  If the rewritten CNAME domain expires, there is an expired domain
        takeover risk.
@@ -679,14 +679,14 @@ Table of Contents
        subdomain takeover risks may arise.
 
    Upon gaining control of vulnerable rewritten resources (e.g., those
-   at expiry risk), attackers can trigger queries for malicious domains
-   to the compromised Protective DNS server via phishing or similar
-   tactics.  They can then return modified malicious content to victims,
-   enabling connections between victims and attacker servers.
+   at risk of expiration), attackers can trigger DNS queries for
+   malicious domains to the compromised Protective DNS server via
+   phishing tactics.  They can then return modified malicious content to
+   victims, enabling connections between victims and attacker servers.
 
-   Therefore, Protective DNS service providers should exercise caution
-   when using third-party network resources.  On one hand, they should
-   consider the financial and management costs required for regular
+   Therefore, Protective DNS service providers should exercise due
+   diligence when using third-party network resources.  On one hand,
+   they should consider the financial and management costs of regular
    maintenance of these resources.  On the other hand, they need to
    periodically verify the status of these third-party services to avoid
    dangling resource risks.
@@ -711,8 +711,8 @@ Table of Contents
    service would impact numerous unrelated services.  Thus, defending at
    the granularity of the minimum subdomain (i.e., fully qualified
    domain name, FQDN) minimizes collateral damage.  Finally, providers
-   must promptly update blocklists to avoid false positives from delayed
-   updates.
+   should promptly update blocklists to avoid false positives from
+   delayed updates.
 
    *Blocking Policy.* The primary defense objective of Protective DNS is
    to prevent users from accessing any malicious resources, i.e.,
@@ -732,10 +732,10 @@ Table of Contents
    Therefore, PDNS service providers should exercise caution when
    implementing aggressive defensive strategies and consider the
    potential impact of such approaches in advance.  Concurrently,
-   Protective DNS providers must preconfigure defense mechanisms against
-   potential denial-of-resolution (DoR) risks.  Specifically, when a
-   client initiates a large volume of DNS queries (above a certain
-   threshold) for malicious domains to a Protective DNS server,
+   Protective DNS providers should preconfigure defense mechanisms
+   against potential denial-of-resolution (DoR) risks.  Specifically,
+   when a client initiates a large volume of DNS queries (above a
+   certain threshold) for malicious domains to a Protective DNS server,
    providers should consider the impact of directly denying all DNS
    query responses from the client for a period of time.  To effectively
    mitigate denial-of-response attacks, providers can send a large DNS
@@ -752,10 +752,10 @@ Table of Contents
    matches the blocklist, if the PDNS server does not query the
    authoritative server for DNSSEC records, the mutual impact between
    PDNS and DNSSEC remains limited.  However, PDNS service providers
-   must consider scenarios where clients request PDNS servers to perform
-   DNSSEC queries and validation for blocked malicious domains—such as
-   by setting the DO (DNSSEC OK) bit [RFC4035].  In such cases, PDNS
-   rewriting protection may affect the normal operation of
+   should consider scenarios where clients request PDNS servers to
+   perform DNSSEC queries and validation for blocked malicious
+   domains—such as by setting the DO (DNSSEC OK) bit [RFC4035].  In such
+   cases, PDNS rewriting protection may affect the normal operation of
    DNSSEC.Therefore, PDNS service providers should pre-emptively
    consider the mutual impacts between PDNS services and other security
    practices.
@@ -771,7 +771,7 @@ Table of Contents
    on a regular basis.  If remote blocklist query services become
    unavailable due to network issues or other causes, and no fallback
    mechanism is in place, this may render the provider’s DNS query
-   services inoperable.  Thus, providers must predefine fallback
+   services inoperable.  Thus, providers should predefine fallback
    mechanisms—such as reverting to normal DNS resolution procedures.
 
 7.  IANA Considerations
