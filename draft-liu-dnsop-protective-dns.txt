@@ -88,7 +88,7 @@ Table of Contents
      3.2.  Distinctions of Protective DNS Technology
    4.  Deployment Status
    5.  Operational Considerations
-     5.1.  Operational Consideration 1 - Blocklist Selection
+     5.1.  Operational Consideration 1: Blocklist Selection
      5.2.  Operational Consideration 2 - Rewriting Policy Construction
      5.3.  Operational Consideration 3 - Performance Impact
      5.4.  Operational Consideration 4 - Offering Explanation
@@ -452,168 +452,167 @@ Table of Contents
 
 5.  Operational Considerations
 
-   Considering that deployment practice is the first step in using and
-   even maintaining the security of Protective DNS, in this section, we
+   Considering that deployment is the first step in using and even
+   maintaining the security of Protective DNS, in this section, we
    propose a series of operational considerations that cover multiple
    aspects of deployment practice, including blocklist selection,
-   rewriting strategie construction, performance impact and offering
-   explanation.
+   rewriting strategy construction, performance impact assessment, and
+   explanatory offering
 
-5.1.  Operational Consideration 1 - Blocklist Selection
+5.1.  Operational Consideration 1: Blocklist Selection
 
-   One of the necessary condition for Protective DNS to achieve its
-   defensive capability is to construct a blocklist that includes a
+   One of the necessary conditions for Protective DNS to achieve its
+   defensive capability is to maintain a blocklist that includes a
    series of malicious domain names to be blocked.
 
-   First, Protective DNS operators need to construct a Blocklist.  On
+   First, Protective DNS operators need to construct a blocklist.  On
    one hand, they should choose the Blocklist sources, such as open-
    source threat intelligence, commercial threat feeds, self-collected
    malicious domains, and user feedback.  On the other hand, they should
    specify the types of malicious domains to block, including but not
    limited to malware, botnet, phishing, spam, tracking, and adult
-   content.  Most importantly, operators ideally should verify the
-   correctness of these malicious domains to avoid false positives that
-   could impact access to legitimate domains.
+   content.  Most importantly, operators should verify the correctness
+   of these malicious domains to avoid false positives that could impact
+   access to legitimate domains.
 
-   Second, PDNS operators should select an appropriate Blocklist
+   Second, PDNS operators should select an appropriate blocklist
    deployment approach based on operational context (including device
    resource constraints and network access patterns) and application
    scenarios, such as deploying in RPZ format on resolvers or using
    network interfaces for remote querying.  Remote querying approaches
-   require preemptive consideration of potential privacy implications
-   and impacts from network instability.  Local deployments necessitate
-   an advanced assessment of local resource limitations.  Specifically,
-   the Blocklist scale deployed on Protective DNS must be carefully
-   defined based on the process capability.  Since blocklist size
-   directly affects both the response efficiency of Protective DNS and
-   hardware resource consumption (e.g., CPU, memory) on the hosting
-   device.
+   require proactive consideration of potential privacy implications and
+   impacts from network instability.  Local deployments necessitate a
+   thorough assessment of local resource limitations.  Specifically, the
+   Blocklist scale deployed on Protective DNS must be carefully defined
+   based on the system's processing capability.  Blocklist size directly
+   affects both the response efficiency of Protective DNS and hardware
+   resource consumption (e.g., CPU, memory) on the hosting device.
 
-   Most critically, operators should endeavor to avoid controversial
-   Blocklist formats to minimize the impact of potential false
+   Most critically, operators should strive to avoid controversial
+   blocklist formats to minimize the impact of potential false
    positives.  First, PDNS should refrain from using keywords as
    Blocklist entries, as this exacerbates the likelihood of introducing
    false positives and undermines PDNS availability.  Second, PDNS
    providers should avoid using wildcard domains in Blocklists, as such
    practices may also lead to false positives.  To maximize the
-   mitigation of false positives, defense at the granularity of the
-   minimum subdomain (i.e., FQDN) may cause the least collateral damage.
+   mitigation of false positives, mitigation at the minimum subdomain
+   granularity (i.e., FQDN) may minimize collateral damage.
 
 5.2.  Operational Consideration 2 - Rewriting Policy Construction
 
-   Based on the summarization of empirical analyses of popular
-   Protective DNS providers, five primary rewriting approaches have been
-   identified in practice: 1) Using safe IP addresses controlled by the
-   PDNS provider; 2) Employing special-purpose IP addresses (e.g.,
-   reserved addresses like 127.0.0.1); 3) Rewriting requests to PDNS
-   provider-controlled domains via CNAME records; 4) Sending responses
-   with empty Answer sections ; 5) Returning special response codes
-   (e.g., NXDomain, ServerFail).  Each rewriting strategy caters to
-   specific scenarios, requiring providers to select appropriate
-   approaches based on their application requirements, specifically as
-   follows:
+   Based on empirical analyses of popular Protective DNS providers, five
+   primary rewriting approaches have been identified in practice: 1)
+   Using safe IP addresses controlled by the PDNS provider; 2) Employing
+   specialized IP addresses (e.g., reserved loopback addresses like
+   127.0.0.1); 3) Rewriting requests to PDNS provider-controlled domains
+   via CNAME records; 4) Sending responses with empty Answer sections;
+   5) Returning special response codes (e.g., NXDomain, ServerFail).
+   Each rewriting strategy caters to specific security scenarios,
+   requiring providers to select appropriate approaches based on their
+   application requirements, specifically as follows:
 
    1) Secure IP addresses: Under this policy, the rewritten target
-   address is a server under the PDNS provider's control, enabling PDNS
+   address is a server controlled by the PDNS provider, enabling PDNS
    providers to monitor traffic.  Specifically, the controlled server
    acts as a "honeypot" managed by the provider, capturing DNS traffic
    of malicious domain names for further analysis of threat behaviors
-   (e.g., malware communications, exploit attempts).  However, this
-   approach imposes operational overhead on PDNS providers, who must
-   actively monitor the status of these servers.  Also, this scenario
+   (e.g., malware communications).  However, this approach incurs
+   operational overhead for PDNS providers, who need to actively monitor
+   the status of these servers.  Additionally, this scenario
    necessitates consideration of privacy risks arising from traffic
    monitoring.
 
-   2) IP addresses with special purposes (like 0.0.0.0): Due to the non-
-   routable nature of these IP addresses on public networks, they are
-   better suited for scenarios with strict privacy protection
-   requirements, such as when users do not want any third parties to
-   obtain their network behavior.  However, PDNS operators must consider
-   potential risks when using these special IP addresses.  For example:
-   a) 192.168.0.1 is typically used for local area network devices.
-   Such configurations may lead to unintended access to internal network
-   devices if clients mistakenly connect to them; b) 127.0.0.1 is
-   commonly used for local inter-process communication.  Redirecting to
-   this address may cause clients to attempt connecting to local
-   services, which could be exploited if vulnerabilities exist—such as
-   through port scanning or service spoofing.  This is particularly
-   risky when users mistake local services for external ones,
-   potentially exposing sensitive information or enabling attacks.
-   Meanwhile, this approach lacks transparency for users in the event of
-   false positives, as it cannot provide explanatory feedback, which is
-   discussed in detail in the Security Considerations.
+   2) Specialized IP addresses: Due to the non-routable nature of these
+   IP addresses on public networks, they are better suited for scenarios
+   with strict privacy protection requirements, such as when users do
+   not want any third parties to track their network behavior.  However,
+   PDNS operators should consider potential risks when using these
+   specialized IP addresses.  For example: a) 192.168.0.1 is typically
+   used for local area network devices.  Such configurations may lead to
+   unintended access to internal network devices if clients mistakenly
+   connect to them; b) 127.0.0.1 is commonly used for local inter-
+   process communication.  Redirecting to this address may cause clients
+   to attempt to connect to local services, which could be exploited if
+   vulnerabilities exist—such as through port scanning or service
+   spoofing.  This is particularly risky when users mistake local
+   services for external ones, potentially exposing sensitive
+   information or enabling attacks.  Additionally, this approach lacks
+   transparency for users in the event of false positives, as it cannot
+   provide explanatory feedback, which is discussed in detail in the
+   Security Considerations.
 
    3) Secure CNAME: This strategy, similar to using controlled IP
    addresses, enables providers to dynamically monitor traffic.
-   However, it is critical to remain vigilant against dangling resource
-   risks arising from improper management, details shown in Security
-   Considerations.
+   However, providers should remain vigilant against dangling resource
+   record risks arising from improper management, details of which are
+   discussed in Security Considerations.
 
-   4) Empty Answer field: This strategy represents a minimalist defense
-   approach, silently blocking malicious access without requiring
-   additional processing.  However, it undermines the transparency of
-   PDNS services for users and may escalate to more aggressive
-   implementations—such as refusing to return resolution responses—
-   which entail denial-of-response risks detailed in the Security
-   Considerations.
+   4) Empty Answer Section: This strategy represents a minimalist
+   rewriting approach, simply returning an empty answer section.
+   However, it undermines the transparency of PDNS services for users
+   and may escalate to more aggressive implementations—such as refusing
+   to return resolution responses— which entail denial-of-response risks
+   detailed in the Security Considerations.
 
-   5) Special response codes (like NXDomain): This strategy is
-   compatible with traditional DNS error scenarios, which helps prevent
-   malware from detecting the defensive mechanisms of PDNS.  Such
-   practices may also undermine the transparency of Protective DNS
-   services, making it difficult for users to understand the rationale
-   behind rewriting actions.
+   5) Special Response Codes (Rcodes): This strategy is compatible with
+   regular DNS error scenarios, which help prevent malware from
+   detecting the defensive mechanisms of PDNS.  However, such practices
+   may also undermine the transparency of Protective DNS services,
+   making it difficult for users to understand the rationale behind
+   rewriting actions.
 
-   Second, PDNS operators should consider the impact of TTL settings and
-   appropriately configure the TTL for rewritten records.  On one hand,
-   an excessively long TTL may lead to delayed updates of defense
-   strategies for malicious domains.  On the other hand, a too-short TTL
-   triggers frequent queries, increasing PDNS server load and
-   potentially degrading performance.
+   Second, PDNS operators should consider the impact of TTL
+   configurations and appropriately configure the TTL values for
+   rewritten records.  On one hand, an overly long TTL may lead to
+   delayed updates of defense strategies for malicious domains.  On the
+   other hand, a too-short TTL triggers frequent DNS queries, increasing
+   PDNS server load and potentially degrading performance.
 
 5.3.  Operational Consideration 3 - Performance Impact
 
-   As Protective DNS services introduce an additional step to query
-   whether a domain is malicious during standard DNS resolution,
-   operators must anticipate potential impacts on DNS resolution
-   performance.  Specifically, factors such as Blocklist deployment
-   method (remote vs. local), scale, and domain matching techniques
-   (e.g., hash matching) can affect performance.  Experimental results
-   show that loading a Blocklist with five million malicious domains can
-   still be maintained within sub-second levels, but exceeding this
+   As Protective DNS services introduce an additional query step whether
+   a domain is malicious during standard DNS resolution, operators
+   should anticipate potential impacts on DNS resolution performance.
+   Specifically, factors such as blocklist deployment method (remote vs.
+   local), scale, and domain matching techniques (e.g., hash matching)
+   can affect performance.  Experimental results show that loading a
+   blocklist into memory with five million malicious domains can still
+   be maintained within 10-second response times, but exceeding this
    scale may result in loading times exceeding 10 seconds, leading to
    unacceptable performance impacts.
 
 5.4.  Operational Consideration 4 - Offering Explanation
 
-   Protective DNS operates as a complete black-box service to users.
+   Protective DNS operates as a complete black-box service for users.
    Regardless of the rewriting strategy employed, users only perceive
    the blocking effect—i.e., the inability to access a domain.  While
    providers can refine blocklist quality to minimize false positives,
-   their inevitable presence significantly degrades user experience.
-   Users may encounter unexplained inaccessibility that is
-   indistinguishable from prevalent DNS tampering (e.g., censorship,
-   man-in-the-middle attacks).  Therefore, providing explanations for
-   Protective DNS actions enhances usability.  Operators should
-   anticipate that omitted explanations may lead users to misperceive
-   service instability or even switch to competing DNS providers.
+   the inevitable presence of false positives significantly degrades
+   user experience.  Users may encounter unexplained domain
+   inaccessibility that is indistinguishable from prevalent DNS
+   tampering (e.g., censorship, man-in-the-middle attacks).  Therefore,
+   providing clear explanations for Protective DNS actions can enhance
+   usability.  Operators should anticipate that omitted explanations may
+   lead users to misperceive service instability or even switch to
+   competing DNS providers.
 
-   This explanatory of PDNS can be realized through multiple approaches.
+   This explanation of PDNS can be realized through multiple approaches.
    First, to indicate that blocking originates from Protective DNS,
-   service providers may offer a dedicated landing page explaining their
-   protective services, helping users confirm that observed DNS
-   rewriting is likely due to the provider’s Protective DNS.  Empirical
-   analyses show some providers rewrite to a secure IP address hosting a
-   page notifying users of potential malicious website access.  However,
-   using a provider-controlled IP introduces risks of dangling resource
-   takeover, detailed in Security Consideration.  Second, the EDE
-   (Extended DNS Error) [RFC8914], [Structered-Error] protocol can be
-   employed to specify in extension fields that rewriting results from
-   Protective DNS defense against malicious domains.
+   service providers may offer a dedicated landing page to explain their
+   protective services, helping users confirm that the observed DNS
+   rewriting originates from the provider’s Protective DNS.  Empirical
+   analyses show some PDNS providers redirect DNS queries to a secure IP
+   address hosting a page that notifies users of potential malicious
+   website access.  However, using a provider-controlled IP introduces
+   risks of dangling resource takeover, detailed in Security
+   Consideration.  Second, the EDE (Extended DNS Error) [RFC8914],
+   [Structered-Error] protocol can be employed to specify in the
+   extension fields that rewriting results from Protective DNS defense
+   against malicious domains.
 
-   Moreover, providing user appeal mechanisms on explanatory pages, such
-   as providing an email address, could mitigate negative impacts from
-   potential false positives.
+   Moreover, providing user appeal channels on explanation pages, such
+   as an email address, could mitigate negative impacts of potential
+   false positives.
 
 6.  Security Considerations
 
