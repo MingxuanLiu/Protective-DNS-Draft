@@ -372,33 +372,37 @@ Table of Contents
 
    Due to the significant protective efficacy of Protective DNS,
    existing academic efforts have evaluated its deployment status
-   through measurement.  The results indicate an optimistic adoption
-   trend of PDNS across large-scale DNS vendors, in-the-wild recursive
-   resolvers, and even at the national level.
+   through measurement.  The results indicate a growing adoption trend
+   of PDNS across large-scale DNS service providers, operational
+   recursive resolvers in the wild, and national-level deployments.
 
-   Existing work, through a combination of surveying publicly available
-   documentation from widely adopted DNS service providers and active
-   testing, confirms that two-thirds of recursive service providers
-   already offer Protective DNS services.  Notably, practices vary
-   significantly across vendors, including differences in the types of
-   malicious domains defended against and rewrite policies.  In terms of
+   Existing work, by combining surveys of publicly available
+   documentation from widely adopted DNS service providers with active
+   testing, confirms that two-thirds of public DNS providers already
+   offer Protective DNS services.  Notably, practices vary significantly
+   across vendors, including differences in the types of malicious
+   domains defended against and rewrite policies.  In terms of
    deployment strategies, the majority of vendors employ hybrid
    deployments, providing both Protective DNS and regular DNS resolution
-   on a single resolver IP address.  A smaller subset deploys Protective
-   DNS and regular DNS resolution on separate resolver IPs, and in some
-   cases, even different resolver servers from the same vendor may
-   defend against distinct types of malicious domains.
+   on a single resolver IP address, such as Comodo DNS and OpenDNS.  A
+   smaller subset deploys Protective DNS and regular DNS resolution on
+   separate resolver IPs, and in some cases, even different resolver
+   servers from the same vendor may defend against distinct types of
+   malicious domains.  For example, Cloudflare operates standard DNS
+   services on 1.1.1.1, while PDNS servers on 1.1.1.2 and 1.1.1.3
+   implement differentiated protection: 1) 1.1.1.2 focuses on malware
+   defense; 2) 1.1.1.3 defends against both malware and adult content.
 
-   Furthermore, existing studies using active scanning in 2023 of the
-   IPv4 address space confirm that approximately 9% of stable recursive
-   resolvers have deployed Protective DNS capabilities, covering almost
-   two-thirds of the world's countries.  By analyzing the types of
-   malicious domains defended against, research has found that Malware,
-   botnet, Phishing, and Spam are the most common categories, with
-   observable blocklist overlap across different recursive resolution
-   services.  In terms of rewrite policies, using safe IP addresses and
-   special-purpose IP addresses represents the most prevalent rewriting
-   approach.
+   Furthermore, existing studies using active scanning of the IPv4
+   address space in 2023 confirm that approximately 9% of stable
+   recursive resolvers have deployed Protective DNS capabilities,
+   covering almost two-thirds of the world's countries.  By analyzing
+   the types of malicious domains defended against, research has found
+   that malware, botnet, phishing, and spam are the most common
+   categories, with observable blocklist overlap across different
+   recursive resolution services.  In terms of rewrite policies, using
+   safe IP addresses and specialized IP addresses represents the most
+   prevalent rewriting approach.
 
    Additionally, several countries and regions have even deployed
    national Protective DNS projects, including:
@@ -410,7 +414,7 @@ Table of Contents
        privacy-compliant, and resilient DNS capabilities, thereby
        enhancing the EU's digital sovereignty and security.  Any device
        connected to DNS4EU resolvers that attempts to access a malicious
-       domain (e.g., one hosting malware or phishing content) is
+       domain (e.g., hosting malware or related to phishing content) is
        immediately blocked, preventing potential harm.  Leveraging real-
        time threat monitoring and defense mechanisms, the project
        ensures that malicious domains identified in one EU jurisdiction
@@ -428,7 +432,8 @@ Table of Contents
        effectiveness of ransomware, phishing, botnet, and malware
        attacks.  According to NCSC statistics, in 2022, the project's
        PDNS service processed 810 billion DNS queries and blocked 11
-       billion queries involving 420,000 distinct domains [UK-Defence].
+       billion queries involving 420 thousand distinct domains
+       [UK-Defence].
 
    3.  PDNS in US [US-Protect]：This initiative, launched by the
        Cybersecurity and Infrastructure Security Agency (CISA) in 2022,
