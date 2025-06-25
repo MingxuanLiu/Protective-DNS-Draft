@@ -362,12 +362,12 @@ Table of Contents
    for most network activities, domain-based defense mechanisms have
    become one of the primary approaches to countering cyberattacks.
    Defense mechanisms at the domain level are diverse, with blocking
-   actions occurring across various roles in the domain ecosystem.  For
-   example, during the initial domain registration process, registries
-   and registrars can use domain seizure to remove malicious domains
-   from registration data, thereby preventing their continued harm to
-   users.  Registries and registrars can also employ sinkhole technology
-   to redirect some malicious domains to domain black holes.  The
+   actions occurring across various roles in the domain ecosystem.
+   During the initial domain registration process, registries and
+   registrars can use domain seizure to remove malicious domains from
+   registration data, thereby preventing their continued harm to users.
+   Registries and registrars can also employ sinkhole technology to
+   redirect some malicious domains to domain black holes.  The
    Protective DNS defense mechanism addressed in this document is
    primarily deployed on recursive resolvers.
 
