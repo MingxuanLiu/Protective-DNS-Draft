@@ -311,7 +311,8 @@ Table of Contents
    content.  Additionally, recognizing PDNS's defensive efficacy,
    nations including the U.S.  [US-Protect], U.K.  [UK-NCSC-PDNS], and
    Europe [DNS4EU] have designated PDNS as critical defensive
-   infrastructure for national-level deployments.
+   infrastructure for national-level deployments, with details shown in
+   Deployment Status.
 
 3.2.  Distinctions of Protective DNS Technology
 
