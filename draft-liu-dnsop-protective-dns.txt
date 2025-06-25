@@ -595,10 +595,10 @@ Table of Contents
    user experience.  Users may encounter unexplained domain
    inaccessibility that is indistinguishable from prevalent DNS
    tampering (e.g., censorship, man-in-the-middle attacks).  Therefore,
-   providing clear explanations for Protective DNS actions can enhance
-   usability.  Operators should anticipate that omitted explanations may
-   lead users to misperceive service instability or even switch to
-   competing DNS providers.
+   providing explanations for Protective DNS services can enhance user
+   experience and alleviate privacy concerns.  Operators should
+   anticipate that omitted explanations may lead users to misperceive
+   service instability or even switch to competing DNS providers.
 
    This explanation of PDNS can be realized through multiple approaches.
    First, to indicate that blocking originates from Protective DNS,
