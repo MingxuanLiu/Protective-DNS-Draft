@@ -226,7 +226,7 @@ Additionally, rewriting strategies exist in multiple forms. Based on empirical a
 ~~~
 {: #figure3 title="Format of NXDomain Response in Protective DNS."}
 
-**Deployment Practices.** Leading DNS providers have increasingly offered Protective DNS services. For example, Cloudflare operates standard DNS services on 1.1.1.1, while PDNS servers on 1.1.1.2 and 1.1.1.3 provide differentiated protection: 1) 1.1.1.2 focuses on malware defense; 2) 1.1.1.3 defends against both malware and adult content. Additionally, recognizing PDNS's defensive efficacy, nations including the U.S. {{US-Protect}}, U.K. {{UK-NCSC-PDNS}}, and Europe {{DNS4EU}} have designated PDNS as critical defensive infrastructure for national-level deployments, with details shown in Deployment Status.
+**Deployment Practices.** Leading DNS providers have increasingly offered Protective DNS services. For example, Cloudflare operates standard DNS services on 1.1.1.1, while PDNS servers on 1.1.1.2 and 1.1.1.3 provide differentiated protection: 1) 1.1.1.2 focuses on malware defense; 2) 1.1.1.3 defends against both malware and adult content. Additionally, recognizing the defensive efficacy of PDNS, nations including the U.S. {{US-Protect}}, U.K. {{UK-NCSC-PDNS}}, and Europe {{DNS4EU}} have designated PDNS as critical defensive infrastructure for national-level deployments, with details shown in Deployment Status.
 
 ## Distinctions of Protective DNS Technology
 
