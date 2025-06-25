@@ -192,7 +192,7 @@ Table of Contents
    Rewriting Policy.
 
    *Blocklist.* The blocklist records a list of domain names for which
-   the PDNS resolver intends to rewrite resolution results for defensive
+   the PDNS resolver performs resolution rewriting for defensive
    purposes.  Blocklist sources include multiple aspects: commercial
    threat intelligence (TI), open-source TI, vendor-maintained domain
    blocklists, and user complaints.  The types of malicious domains
@@ -200,12 +200,13 @@ Table of Contents
    not limited to: malware, botnet command-and-control (C2), phishing,
    fraud, and adult content.
 
-   Besides, PDNS deployments implement blocklist querying in two primary
-   forms:
+   Additionally, PDNS deployments implement blocklist lookup in two
+   primary forms:
 
-   1.  Local Query: storing the blocklist directly on the PDNS server.
+   1.  Local Lookup: storing directly on the PDNS server, allowing
+       direct queries against the local blocklist file.
 
-   2.  Remote Query: performing lookups via network interfaces (e.g.,
+   2.  Remote Lookup: performing lookups via network interfaces (e.g.,
        DNSBL [RFC5782]).
 
    *Rewriting Policy.* Upon retrieving blocklist matching results, the
@@ -222,7 +223,7 @@ Table of Contents
    2.  Domain Lists: This format consists of one domain per line,
        specifying only the rewrite requirement for each domain.
 
-   Besides, rewriting strategies exist in multiple forms.  Based on
+   Additionally, rewriting strategies exist in multiple forms.  Based on
    empirical analysis of leading Protective DNS vendors, this document
    summarizes five specific rewriting policies.
 
