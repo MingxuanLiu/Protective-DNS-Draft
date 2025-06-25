@@ -5,12 +5,12 @@
 Network Working Group                                            H. Duan
 Internet-Draft                                       Tsinghua University
 Intended status: Standards Track                                  M. Liu
-Expires: 25 December 2025                        Zhongguancun Laboratory
+Expires: 27 December 2025                        Zhongguancun Laboratory
                                                                   B. Liu
                                                      Tsinghua University
                                                                    C. Lu
                                                  Zhongguancun Laboratory
-                                                            23 June 2025
+                                                            25 June 2025
 
 
            Considerations for Protective DNS Server Operators
@@ -18,10 +18,11 @@ Expires: 25 December 2025                        Zhongguancun Laboratory
 
 Abstract
 
-   Protective DNS identifies whether domain names requested by clients
-   are in its maintained blocklist.  For blocklisted domains, it
-   rewrites resolution responses to point to secure resources (e.g.,
-   safe servers) to prevent user access to malicious entities.
+   Protective DNS identifies whether domain names should be blocked
+   based on the match results of its maintained blocklist.  For domain
+   names in the blocklist, it rewrites DNS resolution responses to point
+   to secure destinations (e.g., safe servers) to prevent users from
+   accessing malicious entities.
 
    Owing to its effective defenses, Protective DNS deployment has surged
    through numerous efforts.  Not only have renowned DNS resolution
@@ -63,7 +64,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 December 2025.
+   This Internet-Draft will expire on 27 December 2025.
 
 Copyright Notice
 
