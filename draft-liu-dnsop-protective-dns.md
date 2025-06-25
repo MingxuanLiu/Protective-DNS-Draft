@@ -109,7 +109,7 @@ informative:
 
 --- abstract
 
-Protective DNS identifies whether domain names requested by clients are in its maintained blocklist. For blocklisted domains, it rewrites resolution responses to point to secure resources (e.g., safe servers) to prevent user access to malicious entities.
+Protective DNS identifies whether domain names should be blocked based on the match results of its maintained blocklist. For domain names in the blocklist, it rewrites DNS resolution responses to point to secure destinations (e.g., safe servers) to prevent users from accessing malicious entities.
 
 Owing to its effective defenses, Protective DNS deployment has surged through numerous efforts. Not only have renowned DNS resolution service providers adopted this defense, but some nations have also launched national-scale deployments. Concurrently, studies have attempted to analyze Protective DNS, identifying a series of implementation inconsistencies.
 
