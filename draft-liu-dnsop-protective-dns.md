@@ -137,14 +137,14 @@ Notably, this document is primarily intended for readers familiar with Protectiv
 
 ## Overview of Protective DNS
 
-Protective DNS (PDNS) is deployed on a recursive resolver. When the PDNS resolver receives a DNS query for domain, it first matches the domain against its maintained blocklist. The resolver then makes a decision based on the blocklist lookup result. If the domain is found in the blocklist, PDNS rewrites the DNS response to resolve the query to a "safe" result (e.g., IP address 127.0.0.1), effectively preventing the client from accessing the corresponding malicious resource. Conversely, if the domain is not in the blocklist, the resolver returns a normal response by querying authoritative servers or using local cache results to respond to the client {{RFC1034}}, {{RFC1035}}. Thus, the two functional components that underpin the critical role of PDNS are the Blocklist and the Rewriting Policy.
+Protective DNS (PDNS) is deployed on a recursive resolver. When the PDNS resolver receives a DNS query for a domain name, it first matches the domain against its maintained blocklist. The resolver then makes a decision based on the blocklist lookup result. If the domain is found in the blocklist, PDNS rewrites the DNS response to resolve the query to a "safe" result (e.g., IP address 127.0.0.1), effectively preventing the client from accessing the corresponding malicious resource. Conversely, if the domain is not in the blocklist, the resolver returns a normal response by querying authoritative servers or using local cache results to respond to the client {{RFC1034}}, {{RFC1035}}. Thus, the two functional components that underpin the critical role of PDNS are the Blocklist and the Rewriting Policy.
 
-**Blocklist.** A Blocklist is a domain name list for which the PDNS resolver intends to rewrite resolution results for defensive purposes. Blocklist sources include multiple aspects: commercial threat intelligence (TI), open-source TI, vendor-maintained domain blacklists, and user complaints. PDNS deployments implement Blocklists in two primary forms:
+**Blocklist.** The blocklist records a list of domain names for which the PDNS resolver intends to rewrite resolution results for defensive purposes. Blocklist sources include multiple aspects: commercial threat intelligence (TI), open-source TI, vendor-maintained domain blocklists, and user complaints. PDNS deployments implement blocklists in two primary forms:
 
 1. Local Deployment: storing the blocklist directly on the PDNS server.
 2. Remote Query: performing lookups via network interfaces (e.g., DNSBL {{RFC5782}}).
 
-The types of malicious domains included in Blocklists vary by vendor definition, encompassing but not limited to: malware, botnet command-and-control (C2), phishing, fraud, and adult content.
+The types of malicious domains included in blocklists vary by vendor definition, encompassing but not limited to: malware, botnet command-and-control (C2), phishing, fraud, and adult content.
 
 **Rewriting Policy.** Upon retrieving Blocklist matching results, the PDNS server should rewrite resolution responses for domains marked as malicious targets. The Rewriting Policy is critical to PDNS's defensive capability. Primary implementations of the rewriting module include, but are not limited to:
 
