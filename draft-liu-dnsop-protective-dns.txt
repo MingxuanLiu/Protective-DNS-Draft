@@ -208,9 +208,9 @@ Table of Contents
    definition, encompassing but not limited to: malware, botnet command-
    and-control (C2), phishing, fraud, and adult content.
 
-   *Rewriting Policy.* Upon retrieving Blocklist matching results, the
+   *Rewriting Policy.* Upon retrieving blocklist matching results, the
    PDNS server should rewrite resolution responses for domains marked as
-   malicious targets.  The Rewriting Policy is critical to PDNS's
+   malicious targets.  The rewriting policy is critical to PDNS's
    defensive capability.  Primary implementations of the rewriting
    module include, but are not limited to:
 
@@ -220,9 +220,9 @@ Table of Contents
        providing domain-specific rewrite results.
 
    2.  Domain Lists: This format consists of one domain per line,
-       specifying only the rewrite requirement for each domain
+       specifying only the rewrite requirement for each domain.
 
-   Furthermore, rewriting strategies exist in multiple forms.  Based on
+   Besides, rewriting strategies exist in multiple forms.  Based on
    empirical analysis of leading Protective DNS vendors, this document
    summarizes five specific rewriting policies.
 

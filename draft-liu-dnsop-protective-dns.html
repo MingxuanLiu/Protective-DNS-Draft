@@ -1282,16 +1282,16 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 </li>
         </ol>
 <p id="section-3.1-4">The types of malicious domains included in blocklists vary by vendor definition, encompassing but not limited to: malware, botnet command-and-control (C2), phishing, fraud, and adult content.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
-<p id="section-3.1-5"><strong>Rewriting Policy.</strong> Upon retrieving Blocklist matching results, the PDNS server should rewrite resolution responses for domains marked as malicious targets. The Rewriting Policy is critical to PDNS's defensive capability. Primary implementations of the rewriting module include, but are not limited to:<a href="#section-3.1-5" class="pilcrow">¶</a></p>
+<p id="section-3.1-5"><strong>Rewriting Policy.</strong> Upon retrieving blocklist matching results, the PDNS server should rewrite resolution responses for domains marked as malicious targets. The rewriting policy is critical to PDNS's defensive capability. Primary implementations of the rewriting module include, but are not limited to:<a href="#section-3.1-5" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-3.1-6">
 <li id="section-3.1-6.1">
             <p id="section-3.1-6.1.1">DNS Response Policy Zones (RPZ) <span>[<a href="#RPZ" class="cite xref">RPZ</a>]</span>: Implemented as zone files <span>[<a href="#RFC1034" class="cite xref">RFC1034</a>]</span>, <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>, this approach serves as a rewriting strategy guide, specifying both whether rewriting is required and providing domain-specific rewrite results.<a href="#section-3.1-6.1.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-3.1-6.2">
-            <p id="section-3.1-6.2.1">Domain Lists: This format consists of one domain per line, specifying only the rewrite requirement for each domain<a href="#section-3.1-6.2.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-6.2.1">Domain Lists: This format consists of one domain per line, specifying only the rewrite requirement for each domain.<a href="#section-3.1-6.2.1" class="pilcrow">¶</a></p>
 </li>
         </ol>
-<p id="section-3.1-7">Furthermore, rewriting strategies exist in multiple forms. Based on empirical analysis of leading Protective DNS vendors, this document summarizes five specific rewriting policies.<a href="#section-3.1-7" class="pilcrow">¶</a></p>
+<p id="section-3.1-7">Besides, rewriting strategies exist in multiple forms. Based on empirical analysis of leading Protective DNS vendors, this document summarizes five specific rewriting policies.<a href="#section-3.1-7" class="pilcrow">¶</a></p>
 <p id="section-3.1-8">1) Using the secure IP addresses in A record controlled by the provider:<a href="#section-3.1-8" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3.1-9">
 <pre>
