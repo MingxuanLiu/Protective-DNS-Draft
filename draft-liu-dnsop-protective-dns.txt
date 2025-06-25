@@ -447,7 +447,7 @@ Table of Contents
        destinations, enhancing resilience against intrusions and
        attacks.  When Protective DNS detects a DNS request matching
        threat intelligence indicators, the service blocks, redirects, or
-       sinks the query response to a secure endpoint, while sending
+       sinkhole the query response to a secure endpoint, while sending
        alerts to the source agency and CISA.  The initiative mandates
        the use of this Protective DNS service by all Federal Civil
        Executive Branch (FCEB) agencies and offers limited availability
