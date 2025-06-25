@@ -195,17 +195,18 @@ Table of Contents
    the PDNS resolver intends to rewrite resolution results for defensive
    purposes.  Blocklist sources include multiple aspects: commercial
    threat intelligence (TI), open-source TI, vendor-maintained domain
-   blocklists, and user complaints.  PDNS deployments implement
-   blocklist querying in two primary forms:
+   blocklists, and user complaints.  The types of malicious domains
+   included in blocklists vary by vendor definition, encompassing but
+   not limited to: malware, botnet command-and-control (C2), phishing,
+   fraud, and adult content.
+
+   Besides, PDNS deployments implement blocklist querying in two primary
+   forms:
 
    1.  Local Query: storing the blocklist directly on the PDNS server.
 
    2.  Remote Query: performing lookups via network interfaces (e.g.,
        DNSBL [RFC5782]).
-
-   The types of malicious domains included in blocklists vary by vendor
-   definition, encompassing but not limited to: malware, botnet command-
-   and-control (C2), phishing, fraud, and adult content.
 
    *Rewriting Policy.* Upon retrieving blocklist matching results, the
    PDNS server should rewrite resolution responses for domains marked as
