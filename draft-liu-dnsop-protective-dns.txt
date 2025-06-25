@@ -128,9 +128,9 @@ Table of Contents
    deployment efforts.  Renowned DNS resolution service providers have
    increasingly deployed PDNS on their recursive servers.  Moreover,
    some countries or regions have initiated national-level
-   infrastructure deployments of PDNS.  The UK's National Cyber Security
-   Centre (NCSC), for instance, launched a PDNS service in 2017 to
-   enhance cyber defenses, which has since been authorized for use by
+   infrastructure deployments of PDNS.  For instance, the UK's National
+   Cyber Security Centre (NCSC), launched a PDNS service in 2017 to
+   enhance cyber defenses.  This service has been authorized for use by
    central government departments, local authorities, schools, and
    emergency services [UK-NCSC-PDNS].  Notably, statistics from the UK
    NCSC indicate that approximately 7.2 million individual users
