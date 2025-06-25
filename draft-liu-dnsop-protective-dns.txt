@@ -141,11 +141,11 @@ Table of Contents
 
    As the deployment of PDNS continues to grow, efforts have been made
    to systematically analyze PDNS services, including deployment status,
-   operational mechanism and security implications.  Existing work,
-   through active probing of PDNS services, has revealed that 9% of
-   stable recursive resolvers deploy PDNS (in 2023) [NDSS24].  These
-   implementations exhibit significant discrepancies among providers in
-   terms of rewriting policies, blocklist selection and performance.
+   operational mechanism and security implications [USENIX24], [NDSS24].
+   Existing work, through active probing of PDNS services, has revealed
+   that 9% of stable recursive resolvers deploy PDNS (in 2023) [NDSS24].
+   These implementations exhibit discrepancies among providers in terms
+   of rewriting policies, blocklist selection and performance.
    Furthermore, security risks such as implementation flaws, over-
    blocking, and dangling resources have been identified, which may
    compromise the protective capabilities of certain PDNS deployments
