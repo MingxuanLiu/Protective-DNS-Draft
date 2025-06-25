@@ -148,7 +148,7 @@ Additionally, PDNS deployments implement blocklist lookup in two primary forms:
 
 **Rewriting Policy.** Upon retrieving blocklist matching results, the PDNS server should rewrite resolution responses for domains marked as malicious targets. The rewriting policy is critical to PDNS's defensive capability. Primary implementations of the rewriting module include, but are not limited to:
 
-1. DNS Response Policy Zones (RPZ) {{RPZ}}: Implemented as zone files {{RFC1034}}, {{RFC1035}}, this approach serves as a rewriting strategy guide, specifying both whether rewriting is required and providing domain-specific rewrite results.
+1. DNS Response Policy Zones (RPZ) {{RPZ}}: Implemented as zone files {{RFC1034}}, {{RFC1035}}, specifying both whether rewriting is required and providing domain-specific rewrite results.
 2. Domain Lists: This format consists of one domain per line, specifying only the rewrite requirement for each domain.
 
 Additionally, rewriting strategies exist in multiple forms. Based on empirical analysis of leading Protective DNS vendors, this document summarizes five specific rewriting policies.
