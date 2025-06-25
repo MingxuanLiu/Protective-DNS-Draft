@@ -196,10 +196,9 @@ Table of Contents
    purposes.  Blocklist sources include multiple aspects: commercial
    threat intelligence (TI), open-source TI, vendor-maintained domain
    blocklists, and user complaints.  PDNS deployments implement
-   blocklists in two primary forms:
+   blocklist querying in two primary forms:
 
-   1.  Local Deployment: storing the blocklist directly on the PDNS
-       server.
+   1.  Local Query: storing the blocklist directly on the PDNS server.
 
    2.  Remote Query: performing lookups via network interfaces (e.g.,
        DNSBL [RFC5782]).
