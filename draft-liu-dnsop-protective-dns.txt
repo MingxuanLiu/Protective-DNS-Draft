@@ -333,8 +333,8 @@ Table of Contents
    Blocking:
 
    1.  DNS Blacklist (DNSBL)[RFC5782]: DNSBL represents a DNS-based
-       blacklist query technology, serving as a concrete implementation
-       of blocklist query within the broader DNS Blocking paradigm
+       blacklist lookup technology, serving as a concrete implementation
+       of blocklist lookup within the broader DNS Blocking paradigm
        (including PDNS).  First, it maintains blacklists of IP addresses
        or domain names associated with malicious activities.  Then, it
        utilizes DNS queries to determine whether to block related
