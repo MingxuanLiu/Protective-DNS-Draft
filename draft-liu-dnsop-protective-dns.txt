@@ -109,20 +109,20 @@ Table of Contents
 
 1.  Introduction
 
-   Protective DNS (also termed as PDNS) is a lightweight defensive
-   measure deployed at recursive resolvers to proactively rewrite DNS
-   resolution responses for malicious domains, thereby preventing users
-   from accessing malicious resources.  Specifically, when a client
-   initiates a domain name resolution request, PDNS first performs a
-   security check on the target domain—determining whether the domain
-   poses a security risk by matching it against blocklists.  If the
-   domain is identified as malicious, PDNS uses DNS rewriting technology
-   to intercept the resolution request and return a secure response
-   (e.g., a safe server address controlled by the PDNS service
-   provider), blocking users from establishing connections with
-   malicious resources.  For legitimate domains, PDNS queries and
-   receives responses from authoritative servers and returns normal
-   response content to the client.
+   Protective DNS (also termed PDNS) is a lightweight defensive measure
+   deployed at recursive resolvers.  PDNS proactively rewrites DNS
+   resolution responses for malicious domains to safe destinations,
+   thereby preventing users from accessing malicious resources.
+   Specifically, when a client initiates a domain name resolution
+   request, PDNS first performs a security check on the target
+   domain—determining whether the domain poses a security risk by
+   matching it against blocklists.  If the domain is identified as
+   malicious, PDNS uses DNS rewriting technology to intercept the
+   resolution request and return a secure response (e.g., a safe server
+   address controlled by the PDNS service provider), blocking users from
+   establishing connections with malicious resources.  For legitimate
+   domains, PDNS queries authoritative servers for responses and returns
+   normal response to the client.
 
    The defensive benefits offered by PDNS have spurred extensive
    deployment efforts.  Renowned DNS resolution service providers have
