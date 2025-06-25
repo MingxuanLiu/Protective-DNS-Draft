@@ -163,7 +163,7 @@ Table of Contents
    impacts that deploying such technologies may entail.  Moreover,
    existing documents [USENIX24], [SAC127] are recommended for legal
    considerations.  On this basis, this document focuses on discussing
-   technical considerations at the deployment level.
+   specific technical considerations at the deployment level.
 
 2.  Conventions and Definitions
 
