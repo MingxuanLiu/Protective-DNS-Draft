@@ -190,8 +190,8 @@ Table of Contents
    [RFC1035].  Thus, the two functional components that underpin the
    critical role of PDNS are the Blocklist and the Rewriting Policy.
 
-   \textbf{Blocklist.} A Blocklist is a domain name list for which the
-   PDNS resolver intends to rewrite resolution results for defensive
+   *Blocklist.* A Blocklist is a domain name list for which the PDNS
+   resolver intends to rewrite resolution results for defensive
    purposes.  Blocklist sources include multiple aspects: commercial
    threat intelligence (TI), open-source TI, vendor-maintained domain
    blacklists, and user complaints.  PDNS deployments implement
