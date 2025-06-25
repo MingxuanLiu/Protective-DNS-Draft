@@ -354,7 +354,7 @@ Table of Contents
    more diverse.  Domain blacklist-based blocking represents just one
    type of DNS-layer mitigation, alongside techniques such as DNS
    poisoning.  Cross-layer mechanisms at network layers include TCP
-   reset action (sending forged RST packets), IP blocking, HTTPS man-in-
+   reset (e.g., sending forged RST packets), IP blocking, HTTPS man-in-
    the-middle attacks, and Deep Packet Inspection (DPI) for payload
    analysis.
 
