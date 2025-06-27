@@ -109,9 +109,9 @@ informative:
 
 --- abstract
 
-Protective DNS identifies whether domain names should be blocked based on the match results of its maintained blocklist. For domain names in the blocklist, it rewrites DNS resolution responses to point to secure destinations (e.g., safe servers) to prevent users from accessing malicious entities.
+Protective DNS is a defense mechanism deployed on recursive resolvers to prevent users from accessing malicious domains. For domain names in the blocklist, it rewrites DNS resolution responses to point to secure destinations (e.g., safe servers) to prevent users from accessing malicious entities.
 
-Owing to its effective defenses, Protective DNS deployment has surged through various efforts. Not only have renowned DNS resolution service providers adopted this defense, but some nations have also launched national-scale deployments. Concurrently, studies have attempted to analyze Protective DNS, identifying a series of implementation inconsistencies.
+Owing to its effective defenses against common cyber attack behaviors—such as command-and-control (C2) communications of malware—Protective DNS deployment has surged via various initiatives. Not only have renowned DNS service providers adopted this defense, but some countries have also launched national-scale deployments. Meanwhile, studies analyzing Protective DNS have identified implementation diversity.
 
 Thus, this document aims to provide specific operational and security considerations for Protective DNS. It is intended primarily for entities seeking to deploy Protective DNS for defensive purposes, offering concrete deployment recommendations.
 
