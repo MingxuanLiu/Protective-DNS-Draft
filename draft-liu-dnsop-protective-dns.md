@@ -309,9 +309,9 @@ Moreover, providing user appeal channels on explanation pages, such as an email 
 
 # Security Considerations
 
-Furthermore, by integrating the operational considerations, we propose security considerations to enhance the security of Protective DNS on the basis of improving its practicality. We outline specific considerations covering multiple dimensions. For each factor, we provide specific recommended mitigations, including policy flaws, over-blocking, dangling resource risks, compatibility with other security practices and fault diagnosis.
+Furthermore, by integrating the operational considerations, we propose security considerations to enhance the security of Protective DNS on the basis of improving its practicality. We outline specific considerations covering multiple dimensions. For each factor, we provide specific recommended mitigations, including rewriting policy flaws, over-blocking, dangling resource risks, compatibility with other security practices and fault diagnosis.
 
-## Security Consideration 1 - Policy Flaw
+## Security Consideration 1 - Rewriting Policy Flaws
 
 To prevent flaws in the protection function or even bypassing, service providers should consider the following three aspects.
 
