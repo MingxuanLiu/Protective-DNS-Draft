@@ -158,7 +158,7 @@ Figure 1 shows the workflow of Protective DNS (PDNS). Protective DNS is deployed
 1. Local Lookup: storing directly on the PDNS server, allowing direct queries against the local blocklist file.
 2. Remote Lookup: performing lookups via network interfaces (e.g., DNSBL {{RFC5782}}).
 
-**Rewriting Policy.** Upon retrieving blocklist matching results, the PDNS server should rewrite resolution responses for domains marked as malicious targets. The rewriting policy is critical to PDNS's defensive capability. Primary implementations of the rewriting module include, but are not limited to:
+**Rewriting Policy.** Upon retrieving blocklist matching results, the PDNS server rewrites resolution responses for domains in the blocklist. Primary implementations of the rewriting module include, but are not limited to:
 
 1. DNS Response Policy Zones (RPZ) {{RPZ}}: Implemented as zone files {{RFC1034}}, {{RFC1035}}, specifying both whether rewriting is required and providing domain-specific rewrite results.
 2. Domain Lists: This format consists of one domain per line, specifying only the rewrite requirement for each domain.
