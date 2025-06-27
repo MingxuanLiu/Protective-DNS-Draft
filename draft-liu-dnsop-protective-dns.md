@@ -158,12 +158,7 @@ Figure 1 shows the workflow of Protective DNS (PDNS). Protective DNS is deployed
 1. Local Lookup: storing directly on the PDNS server, allowing direct queries against the local blocklist file.
 2. Remote Lookup: performing lookups via network interfaces (e.g., DNSBL {{RFC5782}}).
 
-**Rewriting Policy.** Upon retrieving blocklist matching results, the PDNS server rewrites resolution responses for domains in the blocklist. Primary implementations of the rewriting module include, but are not limited to:
-
-1. DNS Response Policy Zones (RPZ) {{RPZ}}: Implemented as zone files {{RFC1034}}, {{RFC1035}}, specifying both whether rewriting is required and providing domain-specific rewrite results.
-2. Domain Lists: This format consists of one domain per line, specifying only the rewrite requirement for each domain.
-
-Additionally, rewriting strategies exist in multiple forms. Based on empirical analysis of leading Protective DNS vendors, this document summarizes five specific rewriting policies.
+**Rewriting Policy.** Upon retrieving blocklist matching results, the PDNS server rewrites resolution responses for domains in the blocklist. rewriting strategies exist in multiple forms. Based on empirical analysis of leading Protective DNS vendors, this document summarizes five specific rewriting policies.
 
 1) Using the secure IP addresses in A record controlled by the provider:
 
@@ -237,6 +232,11 @@ Additionally, rewriting strategies exist in multiple forms. Based on empirical a
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 ~~~
 {: #figure3 title="Format of NXDomain Response in Protective DNS."}
+
+Additionally, primary implementations of the rewriting module include, but are not limited to:
+
+1. DNS Response Policy Zones (RPZ) {{RPZ}}: Implemented as zone files {{RFC1034}}, {{RFC1035}}, specifying both whether rewriting is required and providing domain-specific rewrite results.
+2. Domain Lists: This format consists of one domain per line, specifying only the rewrite requirement for each domain.
 
 **Deployment Practices.** Leading DNS providers have increasingly offered Protective DNS services. For example, Cloudflare operates standard DNS services on 1.1.1.1, while PDNS servers on 1.1.1.2 and 1.1.1.3 provide differentiated protection: 1) 1.1.1.2 focuses on malware defense; 2) 1.1.1.3 defends against both malware and adult content. Additionally, recognizing the defensive efficacy of PDNS, nations including the U.S. {{US-Protect}}, U.K. {{UK-NCSC-PDNS}}, and Europe {{DNS4EU}} have designated PDNS as critical defensive infrastructure for national-level deployments, with details shown in Deployment Status.
 
