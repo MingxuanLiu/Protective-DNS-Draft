@@ -35,7 +35,7 @@ Abstract
    Thus, this document aims to provide specific operational and security
    considerations for Protective DNS.  It is intended primarily for
    entities seeking to deploy Protective DNS for defensive purposes,
-   offering concrete deployment recommendations.
+   offering deployment and security considerations.
 
 About This Document
 
