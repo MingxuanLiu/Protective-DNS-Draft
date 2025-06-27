@@ -134,21 +134,6 @@ This document is primarily intended for readers familiar with Protective DNS tec
 
 # Background
 
-+------------------------+
-|        Blocklist       |Not-in-Blocklist
-|           | ^          |  Domain Query +---------------+
-|       In- | |          |-------------->|               |
-| Blocklist | |          |               | Authoritative |
-|           v |          |<--------------|    Server     |
-|        Resolver        |               |               |
-+------------------------+               +---------------+
-  Rewritten | ^ Domain
-  Response  v | Query
-+------------------------+
-|         Client         |
-+------------------------+
-{: #figure1 title="The workflow of Protective DNS."}
-
 ## Overview of Protective DNS
 
 Figure 1 shows the workflow of Protective DNS (PDNS). Protective DNS is deployed on a recursive resolver. When the PDNS resolver receives a DNS query for a domain name, it first matches the domain against its maintained blocklist. The resolver then makes a decision based on the blocklist lookup result. If the domain is found in the blocklist, PDNS rewrites the DNS response to resolve the query to a "secure" result (e.g., special-purpose addresses), effectively preventing the client from accessing the corresponding malicious resource. Conversely, if the domain is not in the blocklist, the resolver returns a normal response by querying authoritative servers or using local cache results to respond to the client {{RFC1034}}, {{RFC1035}}. Thus, the two functional components that underpin the critical role of PDNS are the Blocklist and the Rewriting Policy.
