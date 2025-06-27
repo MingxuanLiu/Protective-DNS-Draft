@@ -113,7 +113,7 @@ Protective DNS is a defense mechanism deployed on recursive resolvers to prevent
 
 Owing to its effective defenses against common cyber attack behaviors—such as command-and-control (C2) communications of malware—Protective DNS deployment has surged via various initiatives. Not only have renowned DNS service providers adopted this defense, but some countries have also launched national-scale deployments. Meanwhile, studies analyzing Protective DNS have identified implementation diversity.
 
-Thus, this document aims to provide specific operational and security considerations for Protective DNS. It is intended primarily for entities seeking to deploy Protective DNS for defensive purposes, offering concrete deployment recommendations.
+Thus, this document aims to provide specific operational and security considerations for Protective DNS. It is intended primarily for entities seeking to deploy Protective DNS for defensive purposes, offering deployment and security considerations.
 
 --- middle
 
