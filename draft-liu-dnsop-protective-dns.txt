@@ -87,7 +87,7 @@ Table of Contents
    2.  Conventions and Definitions
    3.  Background
      3.1.  Overview of Protective DNS
-     3.2.  Distinctions of Protective DNS Technology
+     3.2.  Relationship between Other Technologies
    4.  Deployment Status
    5.  Operational Considerations
      5.1.  Operational Consideration 1: Blocklist Selection
@@ -95,7 +95,7 @@ Table of Contents
      5.3.  Operational Consideration 3 - Performance Impact
      5.4.  Operational Consideration 4 - Offering Explanation
    6.  Security Considerations
-     6.1.  Security Consideration 1 - Policy Flaw
+     6.1.  Security Consideration 1 - Rewriting Policy Flaws
      6.2.  Security Consideration 2 - Dangling Resources
      6.3.  Security Consideration 3 - Over-Blocking
      6.4.  Security Consideration 4 - Compatibility with other
@@ -167,29 +167,27 @@ Table of Contents
 
 3.1.  Overview of Protective DNS
 
-   Protective DNS (PDNS) is deployed on a recursive resolver.  When the
-   PDNS resolver receives a DNS query for a domain name, it first
-   matches the domain against its maintained blocklist.  The resolver
-   then makes a decision based on the blocklist lookup result.  If the
-   domain is found in the blocklist, PDNS rewrites the DNS response to
-   resolve the query to a "safe" result (e.g., IP address 127.0.0.1),
-   effectively preventing the client from accessing the corresponding
-   malicious resource.  Conversely, if the domain is not in the
-   blocklist, the resolver returns a normal response by querying
-   authoritative servers or using local cache results to respond to the
-   client [RFC1034], [RFC1035].  Thus, the two functional components
-   that underpin the critical role of PDNS are the Blocklist and the
-   Rewriting Policy.
+   Figure 1 shows the workflow of Protective DNS (PDNS).  Protective DNS
+   is deployed on a recursive resolver.  When the PDNS resolver receives
+   a DNS query for a domain name, it first matches the domain against
+   its maintained blocklist.  The resolver then makes a decision based
+   on the blocklist lookup result.  If the domain is found in the
+   blocklist, PDNS rewrites the DNS response to resolve the query to a
+   "secure" result (e.g., special-purpose addresses), effectively
+   preventing the client from accessing the corresponding malicious
+   resource.  Conversely, if the domain is not in the blocklist, the
+   resolver returns a normal response by querying authoritative servers
+   or using local cache results to respond to the client [RFC1034],
+   [RFC1035].  Thus, the two functional components that underpin the
+   critical role of PDNS are the Blocklist and the Rewriting Policy.
 
-   *Blocklist.* The blocklist records a list of domain names for which
-   the PDNS resolver performs resolution rewriting for defensive
-   purposes.  Blocklist sources include multiple aspects: commercial
-   threat intelligence (TI), open-source TI, vendor-maintained domain
-   blocklists, and user complaints.  The types of malicious domains
-   included in blocklists vary by vendor definition, encompassing but
-   not limited to: malware, botnet command-and-control (C2), phishing,
-   fraud, and adult content.
-
+   *Blocklist.* PDNS determines whether to rewrite the resolution result
+   of a domain name based on its presence in the blocklist.  Blocklist
+   sources include multiple aspects: commercial threat intelligence
+   (TI), open-source TI, vendor-maintained domain blocklists, and user
+   complaints.  The types of malicious domains included in blocklists
+   vary by vendor definition, encompassing but not limited to: malware,
+   botnet command-and-control (C2), phishing, fraud, and adult content.
    Additionally, PDNS deployments implement blocklist lookup in two
    primary forms:
 
@@ -200,19 +198,8 @@ Table of Contents
        DNSBL [RFC5782]).
 
    *Rewriting Policy.* Upon retrieving blocklist matching results, the
-   PDNS server should rewrite resolution responses for domains marked as
-   malicious targets.  The rewriting policy is critical to PDNS's
-   defensive capability.  Primary implementations of the rewriting
-   module include, but are not limited to:
-
-   1.  DNS Response Policy Zones (RPZ) [RPZ]: Implemented as zone files
-       [RFC1034], [RFC1035], specifying both whether rewriting is
-       required and providing domain-specific rewrite results.
-
-   2.  Domain Lists: This format consists of one domain per line,
-       specifying only the rewrite requirement for each domain.
-
-   Additionally, rewriting strategies exist in multiple forms.  Based on
+   PDNS server rewrites resolution responses for domains in the
+   blocklist. rewriting strategies exist in multiple forms.  Based on
    empirical analysis of leading Protective DNS vendors, this document
    summarizes five specific rewriting policies.
 
@@ -293,31 +280,31 @@ Table of Contents
 
           Figure 2: Format of NXDomain Response in Protective DNS.
 
-   *Deployment Practices.* Leading DNS providers have increasingly
-   offered Protective DNS services.  For example, Cloudflare operates
-   standard DNS services on 1.1.1.1, while PDNS servers on 1.1.1.2 and
-   1.1.1.3 provide differentiated protection: 1) 1.1.1.2 focuses on
-   malware defense; 2) 1.1.1.3 defends against both malware and adult
-   content.  Additionally, recognizing the defensive efficacy of PDNS,
-   nations including the U.S.  [US-Protect], U.K.  [UK-NCSC-PDNS], and
-   Europe [DNS4EU] have designated PDNS as critical defensive
-   infrastructure for national-level deployments, with details shown in
-   Deployment Status.
+   Additionally, primary implementations of the rewriting module
+   include, but are not limited to:
 
-3.2.  Distinctions of Protective DNS Technology
+   1.  DNS Response Policy Zones (RPZ) [RPZ]: Implemented as zone files
+       [RFC1034], [RFC1035], specifying both whether rewriting is
+       required and providing domain-specific rewrite results.
 
-   Protective DNS constitutes a subset of DNS Blocking (generally
-   considered as synonymous with DNS Filtering [SAC127]), sharing the
-   goal of security defense by leveraging known blocklists (e.g., domain
-   blacklists) to prevent user exposure to malicious resources.  DNS
-   Blocking is a broader security concept encompassing any rewriting
-   operations of DNS resolution traffic to restrict access to specific
-   domains.  Its applicability spans diverse scenarios and architectural
-   layers, specifically including defense at any DNS resolution role
-   (stub in client, recursive resolver, authoritative server) and other
-   security use scenarios (e.g., spam filtering, gateway firewall
-   protection).  In contrast, PDNS represents a specific implementation
-   of DNS Blocking, typically deployed on recursive resolvers.
+   2.  Domain Lists: This format consists of one domain per line,
+       specifying only the rewrite requirement for each domain.
+
+3.2.  Relationship between Other Technologies
+
+   *Relation ship bewteen PDNS and DNS Blockling.* Protective DNS
+   constitutes a subset of DNS Blocking (generally considered as
+   synonymous with DNS Filtering [SAC127]), sharing the goal of security
+   defense by leveraging known blocklists (e.g., domain blacklists) to
+   prevent user exposure to malicious resources.  DNS Blocking is a
+   broader security concept encompassing any rewriting operations of DNS
+   resolution traffic to restrict access to specific domains.  Its
+   applicability spans diverse scenarios and architectural layers,
+   specifically including defense at any DNS resolution role (stub in
+   client, recursive resolver, authoritative server) and other security
+   use scenarios (e.g., spam filtering, gateway firewall protection).
+   In contrast, PDNS represents a specific implementation of DNS
+   Blocking, typically deployed on recursive resolvers.
 
    Several prior documents define specific techniques within DNS
    Blocking:
@@ -338,28 +325,25 @@ Table of Contents
        supports multiple triggering mechanisms.  Among these, QNAME
        triggering is the primary mode adopted by PDNS.
 
-   Another similar security concept is censorship.  While censorship
-   shares the objective with DNS blocking, i.e., preventing end users
-   from accessing specific resources, its blocking strategies are far
-   more diverse.  Domain blacklist-based blocking represents just one
-   type of DNS-layer mitigation, alongside techniques such as DNS
-   poisoning.  Cross-layer mechanisms at network layers include TCP
-   reset (e.g., sending forged RST packets), IP blocking, HTTPS man-in-
-   the-middle attacks, and Deep Packet Inspection (DPI) for payload
-   analysis.
+   *Relationship between PDNS and Censorship.* While censorship shares
+   the objective with DNS blocking, i.e., preventing end users from
+   accessing specific resources, its blocking strategies are far more
+   diverse.  Domain blacklist-based blocking represents just one type of
+   DNS-layer mitigation, alongside techniques such as DNS poisoning.
+   Cross-layer mechanisms at network layers include TCP reset (e.g.,
+   sending forged RST packets), IP blocking, HTTPS man-in-the-middle
+   attacks, and Deep Packet Inspection (DPI) for payload analysis.
 
-   Additionally, as the Domain Name System serves as the starting point
-   for most network activities, domain-based defense mechanisms have
-   become one of the primary approaches to countering cyberattacks.
-   Defense mechanisms at the domain level are diverse, with blocking
-   actions occurring across various roles in the domain ecosystem.
-   During the initial domain registration process, registries and
-   registrars can use domain seizure to remove malicious domains from
-   registration data, thereby preventing their continued harm to users.
-   Registries and registrars can also employ sinkhole technology to
-   redirect some malicious domains to domain black holes.  The
-   Protective DNS defense mechanism addressed in this document is
-   primarily deployed on recursive resolvers.
+   *Relationship between PDNS and Other Domain Protection.* Defense
+   mechanisms at the domain level are diverse, with protective actions
+   occurring across various roles in the domain ecosystem.  During the
+   initial domain registration process, registries and registrars can
+   use domain seizure to remove malicious domains from registration
+   data, thereby preventing their continued harm to users.  Registries
+   and registrars can also employ sinkhole technology to redirect some
+   malicious domains to domain black holes.  The Protective DNS defense
+   mechanism addressed in this document is primarily deployed on
+   recursive resolvers.
 
 4.  Deployment Status
 
@@ -458,24 +442,24 @@ Table of Contents
    defensive capability is to maintain a blocklist that includes a
    series of malicious domain names to be blocked.
 
-   First, Protective DNS operators need to construct a blocklist.  On
-   one hand, they should choose the Blocklist sources, such as open-
-   source threat intelligence, commercial threat feeds, self-collected
-   malicious domains, and user feedback.  On the other hand, they should
-   specify the types of malicious domains to block, including but not
-   limited to malware, botnet, phishing, spam, tracking, and adult
-   content.  Most importantly, operators should verify the correctness
-   of these malicious domains to avoid false positives that could impact
-   access to legitimate domains.
+   First, when collecting blocklists, PDNS providers should explicitly
+   define the types of domains to be blocked based on the intended use
+   case.  Common categories of malicious domains include but are not
+   limited to, malware, botnet, phishing, spam, tracking, and adult
+   content.  Providers should then identify appropriate blocklist
+   sources aligned with these requirements, such as self-collected data
+   derived from traffic analysis and user feedback; open-source threat
+   intelligence feeds; and commercial threat intelligence services.
+   Most importantly, regardless of the source, operators should verify
+   the correctness of these malicious domains to avoid false positives
+   that could impact access to not-in-blocklist domains.
 
    Second, PDNS operators should select an appropriate blocklist
-   deployment approach based on operational context (including device
-   resource constraints and network access patterns) and application
-   scenarios, such as deploying in RPZ format on resolvers or using
-   network interfaces for remote querying.  Remote querying approaches
-   require proactive consideration of potential privacy implications and
-   impacts from network instability.  Local deployments necessitate a
-   thorough assessment of local resource limitations.  Specifically, the
+   deployment approach based on operational context and application
+   scenarios.  Remote querying approaches require proactive
+   consideration of potential privacy implications and impacts from
+   network instability.  Local deployments necessitate a thorough
+   assessment of local resource limitations.  Specifically, the
    Blocklist scale deployed on Protective DNS should be carefully
    defined based on the system's processing capability.  Blocklist size
    directly affects both the response efficiency of Protective DNS and
@@ -614,11 +598,11 @@ Table of Contents
    propose security considerations to enhance the security of Protective
    DNS on the basis of improving its practicality.  We outline specific
    considerations covering multiple dimensions.  For each factor, we
-   provide specific recommended mitigations, including policy flaws,
-   over-blocking, dangling resource risks, compatibility with other
-   security practices and fault diagnosis.
+   provide specific recommended mitigations, including rewriting policy
+   flaws, over-blocking, dangling resource risks, compatibility with
+   other security practices and fault diagnosis.
 
-6.1.  Security Consideration 1 - Policy Flaw
+6.1.  Security Consideration 1 - Rewriting Policy Flaws
 
    To prevent flaws in the protection function or even bypassing,
    service providers should consider the following three aspects.

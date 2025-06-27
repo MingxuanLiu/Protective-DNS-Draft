@@ -1171,7 +1171,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 <p id="section-toc.1-1.3.2.1.1" class="keepWithNext"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-overview-of-protective-dns" class="internal xref">Overview of Protective DNS</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
-                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-distinctions-of-protective-" class="internal xref">Distinctions of Protective DNS Technology</a></p>
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-relationship-between-other-" class="internal xref">Relationship between Other Technologies</a></p>
 </li>
             </ul>
 </li>
@@ -1199,7 +1199,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
-                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-security-consideration-1-po" class="internal xref">Security Consideration 1 - Policy Flaw</a></p>
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-security-consideration-1-re" class="internal xref">Security Consideration 1 - Rewriting Policy Flaws</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
                 <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-security-consideration-2-da" class="internal xref">Security Consideration 2 - Dangling Resources</a></p>
@@ -1271,49 +1271,39 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         <h3 id="name-overview-of-protective-dns">
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-overview-of-protective-dns" class="section-name selfRef">Overview of Protective DNS</a>
         </h3>
-<p id="section-3.1-1">Protective DNS (PDNS) is deployed on a recursive resolver. When the PDNS resolver receives a DNS query for a domain name, it first matches the domain against its maintained blocklist. The resolver then makes a decision based on the blocklist lookup result. If the domain is found in the blocklist, PDNS rewrites the DNS response to resolve the query to a "safe" result (e.g., IP address 127.0.0.1), effectively preventing the client from accessing the corresponding malicious resource. Conversely, if the domain is not in the blocklist, the resolver returns a normal response by querying authoritative servers or using local cache results to respond to the client <span>[<a href="#RFC1034" class="cite xref">RFC1034</a>]</span>, <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>. Thus, the two functional components that underpin the critical role of PDNS are the Blocklist and the Rewriting Policy.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.1-2"><strong>Blocklist.</strong> The blocklist records a list of domain names for which the PDNS resolver performs resolution rewriting for defensive purposes. Blocklist sources include multiple aspects: commercial threat intelligence (TI), open-source TI, vendor-maintained domain blocklists, and user complaints. The types of malicious domains included in blocklists vary by vendor definition, encompassing but not limited to: malware, botnet command-and-control (C2), phishing, fraud, and adult content.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
-<p id="section-3.1-3">Additionally, PDNS deployments implement blocklist lookup in two primary forms:<a href="#section-3.1-3" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-3.1-4">
-<li id="section-3.1-4.1">
-            <p id="section-3.1-4.1.1">Local Lookup: storing directly on the PDNS server, allowing direct queries against the local blocklist file.<a href="#section-3.1-4.1.1" class="pilcrow">¶</a></p>
+<p id="section-3.1-1">Figure 1 shows the workflow of Protective DNS (PDNS). Protective DNS is deployed on a recursive resolver. When the PDNS resolver receives a DNS query for a domain name, it first matches the domain against its maintained blocklist. The resolver then makes a decision based on the blocklist lookup result. If the domain is found in the blocklist, PDNS rewrites the DNS response to resolve the query to a "secure" result (e.g., special-purpose addresses), effectively preventing the client from accessing the corresponding malicious resource. Conversely, if the domain is not in the blocklist, the resolver returns a normal response by querying authoritative servers or using local cache results to respond to the client <span>[<a href="#RFC1034" class="cite xref">RFC1034</a>]</span>, <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>. Thus, the two functional components that underpin the critical role of PDNS are the Blocklist and the Rewriting Policy.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2"><strong>Blocklist.</strong> PDNS determines whether to rewrite the resolution result of a domain name based on its presence in the blocklist. Blocklist sources include multiple aspects: commercial threat intelligence (TI), open-source TI, vendor-maintained domain blocklists, and user complaints. The types of malicious domains included in blocklists vary by vendor definition, encompassing but not limited to: malware, botnet command-and-control (C2), phishing, fraud, and adult content. Additionally, PDNS deployments implement blocklist lookup in two primary forms:<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-3.1-3">
+<li id="section-3.1-3.1">
+            <p id="section-3.1-3.1.1">Local Lookup: storing directly on the PDNS server, allowing direct queries against the local blocklist file.<a href="#section-3.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-3.1-4.2">
-            <p id="section-3.1-4.2.1">Remote Lookup: performing lookups via network interfaces (e.g., DNSBL <span>[<a href="#RFC5782" class="cite xref">RFC5782</a>]</span>).<a href="#section-3.1-4.2.1" class="pilcrow">¶</a></p>
-</li>
-        </ol>
-<p id="section-3.1-5"><strong>Rewriting Policy.</strong> Upon retrieving blocklist matching results, the PDNS server should rewrite resolution responses for domains marked as malicious targets. The rewriting policy is critical to PDNS's defensive capability. Primary implementations of the rewriting module include, but are not limited to:<a href="#section-3.1-5" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-3.1-6">
-<li id="section-3.1-6.1">
-            <p id="section-3.1-6.1.1">DNS Response Policy Zones (RPZ) <span>[<a href="#RPZ" class="cite xref">RPZ</a>]</span>: Implemented as zone files <span>[<a href="#RFC1034" class="cite xref">RFC1034</a>]</span>, <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>, specifying both whether rewriting is required and providing domain-specific rewrite results.<a href="#section-3.1-6.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li id="section-3.1-6.2">
-            <p id="section-3.1-6.2.1">Domain Lists: This format consists of one domain per line, specifying only the rewrite requirement for each domain.<a href="#section-3.1-6.2.1" class="pilcrow">¶</a></p>
+          <li id="section-3.1-3.2">
+            <p id="section-3.1-3.2.1">Remote Lookup: performing lookups via network interfaces (e.g., DNSBL <span>[<a href="#RFC5782" class="cite xref">RFC5782</a>]</span>).<a href="#section-3.1-3.2.1" class="pilcrow">¶</a></p>
 </li>
         </ol>
-<p id="section-3.1-7">Additionally, rewriting strategies exist in multiple forms. Based on empirical analysis of leading Protective DNS vendors, this document summarizes five specific rewriting policies.<a href="#section-3.1-7" class="pilcrow">¶</a></p>
-<p id="section-3.1-8">1) Using the secure IP addresses in A record controlled by the provider:<a href="#section-3.1-8" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.1-9">
+<p id="section-3.1-4"><strong>Rewriting Policy.</strong> Upon retrieving blocklist matching results, the PDNS server rewrites resolution responses for domains in the blocklist. rewriting strategies exist in multiple forms. Based on empirical analysis of leading Protective DNS vendors, this document summarizes five specific rewriting policies.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
+<p id="section-3.1-5">1) Using the secure IP addresses in A record controlled by the provider:<a href="#section-3.1-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.1-6">
 <pre>
     malicious_domain.com    A    10    controled_IP;
-</pre><a href="#section-3.1-9" class="pilcrow">¶</a>
+</pre><a href="#section-3.1-6" class="pilcrow">¶</a>
 </div>
-<p id="section-3.1-10">2) Using IP addresses with special purposes, such as the reserved address like 0.0.0.0, link local address like 192.168.0.1, loopback addresses like 127.0.0.1, and so on:<a href="#section-3.1-10" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.1-11">
+<p id="section-3.1-7">2) Using IP addresses with special purposes, such as the reserved address like 0.0.0.0, link local address like 192.168.0.1, loopback addresses like 127.0.0.1, and so on:<a href="#section-3.1-7" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.1-8">
 <pre>
     malicious_domain.com    A    10    127.0.0.1;
-</pre><a href="#section-3.1-11" class="pilcrow">¶</a>
+</pre><a href="#section-3.1-8" class="pilcrow">¶</a>
 </div>
-<p id="section-3.1-12">3) Utilizing the CNAME record to rewrite the request to the domain name controlled by the provider:<a href="#section-3.1-12" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.1-13">
+<p id="section-3.1-9">3) Utilizing the CNAME record to rewrite the request to the domain name controlled by the provider:<a href="#section-3.1-9" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.1-10">
 <pre>
     malicious_domain.com    CNAME    10    controled_domain.com;
-</pre><a href="#section-3.1-13" class="pilcrow">¶</a>
+</pre><a href="#section-3.1-10" class="pilcrow">¶</a>
 </div>
-<p id="section-3.1-14">4) Using an empty Answer field in the response to prevent users from accessing malicious resources:<a href="#section-3.1-14" class="pilcrow">¶</a></p>
+<p id="section-3.1-11">4) Using an empty Answer field in the response to prevent users from accessing malicious resources:<a href="#section-3.1-11" class="pilcrow">¶</a></p>
 <span id="name-format-of-empty-answer-file"></span><div id="figure2">
 <figure id="figure-1">
-          <div class="alignLeft art-text artwork" id="section-3.1-15.1">
+          <div class="alignLeft art-text artwork" id="section-3.1-12.1">
 <pre>
   0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
@@ -1345,10 +1335,10 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <a href="#name-format-of-empty-answer-file" class="selfRef">Format of empty Answer fileld in Protective DNS.</a>
           </figcaption></figure>
 </div>
-<p id="section-3.1-16">5) Using special response codes for the reply, such as NXDomain, ServerFail, etc:<a href="#section-3.1-16" class="pilcrow">¶</a></p>
+<p id="section-3.1-13">5) Using special response codes for the reply, such as NXDomain, ServerFail, etc:<a href="#section-3.1-13" class="pilcrow">¶</a></p>
 <span id="name-format-of-nxdomain-response"></span><div id="figure3">
 <figure id="figure-2">
-          <div class="alignLeft art-text artwork" id="section-3.1-17.1">
+          <div class="alignLeft art-text artwork" id="section-3.1-14.1">
 <pre>
   0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
@@ -1381,15 +1371,23 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <a href="#name-format-of-nxdomain-response" class="selfRef">Format of NXDomain Response in Protective DNS.</a>
           </figcaption></figure>
 </div>
-<p id="section-3.1-18"><strong>Deployment Practices.</strong> Leading DNS providers have increasingly offered Protective DNS services. For example, Cloudflare operates standard DNS services on 1.1.1.1, while PDNS servers on 1.1.1.2 and 1.1.1.3 provide differentiated protection: 1) 1.1.1.2 focuses on malware defense; 2) 1.1.1.3 defends against both malware and adult content. Additionally, recognizing the defensive efficacy of PDNS, nations including the U.S. <span>[<a href="#US-Protect" class="cite xref">US-Protect</a>]</span>, U.K. <span>[<a href="#UK-NCSC-PDNS" class="cite xref">UK-NCSC-PDNS</a>]</span>, and Europe <span>[<a href="#DNS4EU" class="cite xref">DNS4EU</a>]</span> have designated PDNS as critical defensive infrastructure for national-level deployments, with details shown in Deployment Status.<a href="#section-3.1-18" class="pilcrow">¶</a></p>
+<p id="section-3.1-15">Additionally, primary implementations of the rewriting module include, but are not limited to:<a href="#section-3.1-15" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-3.1-16">
+<li id="section-3.1-16.1">
+            <p id="section-3.1-16.1.1">DNS Response Policy Zones (RPZ) <span>[<a href="#RPZ" class="cite xref">RPZ</a>]</span>: Implemented as zone files <span>[<a href="#RFC1034" class="cite xref">RFC1034</a>]</span>, <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>, specifying both whether rewriting is required and providing domain-specific rewrite results.<a href="#section-3.1-16.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-3.1-16.2">
+            <p id="section-3.1-16.2.1">Domain Lists: This format consists of one domain per line, specifying only the rewrite requirement for each domain.<a href="#section-3.1-16.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ol>
 </section>
 </div>
-<div id="distinctions-of-protective-dns-technology">
+<div id="relationship-between-other-technologies">
 <section id="section-3.2">
-        <h3 id="name-distinctions-of-protective-">
-<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-distinctions-of-protective-" class="section-name selfRef">Distinctions of Protective DNS Technology</a>
+        <h3 id="name-relationship-between-other-">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-relationship-between-other-" class="section-name selfRef">Relationship between Other Technologies</a>
         </h3>
-<p id="section-3.2-1">Protective DNS constitutes a subset of DNS Blocking (generally considered as synonymous with DNS Filtering <span>[<a href="#SAC127" class="cite xref">SAC127</a>]</span>), sharing the goal of security defense by leveraging known blocklists (e.g., domain blacklists) to prevent user exposure to malicious resources. DNS Blocking is a broader security concept encompassing any rewriting operations of DNS resolution traffic to restrict access to specific domains. Its applicability spans diverse scenarios and architectural layers, specifically including defense at any DNS resolution role (stub in client, recursive resolver, authoritative server) and other security use scenarios (e.g., spam filtering, gateway firewall protection). In contrast, PDNS represents a specific implementation of DNS Blocking, typically deployed on recursive resolvers.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-1"><strong>Relation ship bewteen PDNS and DNS Blockling.</strong> Protective DNS constitutes a subset of DNS Blocking (generally considered as synonymous with DNS Filtering <span>[<a href="#SAC127" class="cite xref">SAC127</a>]</span>), sharing the goal of security defense by leveraging known blocklists (e.g., domain blacklists) to prevent user exposure to malicious resources. DNS Blocking is a broader security concept encompassing any rewriting operations of DNS resolution traffic to restrict access to specific domains. Its applicability spans diverse scenarios and architectural layers, specifically including defense at any DNS resolution role (stub in client, recursive resolver, authoritative server) and other security use scenarios (e.g., spam filtering, gateway firewall protection). In contrast, PDNS represents a specific implementation of DNS Blocking, typically deployed on recursive resolvers.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.2-2">Several prior documents define specific techniques within DNS Blocking:<a href="#section-3.2-2" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-3.2-3">
 <li id="section-3.2-3.1">
@@ -1399,8 +1397,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
             <p id="section-3.2-3.2.1">DNS Response Policy Zones (RPZ) <span>[<a href="#RPZ" class="cite xref">RPZ</a>]</span>: Beyond remote blocklist querying (e.g., DNSBL), local deployment offers another blocklist deployment strategy. RPZ achieves localized blocklist query via a zone file containing rewrite instructions for each malicious domain, often utilized in scenarios such as DNS Firewall. RPZ supports multiple triggering mechanisms. Among these, QNAME triggering is the primary mode adopted by PDNS.<a href="#section-3.2-3.2.1" class="pilcrow">¶</a></p>
 </li>
         </ol>
-<p id="section-3.2-4">Another similar security concept is censorship. While censorship shares the objective with DNS blocking, i.e., preventing end users from accessing specific resources, its blocking strategies are far more diverse. Domain blacklist-based blocking represents just one type of DNS-layer mitigation, alongside techniques such as DNS poisoning. Cross-layer mechanisms at network layers include TCP reset (e.g., sending forged RST packets), IP blocking, HTTPS man-in-the-middle attacks, and Deep Packet Inspection (DPI) for payload analysis.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
-<p id="section-3.2-5">Additionally, as the Domain Name System serves as the starting point for most network activities, domain-based defense mechanisms have become one of the primary approaches to countering cyberattacks. Defense mechanisms at the domain level are diverse, with blocking actions occurring across various roles in the domain ecosystem. During the initial domain registration process, registries and registrars can use domain seizure to remove malicious domains from registration data, thereby preventing their continued harm to users. Registries and registrars can also employ sinkhole technology to redirect some malicious domains to domain black holes. The Protective DNS defense mechanism addressed in this document is primarily deployed on recursive resolvers.<a href="#section-3.2-5" class="pilcrow">¶</a></p>
+<p id="section-3.2-4"><strong>Relationship between PDNS and Censorship.</strong> While censorship shares the objective with DNS blocking, i.e., preventing end users from accessing specific resources, its blocking strategies are far more diverse. Domain blacklist-based blocking represents just one type of DNS-layer mitigation, alongside techniques such as DNS poisoning. Cross-layer mechanisms at network layers include TCP reset (e.g., sending forged RST packets), IP blocking, HTTPS man-in-the-middle attacks, and Deep Packet Inspection (DPI) for payload analysis.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
+<p id="section-3.2-5"><strong>Relationship between PDNS and Other Domain Protection.</strong> Defense mechanisms at the domain level are diverse, with protective actions occurring across various roles in the domain ecosystem. During the initial domain registration process, registries and registrars can use domain seizure to remove malicious domains from registration data, thereby preventing their continued harm to users. Registries and registrars can also employ sinkhole technology to redirect some malicious domains to domain black holes. The Protective DNS defense mechanism addressed in this document is primarily deployed on recursive resolvers.<a href="#section-3.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1439,8 +1437,8 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-operational-consideration-1" class="section-name selfRef">Operational Consideration 1: Blocklist Selection</a>
         </h3>
 <p id="section-5.1-1">One of the necessary conditions for Protective DNS to achieve its defensive capability is to maintain a blocklist that includes a series of malicious domain names to be blocked.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.1-2">First, Protective DNS operators need to construct a blocklist. On one hand, they should choose the Blocklist sources, such as open-source threat intelligence, commercial threat feeds, self-collected malicious domains, and user feedback. On the other hand, they should specify the types of malicious domains to block, including but not limited to malware, botnet, phishing, spam, tracking, and adult content. Most importantly, operators should verify the correctness of these malicious domains to avoid false positives that could impact access to legitimate domains.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
-<p id="section-5.1-3">Second, PDNS operators should select an appropriate blocklist deployment approach based on operational context (including device resource constraints and network access patterns) and application scenarios, such as deploying in RPZ format on resolvers or using network interfaces for remote querying. Remote querying approaches require proactive consideration of potential privacy implications and impacts from network instability. Local deployments necessitate a thorough assessment of local resource limitations. Specifically, the Blocklist scale deployed on Protective DNS should be carefully defined based on the system's processing capability. Blocklist size directly affects both the response efficiency of Protective DNS and hardware resource consumption (e.g., CPU, memory) on the hosting device.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.1-2">First, when collecting blocklists, PDNS providers should explicitly define the types of domains to be blocked based on the intended use case. Common categories of malicious domains include but are not limited to, malware, botnet, phishing, spam, tracking, and adult content. Providers should then identify appropriate blocklist sources aligned with these requirements, such as self-collected data derived from traffic analysis and user feedback; open-source threat intelligence feeds; and commercial threat intelligence services. Most importantly, regardless of the source, operators should verify the correctness of these malicious domains to avoid false positives that could impact access to not-in-blocklist domains.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.1-3">Second, PDNS operators should select an appropriate blocklist deployment approach based on operational context and application scenarios. Remote querying approaches require proactive consideration of potential privacy implications and impacts from network instability. Local deployments necessitate a thorough assessment of local resource limitations. Specifically, the Blocklist scale deployed on Protective DNS should be carefully defined based on the system's processing capability. Blocklist size directly affects both the response efficiency of Protective DNS and hardware resource consumption (e.g., CPU, memory) on the hosting device.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
 <p id="section-5.1-4">Most critically, operators should strive to avoid controversial blocklist formats to minimize the impact of potential false positives. First, PDNS should refrain from using keywords as Blocklist entries, as this exacerbates the likelihood of introducing false positives and undermines PDNS availability. Second, PDNS providers should avoid using wildcard domains in Blocklists, as such practices may also lead to false positives. To maximize the mitigation of false positives, mitigation at the minimum subdomain granularity (i.e., FQDN) may minimize collateral damage.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1483,11 +1481,11 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-security-considerations">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-6-1">Furthermore, by integrating the operational considerations, we propose security considerations to enhance the security of Protective DNS on the basis of improving its practicality. We outline specific considerations covering multiple dimensions. For each factor, we provide specific recommended mitigations, including policy flaws, over-blocking, dangling resource risks, compatibility with other security practices and fault diagnosis.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<div id="security-consideration-1-policy-flaw">
+<p id="section-6-1">Furthermore, by integrating the operational considerations, we propose security considerations to enhance the security of Protective DNS on the basis of improving its practicality. We outline specific considerations covering multiple dimensions. For each factor, we provide specific recommended mitigations, including rewriting policy flaws, over-blocking, dangling resource risks, compatibility with other security practices and fault diagnosis.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<div id="security-consideration-1-rewriting-policy-flaws">
 <section id="section-6.1">
-        <h3 id="name-security-consideration-1-po">
-<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-security-consideration-1-po" class="section-name selfRef">Security Consideration 1 - Policy Flaw</a>
+        <h3 id="name-security-consideration-1-re">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-security-consideration-1-re" class="section-name selfRef">Security Consideration 1 - Rewriting Policy Flaws</a>
         </h3>
 <p id="section-6.1-1">To prevent flaws in the protection function or even bypassing, service providers should consider the following three aspects.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 <p id="section-6.1-2"><strong>Redundant Rdata.</strong> According to measurements of Protective DNS services, the configurations of Rdata in rewritten records by some providers have defects. Specifically, along with the rewritten records, several PDNS providers may also include the original malicious records in the DNS response. For local stub resolvers of users, the selection of the resolution result is uncontrollable, and users still have a high probability of accessing malicious resources. Therefore, Protective DNS providers should avoid such redundant configurations to ensure the completeness of the defense effectiveness.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
