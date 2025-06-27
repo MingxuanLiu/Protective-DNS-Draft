@@ -5,12 +5,12 @@
 Network Working Group                                            H. Duan
 Internet-Draft                                       Tsinghua University
 Intended status: Standards Track                                  M. Liu
-Expires: 27 December 2025                        Zhongguancun Laboratory
+Expires: 29 December 2025                        Zhongguancun Laboratory
                                                                   B. Liu
                                                      Tsinghua University
                                                                    C. Lu
                                                  Zhongguancun Laboratory
-                                                            25 June 2025
+                                                            27 June 2025
 
 
            Considerations for Protective DNS Server Operators
@@ -64,7 +64,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 December 2025.
+   This Internet-Draft will expire on 29 December 2025.
 
 Copyright Notice
 
@@ -759,7 +759,7 @@ Table of Contents
    perform DNSSEC validation by setting the DO bit for blocked malicious
    domains—such as by setting the DO (DNSSEC OK) bit [RFC4035].  In such
    cases, PDNS rewriting protection may affect the normal operation of
-   DNSSEC.Therefore, PDNS service providers should proactively assess
+   DNSSEC.  Therefore, PDNS service providers should proactively assess
    the mutual impacts between PDNS services and other security
    practices.
 
