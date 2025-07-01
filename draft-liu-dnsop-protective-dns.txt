@@ -473,39 +473,26 @@ Table of Contents
    that could impact access to not-in-blocklist domains.
 
    Second, PDNS operators should select an appropriate blocklist
-   deployment approach based on operational context and application
-   scenarios.  Remote querying approaches require proactive
-   consideration of potential privacy implications and impacts from
-   network instability.  Local deployments necessitate a thorough
-   assessment of local resource limitations.  Specifically, the
-   Blocklist scale deployed on Protective DNS should be carefully
-   defined based on the system's processing capability.  Blocklist size
-   directly affects both the response efficiency of Protective DNS and
-   hardware resource consumption (e.g., CPU, memory) on the hosting
-   device.
-
-   Most critically, operators should strive to avoid controversial
-   blocklist formats to minimize the impact of potential false
-   positives.  First, PDNS should refrain from using keywords as
-   Blocklist entries, as this exacerbates the likelihood of introducing
-   false positives and undermines PDNS availability.  Second, PDNS
-   providers should avoid using wildcard domains in Blocklists, as such
-   practices may also lead to false positives.  To maximize the
-   mitigation of false positives, mitigation at the minimum subdomain
-   granularity (i.e., FQDN) may minimize collateral damage.
+   deployment approach based on operational context, including device
+   resource constraints and network access patterns.  Remote querying
+   approaches (e.g., using DNSBL) necessitate proactive consideration of
+   potential privacy implications and the impacts of network
+   instability.  Local deployments (e.g., RPZ-formated local zone file)
+   necessitate a thorough assessment of local resource limitations.
+   Specifically, the Blocklist scale deployed on Protective DNS should
+   be carefully defined based on the system's processing capability.
+   Blocklist size directly affects both the response efficiency of
+   Protective DNS and hardware resource consumption (e.g., CPU, memory)
+   on the hosting device.
 
 5.2.  Operational Consideration 2 - Rewriting Policy Construction
 
    Based on empirical analyses of popular Protective DNS providers, five
-   primary rewriting approaches have been identified in practice: 1)
-   Using safe IP addresses controlled by the PDNS provider; 2) Employing
-   specialized IP addresses (e.g., reserved loopback addresses like
-   127.0.0.1); 3) Rewriting requests to PDNS provider-controlled domains
-   via CNAME records; 4) Sending responses with empty Answer sections;
-   5) Returning special response codes (e.g., NXDomain, ServerFail).
-   Each rewriting strategy caters to specific security scenarios,
-   requiring providers to select appropriate approaches based on their
-   application requirements, specifically as follows:
+   primary rewriting approaches have been identified in practice, see
+   the Section of Overview of Protective DNS.  Each rewriting strategy
+   caters to specific security scenarios, requiring providers to select
+   appropriate approaches based on their application requirements,
+   specifically as follows:
 
    1) Secure IP addresses: Under this policy, the rewritten target
    address is a server controlled by the PDNS provider, enabling PDNS
@@ -516,7 +503,8 @@ Table of Contents
    operational overhead for PDNS providers, who need to actively monitor
    the status of these servers.  Additionally, this scenario
    necessitates consideration of privacy risks arising from traffic
-   monitoring.
+   monitoring, such as the security concerns of user traffic collected
+   for surveillance purposes.
 
    2) Specialized IP addresses: Due to the non-routable nature of these
    IP addresses on public networks, they are better suited for scenarios
@@ -535,7 +523,7 @@ Table of Contents
    information or enabling attacks.  Additionally, this approach lacks
    transparency for users in the event of false positives, as it cannot
    provide explanatory feedback, which is discussed in detail in the
-   Security Considerations.
+   Section of Security Considerations.
 
    3) Secure CNAME: This strategy, similar to using controlled IP
    addresses, enables providers to dynamically monitor traffic.
@@ -736,6 +724,20 @@ Table of Contents
    mitigate denial-of-response attacks, providers can send oversized DNS
    responses to enforce TCP fallback, thereby thwarting DoR attacks
    constructed via IP spoofing.
+
+   Most critically, operators should strive to avoid controversial
+   blocklist formats to minimize the impact of potential false
+   positives.  First, PDNS should refrain from using keywords as
+   Blocklist entries, as this exacerbates the likelihood of introducing
+   false positives and undermines PDNS availability.  Second, PDNS
+   providers should avoid using wildcard domains in Blocklists, as such
+   practices may also lead to false positives.  To maximize the
+   mitigation of false positives, mitigation at the minimum subdomain
+   granularity (i.e., FQDN) may minimize collateral damage.
+
+        $ORIGIN RPZ.EXAMPLE.ORG.
+        example.com                 CNAME   .
+        *.example.com               CNAME   .
 
 6.4.  Security Consideration 4 - Compatibility with other security
       practices
