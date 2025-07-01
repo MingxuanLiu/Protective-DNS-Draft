@@ -670,7 +670,7 @@ Table of Contents
    effectiveness.
 
    $ORIGIN malicious_domain.com
-   malicious_domain.com               A       controled_IP；
+   malicious_domain.com               A       controled_IP;
    malicious_domain.com               A       original_malicious_IP;
 
           Figure 5: Example of redundant rdata in Protective DNS.
@@ -689,8 +689,8 @@ Table of Contents
    configurations.
 
    $ORIGIN malicious_domain.com
-   malicious_domain.com               A       .
-   malicious_domain.com               CNAME   .
+   malicious_domain.com               A       controled_IP;
+   malicious_domain.com               CNAME   controled_domain;
 
         Figure 6: Example of missing record type in Protective DNS.
 
@@ -754,13 +754,13 @@ Table of Contents
    providers should promptly update blocklists to avoid false positives
    from delayed updates.
 
-   $ORIGIN malicious_domain.com
-   malicious_domain.com               A   . (FQDN)
-   "phishing" in domain               A   . (Keyword)
-   *.malicious_domain.com             A   . (Wildcard Domain)
-   *.com                              A   . (SLD/TLD Level Domain)
+$ORIGIN malicious_domain.com
+malicious_domain.com               A   controled_IP; (FQDN)
+"phishing" in domain               A   controled_IP; (Keyword)
+*.malicious_domain.com             A   controled_IP; (Wildcard Domain)
+*.com                              A   controled_IP; (SLD/TLD Level Domain)
 
-      Figure 7: Example of inappropriate blocklist in Protective DNS.
+   Figure 7: Example of inappropriate blocklist in Protective DNS.
 
    *Blocking Policy.* The primary defense objective of Protective DNS is
    to prevent users from accessing any malicious resources, i.e.,
