@@ -307,7 +307,41 @@ As Protective DNS services introduce an additional query step on whether a domai
 
 Protective DNS operates as a complete black-box service for users. Regardless of the rewriting strategy employed, users only perceive the blocking effect—i.e., the inability to access a domain. While providers can refine blocklist quality to minimize false positives, the inevitable presence of false positives significantly degrades user experience. Users may encounter unexplained domain inaccessibility that is indistinguishable from prevalent DNS tampering (e.g., censorship, man-in-the-middle attacks). Therefore, providing explanations for Protective DNS services can enhance user experience and alleviate privacy concerns. Operators should anticipate that omitted explanations may lead users to misperceive service instability or even switch to competing DNS providers.
 
-This explanation of PDNS can be realized through multiple approaches. First, to indicate that blocking originates from Protective DNS, service providers may offer a dedicated landing page to explain their protective services, helping users confirm that the observed DNS rewriting originates from the provider’s Protective DNS. Empirical analyses show some PDNS providers redirect DNS queries to a secure IP address hosting a page that notifies users of potential malicious website access. However, using a provider-controlled IP introduces risks of dangling resource takeover, detailed in Security Consideration. Second, the EDE (Extended DNS Error) {{RFC8914}}, {{Structered-Error}} protocol can be employed to specify in the extension fields that rewriting results from Protective DNS defense against malicious domains.
+This explanation of PDNS can be realized through multiple approaches. First, to indicate that blocking originates from Protective DNS, service providers may offer a dedicated landing page to explain their protective services, helping users confirm that the observed DNS rewriting originates from the provider’s Protective DNS. Empirical analyses show some PDNS providers redirect DNS queries to a secure IP address hosting a page that notifies users of potential malicious website access. However, using a provider-controlled IP introduces risks of dangling resource takeover, detailed in Security Consideration. Second, the EDE (Extended DNS Error) {{RFC8914}}, {{Structered-Error}} protocol can be employed to specify in the extension fields that rewriting results from Protective DNS defense against malicious domains. Existing work has shown that some PDNS implementations already utilize the EDE field for indication—for example, using "PROHIBITED", as illustrated in Figure 4.
+
+~~~
++-------------------------------+
+|          DNS Header           |
+|  (ID, Flags, QDCOUNT, etc.)   |
++-------------------------------+
+|           DNS Question        |
+|  (Domain, QTYPE, QCLASS)      |
++-------------------------------+
+|           DNS Answer          |
+|  (Resource Records)           |
++-------------------------------+
+|         DNS Authority         |
+|  (NS Records)                 |
++-------------------------------+
+|          DNS Additional       |
+|  (Additional Data)            |
++-------------------------------+
+|       EDNS0 Pseudo-RR         |
+|  (OPT Record)                 |
++-------------------------------+
+|          EDE Option           |
+| +---------------------------+ |
+| |  Option Code: 15 (EDE)    | |
+| +---------------------------+ |
+| |  Option Length: xxx       | |
+| +---------------------------+ |
+| |  Info Code: 18            | |
+| +---------------------------+ |
+| |  Extra Text: "PROHIBITED" | |
+| +---------------------------+ |
++-------------------------------+
+~~~
+{: #figure4 title="Example of EDE usage in Protective DNS."}
 
 Moreover, providing user appeal channels on explanation pages, such as an email address, could mitigate negative impacts of potential false positives.
 
@@ -321,7 +355,14 @@ To prevent flaws in the protection function or even bypassing, service providers
 
 **Redundant Rdata.** According to measurements of Protective DNS services, the configurations of Rdata in rewritten records by some providers have defects. Specifically, along with the rewritten records, several PDNS providers may also include the original malicious records in the DNS response. For local stub resolvers of users, the selection of the resolution result is uncontrollable, and users still have a high probability of accessing malicious resources. Therefore, Protective DNS providers should avoid such redundant configurations to ensure the completeness of the defense effectiveness.
 
+	 malicious_domain.com    A    10    controled_IP;
+	 malicious_domain.com    A    10    original_malicious_IP;
+  
 **Missing Record type.** While A records are the most common type of DNS resolution and are often the primary focus of defensive configuration by service providers—since they directly point users to malicious resources—empirical measurements have revealed that some Protective DNS providers fail to protect less common query types, such as TXT records. In these cases, the provider may return original responses, potentially exposing users to hidden threats. This oversight could be exploited to bypass PDNS protections, particularly when malicious domains embed harmful instructions within less scrutinized record types. Therefore, PDNS providers should proactively consider the potential impacts of missing record type configurations.
+
+         $ORIGIN malicious_domain.com
+         malicious_domain.com               A       .
+         malicious_domain.com               CNAME   .
 
 **Policy Coverage.** In addition to the defensive configuration of the response results, Protective DNS providers should ensure that the defensive functions are effective in all functional scenario. Specifically, encrypted DNS should also have the same defensive effect as non-encrypted DNS, to prevent malicious domain names from bypassing the defense by merely using encrypted DNS. Additionally, IPv6 scenarios should also be considered.
 
