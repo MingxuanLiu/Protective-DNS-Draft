@@ -295,13 +295,13 @@ Based on empirical analyses of popular Protective DNS providers, five primary re
 
 4) Empty Answer Section: This strategy represents a minimalist rewriting approach, simply returning an empty answer section. However, it undermines the transparency of PDNS services for users and may escalate to more aggressive implementations—such as refusing to return resolution responses— which entail denial-of-response risks detailed in the Security Considerations.
 
-5) Special Response Codes (Rcodes): This strategy is compatible with regular DNS error scenarios, which help prevent malware from detecting the defensive mechanisms of PDNS. However, such practices may also undermine the transparency of Protective DNS services, making it difficult for users to understand the rationale behind rewriting actions.
+5) Special Response Codes (Rcodes): This strategy is compatible with regular DNS error scenarios, which help prevent malware from detecting the defensive mechanisms of PDNS. However, such practices may also undermine the transparency of Protective DNS services, making it difficult for users to understand the principles behind rewriting operations and to distinguish between defensive rewrites from PDNS and genuine failures.
 
 Second, PDNS operators should consider the impact of TTL configurations and appropriately configure the TTL values for rewritten records. On one hand, an overly long TTL may lead to delayed updates of defense strategies for malicious domains. On the other hand, a too-short TTL triggers frequent DNS queries, increasing PDNS server load and potentially degrading performance.
 
 ## Operational Consideration 3 - Performance Impact
 
-As Protective DNS services introduce an additional query step whether a domain is malicious during standard DNS resolution, operators should anticipate potential impacts on DNS resolution performance. Specifically, factors such as blocklist deployment method (remote vs. local), scale, and domain matching techniques (e.g., hash matching) can affect performance. Experimental results show that loading a blocklist into memory with five million malicious domains can still be maintained within 10-second response times, but exceeding this scale may result in loading times exceeding 10 seconds, leading to unacceptable performance impacts.
+As Protective DNS services introduce an additional query step whether a domain is malicious during standard DNS resolution, operators should anticipate potential impacts on DNS resolution performance. Specifically, factors such as blocklist deployment method (remote vs. local), scale, and domain matching techniques (e.g., hash matching) can affect performance. Experimental results show that loading a blocklist into memory with five million malicious domains can still be maintained within 10-second response times, but exceeding this scale may result in loading times exceeding 10 seconds.
 
 ## Operational Consideration 4 - Offering Explanation
 
