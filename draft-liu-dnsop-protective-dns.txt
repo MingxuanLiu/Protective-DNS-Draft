@@ -387,7 +387,9 @@ Table of Contents
        spread.  DNS4EU provides DNS security assurances to critical
        sectors including EU citizens, public institutions, government
        entities, and operators, while also supporting voluntary adoption
-       or opt-out by EU residents.
+       or opt-out by EU residents.  Recently, DNS4EU has also opened
+       public query interfaces accessible to the citizens of the
+       European Union [DNS4EU-Public].
 
    2.  PDNS in UK [UK-Defence]：Supported by the UK's National Cyber
        Security Centre (NCSC), this initiative advises private
@@ -415,7 +417,7 @@ Table of Contents
        Executive Branch (FCEB) agencies and offers limited availability
        to infrastructure participants in pilot programs.
 
-   *Well-Known Provider.* Existing work, by combining surveys of
+   *Public DNS Provider.* Existing work, by combining surveys of
    publicly available documentation from widely adopted DNS service
    providers with active testing, confirms that two-thirds of public DNS
    providers already offer Protective DNS services.  Notably, practices
@@ -432,9 +434,9 @@ Table of Contents
    implement differentiated protection: 1) 1.1.1.2 focuses on malware
    defense; 2) 1.1.1.3 defends against both malware and adult content.
 
-   *Deployment in the Wild.* Furthermore, existing studies using active
-   scanning of the IPv4 address space in 2023 confirm that approximately
-   9% of recursive resolvers have deployed Protective DNS capabilities,
+   *Open Resolver.* Furthermore, existing studies using active scanning
+   of the IPv4 address space in 2023 confirm that approximately 9% of
+   recursive resolvers have deployed Protective DNS capabilities,
    covering almost two-thirds of the world's countries.  By analyzing
    the types of malicious domains defended against, research has found
    that malware, botnet, phishing, and spam are the most common
@@ -834,6 +836,10 @@ Table of Contents
               secret-weapon-in-your-fight-against-cybercrime>.
 
    [DNS4EU]   "DNS4EU", May 2025, <https://www.joindns4.eu/>.
+
+   [DNS4EU-Public]
+              "DNS4EU for Public", 2025,
+              <https://www.joindns4.eu/for-public>.
 
    [NDSS24]   "Understanding the Implementation and Security
               Implications of Protective DNS Services", March 2024,
