@@ -673,8 +673,6 @@ Table of Contents
    malicious_domain.com               A       controled_IP;
    malicious_domain.com               A       original_malicious_IP;
 
-          Figure 5: Example of redundant rdata in Protective DNS.
-
    *Missing Record type.* While A records are the most common type of
    DNS resolution and are often the primary focus of defensive
    configuration by service providers—since they directly point users to
@@ -691,8 +689,6 @@ Table of Contents
    $ORIGIN malicious_domain.com
    malicious_domain.com               A       controled_IP;
    malicious_domain.com               CNAME   controled_domain;
-
-        Figure 6: Example of missing record type in Protective DNS.
 
    *Policy Coverage.* In addition to the defensive configuration of the
    response results, Protective DNS providers should ensure that the
@@ -759,8 +755,6 @@ malicious_domain.com               A   controled_IP; (FQDN)
 "phishing" in domain               A   controled_IP; (Keyword)
 *.malicious_domain.com             A   controled_IP; (Wildcard Domain)
 *.com                              A   controled_IP; (SLD/TLD Level Domain)
-
-   Figure 7: Example of inappropriate blocklist in Protective DNS.
 
    *Blocking Policy.* The primary defense objective of Protective DNS is
    to prevent users from accessing any malicious resources, i.e.,
