@@ -1208,10 +1208,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="auto internal xref">6.3</a>.  <a href="#name-security-consideration-3-ov" class="internal xref">Security Consideration 3 - Over-Blocking</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.4">
-                <p id="section-toc.1-1.6.2.4.1"><a href="#section-6.4" class="auto internal xref">6.4</a>.  <a href="#name-security-consideration-4-co" class="internal xref">Security Consideration 4 - Compatibility with other security practices</a></p>
+                <p id="section-toc.1-1.6.2.4.1"><a href="#section-6.4" class="auto internal xref">6.4</a>.  <a href="#name-security-consideration-4-in" class="internal xref">Security Consideration 4 - Interaction with data integrity protection</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5">
-                <p id="section-toc.1-1.6.2.5.1"><a href="#section-6.5" class="auto internal xref">6.5</a>.  <a href="#name-security-consideration-5-fa" class="internal xref">Security Consideration 5 - Fault Diagnosis</a></p>
+                <p id="section-toc.1-1.6.2.5.1"><a href="#section-6.5" class="auto internal xref">6.5</a>.  <a href="#name-security-consideration-5-fa" class="internal xref">Security Consideration 5 - Fallback</a></p>
 </li>
             </ul>
 </li>
@@ -1492,8 +1492,48 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-operational-consideration-4" class="section-name selfRef">Operational Consideration 4 - Offering Explanation</a>
         </h3>
 <p id="section-5.4-1">Protective DNS operates as a complete black-box service for users. Regardless of the rewriting strategy employed, users only perceive the blocking effect—i.e., the inability to access a domain. While providers can refine blocklist quality to minimize false positives, the inevitable presence of false positives significantly degrades user experience. Users may encounter unexplained domain inaccessibility that is indistinguishable from prevalent DNS tampering (e.g., censorship, man-in-the-middle attacks). Therefore, providing explanations for Protective DNS services can enhance user experience and alleviate privacy concerns. Operators should anticipate that omitted explanations may lead users to misperceive service instability or even switch to competing DNS providers.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
-<p id="section-5.4-2">This explanation of PDNS can be realized through multiple approaches. First, to indicate that blocking originates from Protective DNS, service providers may offer a dedicated landing page to explain their protective services, helping users confirm that the observed DNS rewriting originates from the provider’s Protective DNS. Empirical analyses show some PDNS providers redirect DNS queries to a secure IP address hosting a page that notifies users of potential malicious website access. However, using a provider-controlled IP introduces risks of dangling resource takeover, detailed in Security Consideration. Second, the EDE (Extended DNS Error) <span>[<a href="#RFC8914" class="cite xref">RFC8914</a>]</span>, <span>[<a href="#Structered-Error" class="cite xref">Structered-Error</a>]</span> protocol can be employed to specify in the extension fields that rewriting results from Protective DNS defense against malicious domains.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
-<p id="section-5.4-3">Moreover, providing user appeal channels on explanation pages, such as an email address, could mitigate negative impacts of potential false positives.<a href="#section-5.4-3" class="pilcrow">¶</a></p>
+<p id="section-5.4-2">This explanation of PDNS can be realized through multiple approaches. First, to indicate that blocking originates from Protective DNS, service providers may offer a dedicated landing page to explain their protective services, helping users confirm that the observed DNS rewriting originates from the provider’s Protective DNS. Empirical analyses show some PDNS providers redirect DNS queries to a secure IP address hosting a page that notifies users of potential malicious website access. However, using a provider-controlled IP introduces risks of dangling resource takeover, detailed in Security Consideration. Second, the EDE (Extended DNS Error) <span>[<a href="#RFC8914" class="cite xref">RFC8914</a>]</span>, <span>[<a href="#Structered-Error" class="cite xref">Structered-Error</a>]</span> protocol can be employed to specify in the extension fields that rewriting results from Protective DNS defense against malicious domains. Existing work has shown that some PDNS implementations already utilize the EDE field for indication—for example, using "PROHIBITED", as illustrated in Figure 4.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
+<span id="name-example-of-ede-usage-in-pro"></span><div id="figure4">
+<figure id="figure-4">
+          <div class="alignLeft art-text artwork" id="section-5.4-3.1">
+<pre>
++-------------------------------+
+|          DNS Header           |
+|  (ID, Flags, QDCOUNT, etc.)   |
++-------------------------------+
+|           DNS Question        |
+|  (Domain, QTYPE, QCLASS)      |
++-------------------------------+
+|           DNS Answer          |
+|  (Resource Records)           |
++-------------------------------+
+|         DNS Authority         |
+|  (NS Records)                 |
++-------------------------------+
+|          DNS Additional       |
+|  (Additional Data)            |
++-------------------------------+
+|       EDNS0 Pseudo-RR         |
+|  (OPT Record)                 |
++-------------------------------+
+|          EDE Option           |
+| +---------------------------+ |
+| |  Option Code: 15 (EDE)    | |
+| +---------------------------+ |
+| |  Option Length: xxx       | |
+| +---------------------------+ |
+| |  Info Code: 18            | |
+| +---------------------------+ |
+| |  Extra Text: "PROHIBITED" | |
+| +---------------------------+ |
++-------------------------------+
+</pre>
+</div>
+<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
+<a href="#name-example-of-ede-usage-in-pro" class="selfRef">Example of EDE usage in Protective DNS.</a>
+          </figcaption></figure>
+</div>
+<p id="section-5.4-4">Moreover, providing user appeal channels on explanation pages, such as an email address, could mitigate negative impacts of potential false positives.<a href="#section-5.4-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1503,7 +1543,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-security-considerations">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-6-1">Furthermore, by integrating the operational considerations, we propose security considerations to enhance the security of Protective DNS on the basis of improving its practicality. We outline specific considerations covering multiple dimensions. For each factor, we provide specific recommended mitigations, including rewriting policy flaws, over-blocking, dangling resource risks, compatibility with other security practices and fault diagnosis.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">Furthermore, by integrating the operational considerations, we propose security considerations to enhance the security of Protective DNS on the basis of improving its practicality. We outline specific considerations covering multiple dimensions. For each factor, we provide specific recommended mitigations, including rewriting policy flaws, over-blocking, dangling resource risks, interaction with data integrity protection and fallbacks.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <div id="security-consideration-1-rewriting-policy-flaws">
 <section id="section-6.1">
         <h3 id="name-security-consideration-1-re">
@@ -1511,8 +1551,21 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         </h3>
 <p id="section-6.1-1">To prevent flaws in the protection function or even bypassing, service providers should consider the following three aspects.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 <p id="section-6.1-2"><strong>Redundant Rdata.</strong> According to measurements of Protective DNS services, the configurations of Rdata in rewritten records by some providers have defects. Specifically, along with the rewritten records, several PDNS providers may also include the original malicious records in the DNS response. For local stub resolvers of users, the selection of the resolution result is uncontrollable, and users still have a high probability of accessing malicious resources. Therefore, Protective DNS providers should avoid such redundant configurations to ensure the completeness of the defense effectiveness.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
-<p id="section-6.1-3"><strong>Missing Record type.</strong> While A records are the most common type of DNS resolution and are often the primary focus of defensive configuration by service providers—since they directly point users to malicious resources—empirical measurements have revealed that some Protective DNS providers fail to protect less common query types, such as TXT records. In these cases, the provider may return original responses, potentially exposing users to hidden threats. This oversight could be exploited to bypass PDNS protections, particularly when malicious domains embed harmful instructions within less scrutinized record types. Therefore, PDNS providers should proactively consider the potential impacts of missing record type configurations.<a href="#section-6.1-3" class="pilcrow">¶</a></p>
-<p id="section-6.1-4"><strong>Policy Coverage.</strong> In addition to the defensive configuration of the response results, Protective DNS providers should ensure that the defensive functions are effective in all functional scenario. Specifically, encrypted DNS should also have the same defensive effect as non-encrypted DNS, to prevent malicious domain names from bypassing the defense by merely using encrypted DNS. Additionally, IPv6 scenarios should also be considered.<a href="#section-6.1-4" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-6.1-3">
+<pre>
+     malicious_domain.com    A    10    controled_IP;
+     malicious_domain.com    A    10    original_malicious_IP;
+</pre><a href="#section-6.1-3" class="pilcrow">¶</a>
+</div>
+<p id="section-6.1-4"><strong>Missing Record type.</strong> While A records are the most common type of DNS resolution and are often the primary focus of defensive configuration by service providers—since they directly point users to malicious resources—empirical measurements have revealed that some Protective DNS providers fail to protect less common query types, such as TXT records. In these cases, the provider may return original responses, potentially exposing users to hidden threats. This oversight could be exploited to bypass PDNS protections, particularly when malicious domains embed harmful instructions within less scrutinized record types. Therefore, PDNS providers should proactively consider the potential impacts of missing record type configurations.<a href="#section-6.1-4" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-6.1-5">
+<pre>
+     $ORIGIN malicious_domain.com
+     malicious_domain.com               A       .
+     malicious_domain.com               CNAME   .
+</pre><a href="#section-6.1-5" class="pilcrow">¶</a>
+</div>
+<p id="section-6.1-6"><strong>Policy Coverage.</strong> In addition to the defensive configuration of the response results, Protective DNS providers should ensure that the defensive functions are effective in all functional scenario. Specifically, encrypted DNS should also have the same defensive effect as non-encrypted DNS, to prevent malicious domain names from bypassing the defense by merely using encrypted DNS. Additionally, IPv6 scenarios should also be considered.<a href="#section-6.1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-consideration-2-dangling-resources">
@@ -1543,30 +1596,32 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         </h3>
 <p id="section-6.3-1">Protective DNS rewriting should minimize the impact of over-blocking, as this introduces significant collateral damage in two primary aspects.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
 <p id="section-6.3-2"><strong>Blocklist Construction.</strong> First, Protective DNS service providers should avoid errors in blocklists, as blocklist errors directly cause collateral damage to benign domain names. Second, over-generalizing target domains for blocking in Protective DNS may also lead to collateral damage. Using keywords as blocklist entries exacerbates the likelihood of false positives, causing unintended blocking of benign domains and degrading PDNS availability. Employing wildcard domains in blocklists similarly introduces false positives. Meanwhile, blocking at the second-level domain (SLD) or top-level domain (TLD) levels can also trigger false positives—for example, cloud services often host user-specific services on subdomains, so blocking the apex domain of such a cloud service would impact numerous unrelated services. Thus, blocking at the fully qualified domain names (FQDNs) could minimize collateral damage. Finally, providers should promptly update blocklists to avoid false positives from delayed updates.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
-<p id="section-6.3-3"><strong>Blocking Policy.</strong> The primary defense objective of Protective DNS is to prevent users from accessing any malicious resources, i.e., intercepting as many malicious domains as possible. However, empirical analysis has shown that some Protective DNS implementations exhibit over-blocking collateral damage from aggressive blocking. Measurements reveal that certain Protective DNS services apply extreme defensive strategies to queries for one or more malicious domains, temporarily blocking all domain resolution for the client—including legitimate domains. This introduces denial-of-response (DoR) risks, as attackers can exploit this behavior to impose DoR attacks on arbitrary victims. Specifically, sending a set of malicious domain queries with spoofed source IP addresses can force the victim’s client to lose all DNS resolution capabilities, effectively executing a denial-of-service attack.<a href="#section-6.3-3" class="pilcrow">¶</a></p>
-<p id="section-6.3-4">Therefore, PDNS service providers should exercise caution when implementing aggressive defensive strategies and consider the potential impact of such approaches in advance. Meanwhile, Protective DNS providers should preconfigure defense mechanisms against potential denial-of-resolution (DoR) risks. Specifically, when a client initiates a large volume of DNS queries exceeding a defined threshold for malicious domains to a Protective DNS server, providers should evaluate the impact of directly blocking all DNS query responses from the client for a period of time. To effectively mitigate denial-of-response attacks, providers can send oversized DNS responses to enforce TCP fallback, thereby thwarting DoR attacks constructed via IP spoofing.<a href="#section-6.3-4" class="pilcrow">¶</a></p>
-<p id="section-6.3-5">Most critically, operators should strive to avoid controversial blocklist formats to minimize the impact of potential false positives. First, PDNS should refrain from using keywords as Blocklist entries, as this exacerbates the likelihood of introducing false positives and undermines PDNS availability. Second, PDNS providers should avoid using wildcard domains in Blocklists, as such practices may also lead to false positives. To maximize the mitigation of false positives, mitigation at the minimum subdomain granularity (i.e., FQDN) may minimize collateral damage.<a href="#section-6.3-5" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6.3-6">
+<div class="alignLeft art-text artwork" id="section-6.3-3">
 <pre>
-     $ORIGIN RPZ.EXAMPLE.ORG.
-     example.com                 CNAME   .
-     *.example.com               CNAME   .
-</pre><a href="#section-6.3-6" class="pilcrow">¶</a>
+     $ORIGIN malicious_domain.com
+     malicious_domain.com               A   . (FQDN)
+     "phishing" in domain               A   . (Keyword)
+     *.malicious_domain.com             A   . (Wildcard Domain)
+     *.com                              A   . (SLD/TLD Level Domain)
+</pre><a href="#section-6.3-3" class="pilcrow">¶</a>
 </div>
+<p id="section-6.3-4"><strong>Blocking Policy.</strong> The primary defense objective of Protective DNS is to prevent users from accessing any malicious resources, i.e., intercepting as many malicious domains as possible. However, empirical analysis has shown that some Protective DNS implementations exhibit over-blocking collateral damage from aggressive blocking. Measurements reveal that certain Protective DNS services apply extreme defensive strategies to queries for one or more malicious domains, temporarily blocking all domain resolution for the client—including legitimate domains. This introduces denial-of-response (DoR) risks, as attackers can exploit this behavior to impose DoR attacks on arbitrary victims. Specifically, sending a set of malicious domain queries with spoofed source IP addresses can force the victim’s client to lose all DNS resolution capabilities, effectively executing a denial-of-service attack.<a href="#section-6.3-4" class="pilcrow">¶</a></p>
+<p id="section-6.3-5">Therefore, PDNS service providers should exercise caution when implementing aggressive defensive strategies and consider the potential impact of such approaches in advance. Meanwhile, Protective DNS providers should preconfigure defense mechanisms against potential denial-of-resolution (DoR) risks. Specifically, when a client initiates a large volume of DNS queries exceeding a defined threshold for malicious domains to a Protective DNS server, providers should evaluate the impact of directly blocking all DNS query responses from the client for a period of time. To effectively mitigate denial-of-response attacks, providers can send oversized DNS responses to enforce TCP fallback, thereby thwarting DoR attacks constructed via IP spoofing.<a href="#section-6.3-5" class="pilcrow">¶</a></p>
+<p id="section-6.3-6">Most critically, operators should strive to avoid controversial blocklist formats to minimize the impact of potential false positives. First, PDNS should refrain from using keywords as Blocklist entries, as this exacerbates the likelihood of introducing false positives and undermines PDNS availability. Second, PDNS providers should avoid using wildcard domains in Blocklists, as such practices may also lead to false positives. To maximize the mitigation of false positives, mitigation at the minimum subdomain granularity (i.e., FQDN) may minimize collateral damage.<a href="#section-6.3-6" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="security-consideration-4-compatibility-with-other-security-practices">
+<div id="security-consideration-4-interaction-with-data-integrity-protection">
 <section id="section-6.4">
-        <h3 id="name-security-consideration-4-co">
-<a href="#section-6.4" class="section-number selfRef">6.4. </a><a href="#name-security-consideration-4-co" class="section-name selfRef">Security Consideration 4 - Compatibility with other security practices</a>
+        <h3 id="name-security-consideration-4-in">
+<a href="#section-6.4" class="section-number selfRef">6.4. </a><a href="#name-security-consideration-4-in" class="section-name selfRef">Security Consideration 4 - Interaction with data integrity protection</a>
         </h3>
-<p id="section-6.4-1">Protective DNS may interact with other security practices in the DNS architecture, such as DNSSEC <span>[<a href="#RFC4033" class="cite xref">RFC4033</a>]</span>. Under normal circumstances, DNSSEC primarily operates between recursive resolvers and authoritative servers. For Protective DNS, when a malicious domain matches the blocklist, if the PDNS server does not query the authoritative server for DNSSEC records, the mutual impact between PDNS and DNSSEC remains limited. However, PDNS service providers should consider scenarios where clients instruct PDNS servers to perform DNSSEC validation by setting the DO bit for blocked malicious domains—such as by setting the DO (DNSSEC OK) bit <span>[<a href="#RFC4035" class="cite xref">RFC4035</a>]</span>. In such cases, PDNS rewriting protection may affect the normal operation of DNSSEC. Therefore, PDNS service providers should proactively assess the mutual impacts between PDNS services and other security practices.<a href="#section-6.4-1" class="pilcrow">¶</a></p>
+<p id="section-6.4-1">For blocked domains, Protective DNS rewrites data in the DNS responses and breaks their data integrity by design. Particularly, when domains are DNSSEC-signed, PDNS will not be able to return validated responses for blocked query names and <span class="bcp14">MUST NOT</span> set the AD bit when this occurs <span>[<a href="#RFC4035" class="cite xref">RFC4035</a>]</span>. For clients that have DO bit or CD bit set in DNS queries, meaning they wish to receive DNSSEC RRs in response messages <span>[<a href="#RFC4033" class="cite xref">RFC4033</a>]</span>, PDNS will not be able to provide DNSSEC RRs when the query names are blocked, because no actual queries are sent to authoritative servers. In such cases, error messages (e.g., via EDE <span>[<a href="#RFC8914" class="cite xref">RFC8914</a>]</span>) is recommended in responses for diagnosing purposes.<a href="#section-6.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="security-consideration-5-fault-diagnosis">
+<div id="security-consideration-5-fallback">
 <section id="section-6.5">
         <h3 id="name-security-consideration-5-fa">
-<a href="#section-6.5" class="section-number selfRef">6.5. </a><a href="#name-security-consideration-5-fa" class="section-name selfRef">Security Consideration 5 - Fault Diagnosis</a>
+<a href="#section-6.5" class="section-number selfRef">6.5. </a><a href="#name-security-consideration-5-fa" class="section-name selfRef">Security Consideration 5 - Fallback</a>
         </h3>
 <p id="section-6.5-1">As Protective DNS introduces new components, such as blocklists, service providers should consider fault diagnosis for denial-of-service (DoS) failures in individual components and corresponding fallback mechanisms to ensure performance stability. For example, in scenarios involving remote blocklist queries, providers should proactively diagnose the availability of remote blocklist interfaces on a regular basis. If remote blocklist query services become unavailable due to network issues or other causes, and no fallback mechanism is in place, this may render the provider’s DNS query services inoperable. Thus, providers should predefine fallback mechanisms—such as reverting to normal DNS resolution procedures.<a href="#section-6.5-1" class="pilcrow">¶</a></p>
 </section>

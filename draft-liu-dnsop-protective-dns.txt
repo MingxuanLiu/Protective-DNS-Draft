@@ -98,9 +98,9 @@ Table of Contents
      6.1.  Security Consideration 1 - Rewriting Policy Flaws
      6.2.  Security Consideration 2 - Dangling Resources
      6.3.  Security Consideration 3 - Over-Blocking
-     6.4.  Security Consideration 4 - Compatibility with other
-           security practices
-     6.5.  Security Consideration 5 - Fault Diagnosis
+     6.4.  Security Consideration 4 - Interaction with data integrity
+           protection
+     6.5.  Security Consideration 5 - Fallback
    7.  IANA Considerations
    8.  References
      8.1.  Normative References
@@ -602,7 +602,42 @@ Table of Contents
    Consideration.  Second, the EDE (Extended DNS Error) [RFC8914],
    [Structered-Error] protocol can be employed to specify in the
    extension fields that rewriting results from Protective DNS defense
-   against malicious domains.
+   against malicious domains.  Existing work has shown that some PDNS
+   implementations already utilize the EDE field for indication—for
+   example, using "PROHIBITED", as illustrated in Figure 4.
+
+   +-------------------------------+
+   |          DNS Header           |
+   |  (ID, Flags, QDCOUNT, etc.)   |
+   +-------------------------------+
+   |           DNS Question        |
+   |  (Domain, QTYPE, QCLASS)      |
+   +-------------------------------+
+   |           DNS Answer          |
+   |  (Resource Records)           |
+   +-------------------------------+
+   |         DNS Authority         |
+   |  (NS Records)                 |
+   +-------------------------------+
+   |          DNS Additional       |
+   |  (Additional Data)            |
+   +-------------------------------+
+   |       EDNS0 Pseudo-RR         |
+   |  (OPT Record)                 |
+   +-------------------------------+
+   |          EDE Option           |
+   | +---------------------------+ |
+   | |  Option Code: 15 (EDE)    | |
+   | +---------------------------+ |
+   | |  Option Length: xxx       | |
+   | +---------------------------+ |
+   | |  Info Code: 18            | |
+   | +---------------------------+ |
+   | |  Extra Text: "PROHIBITED" | |
+   | +---------------------------+ |
+   +-------------------------------+
+
+             Figure 4: Example of EDE usage in Protective DNS.
 
    Moreover, providing user appeal channels on explanation pages, such
    as an email address, could mitigate negative impacts of potential
@@ -615,8 +650,8 @@ Table of Contents
    DNS on the basis of improving its practicality.  We outline specific
    considerations covering multiple dimensions.  For each factor, we
    provide specific recommended mitigations, including rewriting policy
-   flaws, over-blocking, dangling resource risks, compatibility with
-   other security practices and fault diagnosis.
+   flaws, over-blocking, dangling resource risks, interaction with data
+   integrity protection and fallbacks.
 
 6.1.  Security Consideration 1 - Rewriting Policy Flaws
 
@@ -634,6 +669,9 @@ Table of Contents
    configurations to ensure the completeness of the defense
    effectiveness.
 
+        malicious_domain.com    A    10    controled_IP;
+        malicious_domain.com    A    10    original_malicious_IP;
+
    *Missing Record type.* While A records are the most common type of
    DNS resolution and are often the primary focus of defensive
    configuration by service providers—since they directly point users to
@@ -646,6 +684,10 @@ Table of Contents
    less scrutinized record types.  Therefore, PDNS providers should
    proactively consider the potential impacts of missing record type
    configurations.
+
+        $ORIGIN malicious_domain.com
+        malicious_domain.com               A       .
+        malicious_domain.com               CNAME   .
 
    *Policy Coverage.* In addition to the defensive configuration of the
    response results, Protective DNS providers should ensure that the
@@ -707,6 +749,12 @@ Table of Contents
    providers should promptly update blocklists to avoid false positives
    from delayed updates.
 
+        $ORIGIN malicious_domain.com
+        malicious_domain.com               A   . (FQDN)
+        "phishing" in domain               A   . (Keyword)
+        *.malicious_domain.com             A   . (Wildcard Domain)
+        *.com                              A   . (SLD/TLD Level Domain)
+
    *Blocking Policy.* The primary defense objective of Protective DNS is
    to prevent users from accessing any malicious resources, i.e.,
    intercepting as many malicious domains as possible.  However,
@@ -745,29 +793,22 @@ Table of Contents
    mitigation of false positives, mitigation at the minimum subdomain
    granularity (i.e., FQDN) may minimize collateral damage.
 
-        $ORIGIN RPZ.EXAMPLE.ORG.
-        example.com                 CNAME   .
-        *.example.com               CNAME   .
+6.4.  Security Consideration 4 - Interaction with data integrity
+      protection
 
-6.4.  Security Consideration 4 - Compatibility with other security
-      practices
+   For blocked domains, Protective DNS rewrites data in the DNS
+   responses and breaks their data integrity by design.  Particularly,
+   when domains are DNSSEC-signed, PDNS will not be able to return
+   validated responses for blocked query names and MUST NOT set the AD
+   bit when this occurs [RFC4035].  For clients that have DO bit or CD
+   bit set in DNS queries, meaning they wish to receive DNSSEC RRs in
+   response messages [RFC4033], PDNS will not be able to provide DNSSEC
+   RRs when the query names are blocked, because no actual queries are
+   sent to authoritative servers.  In such cases, error messages (e.g.,
+   via EDE [RFC8914]) is recommended in responses for diagnosing
+   purposes.
 
-   Protective DNS may interact with other security practices in the DNS
-   architecture, such as DNSSEC [RFC4033].  Under normal circumstances,
-   DNSSEC primarily operates between recursive resolvers and
-   authoritative servers.  For Protective DNS, when a malicious domain
-   matches the blocklist, if the PDNS server does not query the
-   authoritative server for DNSSEC records, the mutual impact between
-   PDNS and DNSSEC remains limited.  However, PDNS service providers
-   should consider scenarios where clients instruct PDNS servers to
-   perform DNSSEC validation by setting the DO bit for blocked malicious
-   domains—such as by setting the DO (DNSSEC OK) bit [RFC4035].  In such
-   cases, PDNS rewriting protection may affect the normal operation of
-   DNSSEC.  Therefore, PDNS service providers should proactively assess
-   the mutual impacts between PDNS services and other security
-   practices.
-
-6.5.  Security Consideration 5 - Fault Diagnosis
+6.5.  Security Consideration 5 - Fallback
 
    As Protective DNS introduces new components, such as blocklists,
    service providers should consider fault diagnosis for denial-of-
