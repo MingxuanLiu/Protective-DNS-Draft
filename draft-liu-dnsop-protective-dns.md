@@ -357,7 +357,7 @@ To prevent flaws in the protection function or even bypassing, service providers
 
 	 malicious_domain.com    A    10    controled_IP;
 	 malicious_domain.com    A    10    original_malicious_IP;
-  
+
 **Missing Record type.** While A records are the most common type of DNS resolution and are often the primary focus of defensive configuration by service providers—since they directly point users to malicious resources—empirical measurements have revealed that some Protective DNS providers fail to protect less common query types, such as TXT records. In these cases, the provider may return original responses, potentially exposing users to hidden threats. This oversight could be exploited to bypass PDNS protections, particularly when malicious domains embed harmful instructions within less scrutinized record types. Therefore, PDNS providers should proactively consider the potential impacts of missing record type configurations.
 
          $ORIGIN malicious_domain.com
@@ -393,7 +393,6 @@ Protective DNS rewriting should minimize the impact of over-blocking, as this in
 **Blocking Policy.** The primary defense objective of Protective DNS is to prevent users from accessing any malicious resources, i.e., intercepting as many malicious domains as possible. However, empirical analysis has shown that some Protective DNS implementations exhibit over-blocking collateral damage from aggressive blocking. Measurements reveal that certain Protective DNS services apply extreme defensive strategies to queries for one or more malicious domains, temporarily blocking all domain resolution for the client—including legitimate domains. This introduces denial-of-response (DoR) risks, as attackers can exploit this behavior to impose DoR attacks on arbitrary victims. Specifically, sending a set of malicious domain queries with spoofed source IP addresses can force the victim’s client to lose all DNS resolution capabilities, effectively executing a denial-of-service attack.
 
 Therefore, PDNS service providers should exercise caution when implementing aggressive defensive strategies and consider the potential impact of such approaches in advance. Meanwhile, Protective DNS providers should preconfigure defense mechanisms against potential denial-of-resolution (DoR) risks. Specifically, when a client initiates a large volume of DNS queries exceeding a defined threshold for malicious domains to a Protective DNS server, providers should evaluate the impact of directly blocking all DNS query responses from the client for a period of time. To effectively mitigate denial-of-response attacks, providers can send oversized DNS responses to enforce TCP fallback, thereby thwarting DoR attacks constructed via IP spoofing.
-
 
 Most critically, operators should strive to avoid controversial blocklist formats to minimize the impact of potential false positives. First, PDNS should refrain from using keywords as Blocklist entries, as this exacerbates the likelihood of introducing false positives and undermines PDNS availability. Second, PDNS providers should avoid using wildcard domains in Blocklists, as such practices may also lead to false positives. To maximize the mitigation of false positives, mitigation at the minimum subdomain granularity (i.e., FQDN) may minimize collateral damage.
 
