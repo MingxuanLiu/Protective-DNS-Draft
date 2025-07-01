@@ -357,7 +357,7 @@ To prevent flaws in the protection function or even bypassing, service providers
 
 ~~~
 $ORIGIN malicious_domain.com
-malicious_domain.com               A       controled_IP；
+malicious_domain.com               A       controled_IP;
 malicious_domain.com               A       original_malicious_IP;
 ~~~
 {: #figure5 title="Example of redundant rdata in Protective DNS."}
@@ -366,8 +366,8 @@ malicious_domain.com               A       original_malicious_IP;
 
 ~~~
 $ORIGIN malicious_domain.com
-malicious_domain.com               A       .
-malicious_domain.com               CNAME   .
+malicious_domain.com               A       controled_IP;
+malicious_domain.com               CNAME   controled_domain;
 ~~~
 {: #figure6 title="Example of missing record type in Protective DNS."}
 
@@ -393,10 +393,10 @@ Protective DNS rewriting should minimize the impact of over-blocking, as this in
 
 ~~~
 $ORIGIN malicious_domain.com
-malicious_domain.com               A   . (FQDN)
-"phishing" in domain               A   . (Keyword)
-*.malicious_domain.com             A   . (Wildcard Domain)
-*.com                              A   . (SLD/TLD Level Domain)
+malicious_domain.com               A   controled_IP; (FQDN)
+"phishing" in domain               A   controled_IP; (Keyword)
+*.malicious_domain.com             A   controled_IP; (Wildcard Domain)
+*.com                              A   controled_IP; (SLD/TLD Level Domain)
 ~~~
 {: #figure7 title="Example of inappropriate blocklist in Protective DNS."}
 
