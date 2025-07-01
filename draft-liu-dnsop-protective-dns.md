@@ -196,7 +196,7 @@ Figure 1 shows the workflow of Protective DNS (PDNS). Protective DNS is deployed
 |                ARCOUNT (one octet)            |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 ;--------------- Question Section --------------;
-|  Domain Name (variable length)                |
+|              malicious_domain.com             |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 |              QTYPE (two octets)               |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
@@ -227,7 +227,7 @@ Figure 1 shows the workflow of Protective DNS (PDNS). Protective DNS is deployed
 |                ARCOUNT (one octet)            |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 ;--------------- Question Section --------------;
-|  Queried Domain Name (variable length)        |
+|               malicious_domain.com            |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 |              QTYPE (two octets)               |
 +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
