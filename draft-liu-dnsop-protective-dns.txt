@@ -545,8 +545,9 @@ Table of Contents
    regular DNS error scenarios, which help prevent malware from
    detecting the defensive mechanisms of PDNS.  However, such practices
    may also undermine the transparency of Protective DNS services,
-   making it difficult for users to understand the rationale behind
-   rewriting actions.
+   making it difficult for users to understand the principles behind
+   rewriting operations and to distinguish between defensive rewrites
+   from PDNS and genuine failures.
 
    Second, PDNS operators should consider the impact of TTL
    configurations and appropriately configure the TTL values for
@@ -565,8 +566,7 @@ Table of Contents
    can affect performance.  Experimental results show that loading a
    blocklist into memory with five million malicious domains can still
    be maintained within 10-second response times, but exceeding this
-   scale may result in loading times exceeding 10 seconds, leading to
-   unacceptable performance impacts.
+   scale may result in loading times exceeding 10 seconds.
 
 5.4.  Operational Consideration 4 - Offering Explanation
 
