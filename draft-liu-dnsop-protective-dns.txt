@@ -253,7 +253,7 @@ Table of Contents
    |                ARCOUNT (one octet)            |
    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
    ;--------------- Question Section --------------;
-   |  Domain Name (variable length)                |
+   |              malicious_domain.com             |
    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
    |              QTYPE (two octets)               |
    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
@@ -284,7 +284,7 @@ Table of Contents
    |                ARCOUNT (one octet)            |
    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
    ;--------------- Question Section --------------;
-   |  Queried Domain Name (variable length)        |
+   |               malicious_domain.com            |
    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
    |              QTYPE (two octets)               |
    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
