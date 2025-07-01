@@ -1551,15 +1551,22 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         </h3>
 <p id="section-6.1-1">To prevent flaws in the protection function or even bypassing, service providers should consider the following three aspects.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 <p id="section-6.1-2"><strong>Redundant Rdata.</strong> According to measurements of Protective DNS services, the configurations of Rdata in rewritten records by some providers have defects. Specifically, along with the rewritten records, several PDNS providers may also include the original malicious records in the DNS response. For local stub resolvers of users, the selection of the resolution result is uncontrollable, and users still have a high probability of accessing malicious resources. Therefore, Protective DNS providers should avoid such redundant configurations to ensure the completeness of the defense effectiveness.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6.1-3">
+<span id="name-example-of-redundant-rdata-"></span><div id="figure5">
+<figure id="figure-5">
+          <div class="alignLeft art-text artwork" id="section-6.1-3.1">
 <pre>
-    malicious_domain.com    A    10    controled_IP;
-    malicious_domain.com    A    10    original_malicious_IP;
-</pre><a href="#section-6.1-3" class="pilcrow">¶</a>
+$ORIGIN malicious_domain.com
+malicious_domain.com               A       controled_IP；
+malicious_domain.com               A       original_malicious_IP;
+</pre>
+</div>
+<figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
+<a href="#name-example-of-redundant-rdata-" class="selfRef">Example of redundant rdata in Protective DNS.</a>
+          </figcaption></figure>
 </div>
 <p id="section-6.1-4"><strong>Missing Record type.</strong> While A records are the most common type of DNS resolution and are often the primary focus of defensive configuration by service providers—since they directly point users to malicious resources—empirical measurements have revealed that some Protective DNS providers fail to protect less common query types, such as TXT records. In these cases, the provider may return original responses, potentially exposing users to hidden threats. This oversight could be exploited to bypass PDNS protections, particularly when malicious domains embed harmful instructions within less scrutinized record types. Therefore, PDNS providers should proactively consider the potential impacts of missing record type configurations.<a href="#section-6.1-4" class="pilcrow">¶</a></p>
-<span id="name-example-of-missing-record-t"></span><div id="figure5">
-<figure id="figure-5">
+<span id="name-example-of-missing-record-t"></span><div id="figure6">
+<figure id="figure-6">
           <div class="alignLeft art-text artwork" id="section-6.1-5.1">
 <pre>
 $ORIGIN malicious_domain.com
@@ -1567,7 +1574,7 @@ malicious_domain.com               A       .
 malicious_domain.com               CNAME   .
 </pre>
 </div>
-<figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
+<figcaption><a href="#figure-6" class="selfRef">Figure 6</a>:
 <a href="#name-example-of-missing-record-t" class="selfRef">Example of missing record type in Protective DNS.</a>
           </figcaption></figure>
 </div>
@@ -1602,8 +1609,8 @@ malicious_domain.com               CNAME   .
         </h3>
 <p id="section-6.3-1">Protective DNS rewriting should minimize the impact of over-blocking, as this introduces significant collateral damage in two primary aspects.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
 <p id="section-6.3-2"><strong>Blocklist Construction.</strong> First, Protective DNS service providers should avoid errors in blocklists, as blocklist errors directly cause collateral damage to benign domain names. Second, over-generalizing target domains for blocking in Protective DNS may also lead to collateral damage. Using keywords as blocklist entries exacerbates the likelihood of false positives, causing unintended blocking of benign domains and degrading PDNS availability. Employing wildcard domains in blocklists similarly introduces false positives. Meanwhile, blocking at the second-level domain (SLD) or top-level domain (TLD) levels can also trigger false positives—for example, cloud services often host user-specific services on subdomains, so blocking the apex domain of such a cloud service would impact numerous unrelated services. Thus, blocking at the fully qualified domain names (FQDNs) could minimize collateral damage. Finally, providers should promptly update blocklists to avoid false positives from delayed updates.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
-<span id="name-example-of-inappropriate-bl"></span><div id="figure6">
-<figure id="figure-6">
+<span id="name-example-of-inappropriate-bl"></span><div id="figure7">
+<figure id="figure-7">
           <div class="alignLeft art-text artwork" id="section-6.3-3.1">
 <pre>
 $ORIGIN malicious_domain.com
@@ -1613,7 +1620,7 @@ malicious_domain.com               A   . (FQDN)
 *.com                              A   . (SLD/TLD Level Domain)
 </pre>
 </div>
-<figcaption><a href="#figure-6" class="selfRef">Figure 6</a>:
+<figcaption><a href="#figure-7" class="selfRef">Figure 7</a>:
 <a href="#name-example-of-inappropriate-bl" class="selfRef">Example of inappropriate blocklist in Protective DNS.</a>
           </figcaption></figure>
 </div>
