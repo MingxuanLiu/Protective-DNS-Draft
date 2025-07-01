@@ -347,7 +347,7 @@ Moreover, providing user appeal channels on explanation pages, such as an email 
 
 # Security Considerations
 
-Furthermore, by integrating the operational considerations, we propose security considerations to enhance the security of Protective DNS on the basis of improving its practicality. We outline specific considerations covering multiple dimensions. For each factor, we provide specific recommended mitigations, including rewriting policy flaws, over-blocking, dangling resource risks, compatibility with other security practices and fault diagnosis.
+Furthermore, by integrating the operational considerations, we propose security considerations to enhance the security of Protective DNS on the basis of improving its practicality. We outline specific considerations covering multiple dimensions. For each factor, we provide specific recommended mitigations, including rewriting policy flaws, over-blocking, dangling resource risks, interaction with data integrity protection and fallbacks.
 
 ## Security Consideration 1 - Rewriting Policy Flaws
 
@@ -397,11 +397,11 @@ Therefore, PDNS service providers should exercise caution when implementing aggr
 
 Most critically, operators should strive to avoid controversial blocklist formats to minimize the impact of potential false positives. First, PDNS should refrain from using keywords as Blocklist entries, as this exacerbates the likelihood of introducing false positives and undermines PDNS availability. Second, PDNS providers should avoid using wildcard domains in Blocklists, as such practices may also lead to false positives. To maximize the mitigation of false positives, mitigation at the minimum subdomain granularity (i.e., FQDN) may minimize collateral damage.
 
-## Security Consideration 4 - Compatibility with other security practices
+## Security Consideration 4 - Interaction with data integrity protection
 
-Protective DNS may interact with other security practices in the DNS architecture, such as DNSSEC {{RFC4033}}. Under normal circumstances, DNSSEC primarily operates between recursive resolvers and authoritative servers. For Protective DNS, when a malicious domain matches the blocklist, if the PDNS server does not query the authoritative server for DNSSEC records, the mutual impact between PDNS and DNSSEC remains limited. However, PDNS service providers should consider scenarios where clients instruct PDNS servers to perform DNSSEC validation by setting the DO bit for blocked malicious domains—such as by setting the DO (DNSSEC OK) bit {{RFC4035}}. In such cases, PDNS rewriting protection may affect the normal operation of DNSSEC. Therefore, PDNS service providers should proactively assess the mutual impacts between PDNS services and other security practices.
+For blocked domains, Protective DNS rewrites data in the DNS responses and breaks their data integrity by design. Particularly, when domains are DNSSEC-signed, PDNS will not be able to return validated responses for blocked query names and MUST NOT set the AD bit when this occurs {{RFC4035}}. For clients that have DO bit or CD bit set in DNS queries, meaning they wish to receive DNSSEC RRs in response messages {{RFC4033}}, PDNS will not be able to provide DNSSEC RRs when the query names are blocked, because no actual queries are sent to authoritative servers. In such cases, error messages (e.g., via EDE {{RFC8914}}) is recommended in responses for diagnosing purposes.
 
-## Security Consideration 5 - Fault Diagnosis
+## Security Consideration 5 - Fallback
 
 As Protective DNS introduces new components, such as blocklists, service providers should consider fault diagnosis for denial-of-service (DoS) failures in individual components and corresponding fallback mechanisms to ensure performance stability. For example, in scenarios involving remote blocklist queries, providers should proactively diagnose the availability of remote blocklist interfaces on a regular basis. If remote blocklist query services become unavailable due to network issues or other causes, and no fallback mechanism is in place, this may render the provider’s DNS query services inoperable. Thus, providers should predefine fallback mechanisms—such as reverting to normal DNS resolution procedures.
 
