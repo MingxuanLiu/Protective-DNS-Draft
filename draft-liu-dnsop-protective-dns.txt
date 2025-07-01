@@ -521,9 +521,12 @@ Table of Contents
    spoofing.  This is particularly risky when users mistake local
    services for external ones, potentially exposing sensitive
    information or enabling attacks.  Additionally, this approach lacks
-   transparency for users in the event of false positives, as it cannot
-   provide explanatory feedback, which is discussed in detail in the
-   Section of Security Considerations.
+   transparency for PDNS users, as they cannot obtain explicit
+   explanations on resolution results (i.e., resolved IPs) similar to
+   secure IP indicators.  However, rewriting information can be provided
+   in DNS resolutions—for example, through explanations in extended
+   fields (i.e., EDE), with detailed content elaborated in Section 4:
+   Operational Considerations.
 
    3) Secure CNAME: This strategy, similar to using controlled IP
    addresses, enables providers to dynamically monitor traffic.
