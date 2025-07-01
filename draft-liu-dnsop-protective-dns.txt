@@ -5,12 +5,12 @@
 Network Working Group                                            H. Duan
 Internet-Draft                                       Tsinghua University
 Intended status: Standards Track                                  M. Liu
-Expires: 29 December 2025                        Zhongguancun Laboratory
+Expires: 2 January 2026                          Zhongguancun Laboratory
                                                                   B. Liu
                                                      Tsinghua University
                                                                    C. Lu
                                                  Zhongguancun Laboratory
-                                                            27 June 2025
+                                                             1 July 2025
 
 
            Considerations for Protective DNS Server Operators
@@ -65,7 +65,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 December 2025.
+   This Internet-Draft will expire on 2 January 2026.
 
 Copyright Notice
 
@@ -167,6 +167,22 @@ Table of Contents
 
 3.1.  Overview of Protective DNS
 
+   +------------------------+
+   |        Blocklist       |Not-in-Blocklist
+   |           | ^          |  Domain Query +---------------+
+   |       In- | |          |-------------->|               |
+   | Blocklist | |          |               | Authoritative |
+   |           v |          |<--------------|    Server     |
+   |        Resolver        |               |               |
+   +------------------------+               +---------------+
+     Rewritten | ^ Domain
+     Response  v | Query
+   +------------------------+
+   |         Client         |
+   +------------------------+
+
+                 Figure 1: The workflow of Protective DNS.
+
    Figure 1 shows the workflow of Protective DNS (PDNS).  Protective DNS
    is deployed on a recursive resolver.  When the PDNS resolver receives
    a DNS query for a domain name, it first matches the domain against
@@ -247,7 +263,7 @@ Table of Contents
    |  (empty, no resource records here)            |
    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 
-         Figure 1: Format of empty Answer fileld in Protective DNS.
+         Figure 2: Format of empty Answer fileld in Protective DNS.
 
    5) Using special response codes for the reply, such as NXDomain,
    ServerFail, etc:
@@ -278,7 +294,7 @@ Table of Contents
    |empty (as NXDomain means no such domain exists)|
    +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 
-          Figure 2: Format of NXDomain Response in Protective DNS.
+          Figure 3: Format of NXDomain Response in Protective DNS.
 
    Additionally, primary implementations of the rewriting module
    include, but are not limited to:
