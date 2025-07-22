@@ -671,9 +671,8 @@ Table of Contents
    configurations to ensure the completeness of the defense
    effectiveness.
 
-   $ORIGIN malicious_domain.com
-   malicious_domain.com               A       controled_IP;
-   malicious_domain.com               A       original_malicious_IP;
+   $ORIGIN malicious_domain.com malicious_domain.com A controled_IP;
+   malicious_domain.com A original_malicious_IP;
 
    *Missing Record type.* While A records are the most common type of
    DNS resolution and are often the primary focus of defensive
@@ -688,9 +687,8 @@ Table of Contents
    proactively consider the potential impacts of missing record type
    configurations.
 
-   $ORIGIN malicious_domain.com
-   malicious_domain.com               A       controled_IP;
-   malicious_domain.com               CNAME   controled_domain;
+   $ORIGIN malicious_domain.com malicious_domain.com A controled_IP;
+   malicious_domain.com CNAME controled_domain;
 
    *Policy Coverage.* In addition to the defensive configuration of the
    response results, Protective DNS providers should ensure that the
@@ -752,11 +750,10 @@ Table of Contents
    providers should promptly update blocklists to avoid false positives
    from delayed updates.
 
-$ORIGIN malicious_domain.com
-malicious_domain.com               A   controled_IP; (FQDN)
-"phishing" in domain               A   controled_IP; (Keyword)
-*.malicious_domain.com             A   controled_IP; (Wildcard Domain)
-*.com                              A   controled_IP; (SLD/TLD Level Domain)
+   $ORIGIN malicious_domain.com malicious_domain.com A controled_IP;
+   (FQDN) "phishing" in domain A controled_IP; (Keyword)
+   *.malicious_domain.com A controled_IP; (Wildcard Domain) *.com A
+   controled_IP; (SLD/TLD Level Domain)
 
    *Blocking Policy.* The primary defense objective of Protective DNS is
    to prevent users from accessing any malicious resources, i.e.,
