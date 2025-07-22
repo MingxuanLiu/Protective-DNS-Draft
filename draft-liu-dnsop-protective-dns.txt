@@ -5,12 +5,12 @@
 Network Working Group                                            H. Duan
 Internet-Draft                                       Tsinghua University
 Intended status: Standards Track                                  M. Liu
-Expires: 2 January 2026                          Zhongguancun Laboratory
+Expires: 23 January 2026                         Zhongguancun Laboratory
                                                                   B. Liu
                                                      Tsinghua University
                                                                    C. Lu
                                                  Zhongguancun Laboratory
-                                                             1 July 2025
+                                                            22 July 2025
 
 
            Considerations for Protective DNS Server Operators
@@ -65,7 +65,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 January 2026.
+   This Internet-Draft will expire on 23 January 2026.
 
 Copyright Notice
 
@@ -468,9 +468,11 @@ Table of Contents
    sources aligned with these requirements, such as self-collected data
    derived from traffic analysis and user feedback; open-source threat
    intelligence feeds; and commercial threat intelligence services.
-   Most importantly, regardless of the source, operators should verify
-   the correctness of these malicious domains to avoid false positives
-   that could impact access to not-in-blocklist domains.
+   Meanwhile, relying solely on limited blacklist sources may restrict
+   the coverage of defensive capabilities.  Most importantly, regardless
+   of the source, operators should verify the correctness of these
+   malicious domains to avoid false positives that could impact access
+   to not-in-blocklist domains.
 
    Second, PDNS operators should select an appropriate blocklist
    deployment approach based on operational context, including device

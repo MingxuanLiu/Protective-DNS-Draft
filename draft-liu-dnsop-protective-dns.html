@@ -14,10 +14,10 @@
        Owing to its effective defenses against common cyber attack behaviors—such as command-and-control (C2) communications of malware—Protective DNS deployment has surged via various initiatives. Not only have renowned DNS service providers adopted this defense, but some countries have also launched national-scale deployments. Meanwhile, studies analyzing Protective DNS have identified implementation diversity. 
        Thus, this document aims to provide specific operational and security considerations for Protective DNS. It is intended primarily for entities seeking to deploy Protective DNS for defensive purposes, offering deployment and security considerations. 
     " name="description">
-<meta content="xml2rfc 3.29.0" name="generator">
+<meta content="xml2rfc 3.30.0" name="generator">
 <meta content="draft-liu-dnsop-protective-dns-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.29.0
+  xml2rfc 3.30.0
     Python 3.12.11
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
@@ -1052,7 +1052,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Duan, et al.</td>
-<td class="center">Expires 2 January 2026</td>
+<td class="center">Expires 23 January 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-liu-dnsop-protective-dns-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-07-01" class="published">1 July 2025</time>
+<time datetime="2025-07-22" class="published">22 July 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-01-02">2 January 2026</time></dd>
+<dd class="expires"><time datetime="2026-01-23">23 January 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1129,7 +1129,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 2 January 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 23 January 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1460,7 +1460,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-operational-consideration-1" class="section-name selfRef">Operational Consideration 1: Blocklist Selection</a>
         </h3>
 <p id="section-5.1-1">One of the necessary conditions for Protective DNS to achieve its defensive capability is to maintain a blocklist that includes a series of malicious domain names to be blocked.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.1-2">First, when collecting blocklists, PDNS providers should explicitly define the types of domains to be blocked based on the intended use case. Common categories of malicious domains include but are not limited to, malware, botnet, phishing, spam, tracking, and adult content. Providers should then identify appropriate blocklist sources aligned with these requirements, such as self-collected data derived from traffic analysis and user feedback; open-source threat intelligence feeds; and commercial threat intelligence services. Most importantly, regardless of the source, operators should verify the correctness of these malicious domains to avoid false positives that could impact access to not-in-blocklist domains.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.1-2">First, when collecting blocklists, PDNS providers should explicitly define the types of domains to be blocked based on the intended use case. Common categories of malicious domains include but are not limited to, malware, botnet, phishing, spam, tracking, and adult content. Providers should then identify appropriate blocklist sources aligned with these requirements, such as self-collected data derived from traffic analysis and user feedback; open-source threat intelligence feeds; and commercial threat intelligence services. Meanwhile, relying solely on limited blacklist sources may restrict the coverage of defensive capabilities. Most importantly, regardless of the source, operators should verify the correctness of these malicious domains to avoid false positives that could impact access to not-in-blocklist domains.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
 <p id="section-5.1-3">Second, PDNS operators should select an appropriate blocklist deployment approach based on operational context, including device resource constraints and network access patterns. Remote querying approaches (e.g., using DNSBL) necessitate proactive consideration of potential privacy implications and the impacts of network instability. Local deployments (e.g., RPZ-formated local zone file) necessitate a thorough assessment of local resource limitations. Specifically, the Blocklist scale deployed on Protective DNS should be carefully defined based on the system's processing capability. Blocklist size directly affects both the response efficiency of Protective DNS and hardware resource consumption (e.g., CPU, memory) on the hosting device.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
