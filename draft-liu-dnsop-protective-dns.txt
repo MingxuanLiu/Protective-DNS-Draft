@@ -469,10 +469,10 @@ Table of Contents
    derived from traffic analysis and user feedback; open-source threat
    intelligence feeds; and commercial threat intelligence services.
    Meanwhile, relying solely on limited blacklist sources may restrict
-   the coverage of defensive capabilities.  Most importantly, regardless
-   of the source, operators should verify the correctness of these
-   malicious domains to avoid false positives that could impact access
-   to not-in-blocklist domains.
+   the coverage of defensive capabilities [ICANN-DNSBL].  Most
+   importantly, regardless of the source, operators should verify the
+   correctness of these malicious domains to avoid false positives that
+   could impact access to not-in-blocklist domains.
 
    Second, PDNS operators should select an appropriate blocklist
    deployment approach based on operational context, including device
@@ -893,6 +893,13 @@ Table of Contents
    [DNS4EU-Public]
               "DNS4EU for Public", 2025,
               <https://www.joindns4.eu/for-public>.
+
+   [ICANN-DNSBL]
+              "How Choice of Reputation Blocklists Affects DNS Abuse
+              Metrics", July 2025,
+              <https://www.icann.org/en/blogs/details/how-choice-of-
+              reputation-blocklists-affects-dns-abuse-metrics-
+              07-07-2025-en>.
 
    [NDSS24]   "Understanding the Implementation and Security
               Implications of Protective DNS Services", March 2024,
