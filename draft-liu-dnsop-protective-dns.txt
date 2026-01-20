@@ -5,12 +5,12 @@
 Network Working Group                                            H. Duan
 Internet-Draft                                       Tsinghua University
 Intended status: Standards Track                                  M. Liu
-Expires: 23 January 2026                         Zhongguancun Laboratory
+Expires: 24 July 2026                            Zhongguancun Laboratory
                                                                   B. Liu
                                                      Tsinghua University
                                                                    C. Lu
                                                  Zhongguancun Laboratory
-                                                            22 July 2025
+                                                         20 January 2026
 
 
            Considerations for Protective DNS Server Operators
@@ -65,11 +65,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 January 2026.
+   This Internet-Draft will expire on 24 July 2026.
 
 Copyright Notice
 
-   Copyright (c) 2025 IETF Trust and the persons identified as the
+   Copyright (c) 2026 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -311,7 +311,7 @@ Table of Contents
    *Relation ship bewteen PDNS and DNS Blockling.* Protective DNS
    constitutes a subset of DNS Blocking (generally considered as
    synonymous with DNS Filtering [SAC127]), sharing the goal of security
-   defense by leveraging known blocklists (e.g., domain blacklists) to
+   defense by leveraging known blocklists (e.g., domain blocklists) to
    prevent user exposure to malicious resources.  DNS Blocking is a
    broader security concept encompassing any rewriting operations of DNS
    resolution traffic to restrict access to specific domains.  Its
@@ -325,10 +325,10 @@ Table of Contents
    Several prior documents define specific techniques within DNS
    Blocking:
 
-   1.  DNS Blacklist (DNSBL)[RFC5782]: DNSBL represents a DNS-based
-       blacklist lookup technology, serving as a concrete implementation
+   1.  DNS Blocklist (DNSBL)[RFC5782]: DNSBL represents a DNS-based
+       blocklist lookup technology, serving as a concrete implementation
        of blocklist lookup within the broader DNS Blocking paradigm
-       (including PDNS).  First, it maintains blacklists of IP addresses
+       (including PDNS).  First, it maintains blocklists of IP addresses
        or domain names associated with malicious activities.  Then, it
        utilizes DNS queries to determine whether to block related
        traffic.
@@ -344,7 +344,7 @@ Table of Contents
    *Relationship between PDNS and Censorship.* While censorship shares
    the objective with DNS blocking, i.e., preventing end users from
    accessing specific resources, its blocking strategies are far more
-   diverse.  Domain blacklist-based blocking represents just one type of
+   diverse.  Domain blocklist-based blocking represents just one type of
    DNS-layer mitigation, alongside techniques such as DNS poisoning.
    Cross-layer mechanisms at network layers include TCP reset (e.g.,
    sending forged RST packets), IP blocking, HTTPS man-in-the-middle
@@ -468,7 +468,7 @@ Table of Contents
    sources aligned with these requirements, such as self-collected data
    derived from traffic analysis and user feedback; open-source threat
    intelligence feeds; and commercial threat intelligence services.
-   Meanwhile, relying solely on limited blacklist sources may restrict
+   Meanwhile, relying solely on limited blocklist sources may restrict
    the coverage of defensive capabilities [ICANN-DNSBL].  Most
    importantly, regardless of the source, operators should verify the
    correctness of these malicious domains to avoid false positives that

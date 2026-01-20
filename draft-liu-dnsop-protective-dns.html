@@ -14,22 +14,21 @@
        Owing to its effective defenses against common cyber attack behaviors—such as command-and-control (C2) communications of malware—Protective DNS deployment has surged via various initiatives. Not only have renowned DNS service providers adopted this defense, but some countries have also launched national-scale deployments. Meanwhile, studies analyzing Protective DNS have identified implementation diversity. 
        Thus, this document aims to provide specific operational and security considerations for Protective DNS. It is intended primarily for entities seeking to deploy Protective DNS for defensive purposes, offering deployment and security considerations. 
     " name="description">
-<meta content="xml2rfc 3.30.0" name="generator">
+<meta content="xml2rfc 3.31.0" name="generator">
 <meta content="draft-liu-dnsop-protective-dns-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.30.0
-    Python 3.12.11
+  xml2rfc 3.31.0
+    Python 3.12.12
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
-    intervaltree 3.1.0
+    intervaltree 3.2.1
     Jinja2 3.1.6
-    lxml 5.3.1
-    platformdirs 4.3.8
+    lxml 6.0.2
+    platformdirs 4.5.1
     pycountry 24.6.1
-    PyYAML 6.0.2
-    requests 2.32.4
-    setuptools 80.9.0
-    wcwidth 0.2.13
+    PyYAML 6.0.3
+    requests 2.32.5
+    wcwidth 0.2.14
 -->
 <link href="draft-liu-dnsop-protective-dns.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1048,11 +1047,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">PDNS</td>
-<td class="right">July 2025</td>
+<td class="right">January 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Duan, et al.</td>
-<td class="center">Expires 23 January 2026</td>
+<td class="center">Expires 24 July 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1064,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-liu-dnsop-protective-dns-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-07-22" class="published">22 July 2025</time>
+<time datetime="2026-01-20" class="published">20 January 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-01-23">23 January 2026</time></dd>
+<dd class="expires"><time datetime="2026-07-24">24 July 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1129,7 +1128,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 23 January 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 24 July 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1138,7 +1137,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2025 IETF Trust and the persons identified as the
+            Copyright (c) 2026 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1410,17 +1409,17 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         <h3 id="name-relationship-between-other-">
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-relationship-between-other-" class="section-name selfRef">Relationship between Other Technologies</a>
         </h3>
-<p id="section-3.2-1"><strong>Relation ship bewteen PDNS and DNS Blockling.</strong> Protective DNS constitutes a subset of DNS Blocking (generally considered as synonymous with DNS Filtering <span>[<a href="#SAC127" class="cite xref">SAC127</a>]</span>), sharing the goal of security defense by leveraging known blocklists (e.g., domain blacklists) to prevent user exposure to malicious resources. DNS Blocking is a broader security concept encompassing any rewriting operations of DNS resolution traffic to restrict access to specific domains. Its applicability spans diverse scenarios and architectural layers, specifically including defense at any DNS resolution role (stub in client, recursive resolver, authoritative server) and other security use scenarios (e.g., spam filtering, gateway firewall protection). In contrast, PDNS represents a specific implementation of DNS Blocking, typically deployed on recursive resolvers.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-1"><strong>Relation ship bewteen PDNS and DNS Blockling.</strong> Protective DNS constitutes a subset of DNS Blocking (generally considered as synonymous with DNS Filtering <span>[<a href="#SAC127" class="cite xref">SAC127</a>]</span>), sharing the goal of security defense by leveraging known blocklists (e.g., domain blocklists) to prevent user exposure to malicious resources. DNS Blocking is a broader security concept encompassing any rewriting operations of DNS resolution traffic to restrict access to specific domains. Its applicability spans diverse scenarios and architectural layers, specifically including defense at any DNS resolution role (stub in client, recursive resolver, authoritative server) and other security use scenarios (e.g., spam filtering, gateway firewall protection). In contrast, PDNS represents a specific implementation of DNS Blocking, typically deployed on recursive resolvers.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.2-2">Several prior documents define specific techniques within DNS Blocking:<a href="#section-3.2-2" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-3.2-3">
 <li id="section-3.2-3.1">
-            <p id="section-3.2-3.1.1">DNS Blacklist (DNSBL)<span>[<a href="#RFC5782" class="cite xref">RFC5782</a>]</span>: DNSBL represents a DNS-based blacklist lookup technology, serving as a concrete implementation of blocklist lookup within the broader DNS Blocking paradigm (including PDNS). First, it maintains blacklists of IP addresses or domain names associated with malicious activities. Then, it utilizes DNS queries to determine whether to block related traffic.<a href="#section-3.2-3.1.1" class="pilcrow">¶</a></p>
+            <p id="section-3.2-3.1.1">DNS Blocklist (DNSBL)<span>[<a href="#RFC5782" class="cite xref">RFC5782</a>]</span>: DNSBL represents a DNS-based blocklist lookup technology, serving as a concrete implementation of blocklist lookup within the broader DNS Blocking paradigm (including PDNS). First, it maintains blocklists of IP addresses or domain names associated with malicious activities. Then, it utilizes DNS queries to determine whether to block related traffic.<a href="#section-3.2-3.1.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-3.2-3.2">
             <p id="section-3.2-3.2.1">DNS Response Policy Zones (RPZ) <span>[<a href="#RPZ" class="cite xref">RPZ</a>]</span>: Beyond remote blocklist querying (e.g., DNSBL), local deployment offers another blocklist deployment strategy. RPZ achieves localized blocklist query via a zone file containing rewrite instructions for each malicious domain, often utilized in scenarios such as DNS Firewall. RPZ supports multiple triggering mechanisms. Among these, QNAME triggering is the primary mode adopted by PDNS.<a href="#section-3.2-3.2.1" class="pilcrow">¶</a></p>
 </li>
         </ol>
-<p id="section-3.2-4"><strong>Relationship between PDNS and Censorship.</strong> While censorship shares the objective with DNS blocking, i.e., preventing end users from accessing specific resources, its blocking strategies are far more diverse. Domain blacklist-based blocking represents just one type of DNS-layer mitigation, alongside techniques such as DNS poisoning. Cross-layer mechanisms at network layers include TCP reset (e.g., sending forged RST packets), IP blocking, HTTPS man-in-the-middle attacks, and Deep Packet Inspection (DPI) for payload analysis.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
+<p id="section-3.2-4"><strong>Relationship between PDNS and Censorship.</strong> While censorship shares the objective with DNS blocking, i.e., preventing end users from accessing specific resources, its blocking strategies are far more diverse. Domain blocklist-based blocking represents just one type of DNS-layer mitigation, alongside techniques such as DNS poisoning. Cross-layer mechanisms at network layers include TCP reset (e.g., sending forged RST packets), IP blocking, HTTPS man-in-the-middle attacks, and Deep Packet Inspection (DPI) for payload analysis.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
 <p id="section-3.2-5"><strong>Relationship between PDNS and Other Domain Protection.</strong> Defense mechanisms at the domain level are diverse, with protective actions occurring across various roles in the domain ecosystem. During the initial domain registration process, registries and registrars can use domain seizure to remove malicious domains from registration data, thereby preventing their continued harm to users. Registries and registrars can also employ sinkhole technology to redirect some malicious domains to domain black holes. The Protective DNS defense mechanism addressed in this document is primarily deployed on recursive resolvers.<a href="#section-3.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1460,7 +1459,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-operational-consideration-1" class="section-name selfRef">Operational Consideration 1: Blocklist Selection</a>
         </h3>
 <p id="section-5.1-1">One of the necessary conditions for Protective DNS to achieve its defensive capability is to maintain a blocklist that includes a series of malicious domain names to be blocked.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.1-2">First, when collecting blocklists, PDNS providers should explicitly define the types of domains to be blocked based on the intended use case. Common categories of malicious domains include but are not limited to, malware, botnet, phishing, spam, tracking, and adult content. Providers should then identify appropriate blocklist sources aligned with these requirements, such as self-collected data derived from traffic analysis and user feedback; open-source threat intelligence feeds; and commercial threat intelligence services. Meanwhile, relying solely on limited blacklist sources may restrict the coverage of defensive capabilities <span>[<a href="#ICANN-DNSBL" class="cite xref">ICANN-DNSBL</a>]</span>. Most importantly, regardless of the source, operators should verify the correctness of these malicious domains to avoid false positives that could impact access to not-in-blocklist domains.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.1-2">First, when collecting blocklists, PDNS providers should explicitly define the types of domains to be blocked based on the intended use case. Common categories of malicious domains include but are not limited to, malware, botnet, phishing, spam, tracking, and adult content. Providers should then identify appropriate blocklist sources aligned with these requirements, such as self-collected data derived from traffic analysis and user feedback; open-source threat intelligence feeds; and commercial threat intelligence services. Meanwhile, relying solely on limited blocklist sources may restrict the coverage of defensive capabilities <span>[<a href="#ICANN-DNSBL" class="cite xref">ICANN-DNSBL</a>]</span>. Most importantly, regardless of the source, operators should verify the correctness of these malicious domains to avoid false positives that could impact access to not-in-blocklist domains.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
 <p id="section-5.1-3">Second, PDNS operators should select an appropriate blocklist deployment approach based on operational context, including device resource constraints and network access patterns. Remote querying approaches (e.g., using DNSBL) necessitate proactive consideration of potential privacy implications and the impacts of network instability. Local deployments (e.g., RPZ-formated local zone file) necessitate a thorough assessment of local resource limitations. Specifically, the Blocklist scale deployed on Protective DNS should be carefully defined based on the system's processing capability. Blocklist size directly affects both the response efficiency of Protective DNS and hardware resource consumption (e.g., CPU, memory) on the hosting device.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
