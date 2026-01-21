@@ -283,7 +283,7 @@ Considering that deployment is the first step in using and even maintaining the 
 
 One of the necessary conditions for Protective DNS to achieve its defensive capability is to maintain a blocklist that includes a series of domain names to be blocked. PDNS providers should maintain one or more policy-driven domain lists derived from threat intelligence, regulatory sources, and organizational policy. These may include domains associated with security threats, inappropriate content, privacy risks, or policy violations. Blocking behavior may vary by context, including NXDOMAIN synthesis, redirection, or other response modes aligned with regulatory and operational requirements.
 
-First, when collecting blocklists, PDNS providers should explicitly define the blocked domain types based on the intended use case, taking into account multiple factors such as national defense requirements and policy regulations with telecom and media regulators. Common blocked domain types fall into 6 primary categories. 
+First, when collecting blocklists, PDNS providers should explicitly define the blocked domain types based on the intended use case, taking into account multiple factors such as national defense requirements and policy regulations with telecom and media regulators. Common blocked domain types fall into 6 primary categories.
 
 1) The most prevalent block type are malicious domains, including but not limited to malware, botnet, phishing, spam, and tracking domains.
 
