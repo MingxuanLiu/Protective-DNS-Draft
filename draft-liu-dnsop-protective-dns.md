@@ -283,13 +283,18 @@ Considering that deployment is the first step in using and even maintaining the 
 
 One of the necessary conditions for Protective DNS to achieve its defensive capability is to maintain a blocklist that includes a series of domain names to be blocked. PDNS providers should maintain one or more policy-driven domain lists derived from threat intelligence, regulatory sources, and organizational policy. These may include domains associated with security threats, inappropriate content, privacy risks, or policy violations. Blocking behavior may vary by context, including NXDOMAIN synthesis, redirection, or other response modes aligned with regulatory and operational requirements.
 
-First, when collecting blocklists, PDNS providers should explicitly define the blocked domain types based on the intended use case, taking into account multiple factors such as national defense requirements and policy regulations with telecom and media regulators. Common blocked domain types fall into six primary categories. 
+First, when collecting blocklists, PDNS providers should explicitly define the blocked domain types based on the intended use case, taking into account multiple factors such as national defense requirements and policy regulations with telecom and media regulators. Common blocked domain types fall into 6 primary categories. 
 
 1) The most prevalent block type are malicious domains, including but not limited to malware, botnet, phishing, spam, and tracking domains.
+
 2) Certain domains are blocked for content control purposes, such as adult sites, gambling platforms, and piracy-related domains. This category is often tied to national policies governing PDNS deployments—for instance, gambling is illegal in some jurisdictions.
+
 3) Some domains are blocked to comply with privacy protection regulations, e.g., those associated with trackers and advertising networks.
+
 4) Domains that are legitimate but inappropriate for children (e.g., pornographic, gambling, and gaming sites) are blocked for educational or parental control purposes.
+
 5) Domains posing potential data leakage risks or offering unauthorized services are blocked in accordance with national policies.
+
 6) In security defense scenarios, domains linked to known suspicious indicators are blocked based on domain resolution correlations. Examples include domains resolved by suspicious or unauthorized upstream DNS servers, or those mapping to IP address ranges hosting malware, proxies, bulletproof hosting, or other undesirable infrastructure.
 
 Second, after identifying the types of domains to block, PDNS providers should construct blocklists from appropriate sources, such as self-collected data derived from traffic analysis and user feedback, open-source threat intelligence feeds, and commercial threat intelligence services. Typically, PDNS providers rely on a combination of multiple threat intelligence sources, including but not limited to government-mandated lists, internal telemetry data, and customer-defined filters. These data collection sources vary widely by region, vertical, and operational goal.
